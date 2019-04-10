@@ -1,0 +1,15 @@
+#fieldSet{
+    background-color:antiquewhite;
+    width: 50%;
+    height: auto;
+    padding: 20px;
+    align-self: center;
+    
+}
+input{
+    margin: 10px 0px;
+    padding: 10px;
+    width: 50%;
+}
+
+

@@ -1,0 +1,10 @@
+2019-04-10 13:47:04 [main] INFO  epam.library.model.db.ConnectionPool - Pool Created successfully.
+2019-04-10 13:47:06 [main] INFO  epam.library.model.db.ConnectionPool - Connection returned to the pool successfully
+2019-04-10 13:49:19 [main] INFO  epam.library.model.db.ConnectionPool - Connecting to DataBase......
+2019-04-10 13:49:21 [main] INFO  epam.library.model.db.ConnectionPool - Pool Created successfully.
+2019-04-10 13:49:21 [main] INFO  epam.library.model.db.ConnectionPool - Connection returned to the pool successfully
+2019-04-10 13:50:50 [main] INFO  epam.library.model.db.ConnectionPool - Connecting to DataBase......
+2019-04-10 13:50:52 [main] INFO  epam.library.model.db.ConnectionPool - Pool Created successfully.
+2019-04-10 13:50:52 [main] INFO  epam.library.model.db.ConnectionPool - Connection returned to the pool successfully
+2019-04-10 13:51:29 [main] INFO  epam.library.model.db.ConnectionPool - Connecting to DataBase......
+2019-04-10 13:51:30 [main] INFO  epam.library.model.db.ConnectionPool - Pool Created successfully.

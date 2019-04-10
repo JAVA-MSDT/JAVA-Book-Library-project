@@ -1,0 +1,12 @@
+2019-04-10 14:02:21 [main] INFO  epam.library.model.db.ConnectionPool - Connection returned to the pool successfully
+2019-04-10 14:02:21 [main] INFO  epam.library.model.db.ConnectionPool - Connection returned to the pool successfully
+2019-04-10 14:03:13 [main] INFO  epam.library.model.db.ConnectionPool - Connecting to DataBase......
+2019-04-10 14:03:14 [main] INFO  epam.library.model.db.ConnectionPool - Pool Created successfully.
+2019-04-10 14:03:14 [main] ERROR epam.library.model.dao.UserDao - SqlException in getById method at UserDao class
+java.sql.SQLException: No value specified for parameter 1
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:129) ~[mysql-connector-java-8.0.13.jar:8.0.13]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97) ~[mysql-connector-java-8.0.13.jar:8.0.13]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122) ~[mysql-connector-java-8.0.13.jar:8.0.13]
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeQuery(ClientPreparedStatement.java:1041) ~[mysql-connector-java-8.0.13.jar:8.0.13]
+	at com.epam.library.model.dao.UserDao.getById(UserDao.java:33) [classes/:?]
+	at com.epam.library.Runner.main(Runner.java:43) [classes/:?]

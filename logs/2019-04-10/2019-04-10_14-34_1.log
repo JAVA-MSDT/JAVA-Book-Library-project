@@ -1,0 +1,10 @@
+2019-04-10 14:28:15 [main] ERROR epam.library.model.dao.UserDao - Connection rollback the transaction in update method at UserDao class
+2019-04-10 14:29:20 [main] INFO  epam.library.model.db.ConnectionPool - Connecting to DataBase......
+2019-04-10 14:29:22 [main] INFO  epam.library.model.db.ConnectionPool - Pool Created successfully.
+2019-04-10 14:29:22 [main] ERROR epam.library.model.dao.UserDao - Connection rollback the transaction in update method at UserDao class
+2019-04-10 14:32:49 [main] INFO  epam.library.model.db.ConnectionPool - Connecting to DataBase......
+2019-04-10 14:32:50 [main] INFO  epam.library.model.db.ConnectionPool - Pool Created successfully.
+2019-04-10 14:32:50 [main] INFO  epam.library.model.db.ConnectionPool - Connection returned to the pool successfully
+2019-04-10 14:34:12 [main] INFO  epam.library.model.db.ConnectionPool - Connecting to DataBase......
+2019-04-10 14:34:14 [main] INFO  epam.library.model.db.ConnectionPool - Pool Created successfully.
+2019-04-10 14:34:14 [main] INFO  epam.library.model.db.ConnectionPool - Connection returned to the pool successfully

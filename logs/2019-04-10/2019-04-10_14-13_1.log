@@ -1,0 +1,20 @@
+2019-04-10 14:12:14 [main] INFO  epam.library.model.db.ConnectionPool - Connection returned to the pool successfully
+2019-04-10 14:12:14 [main] INFO  epam.library.model.db.ConnectionPool - Connection returned to the pool successfully
+2019-04-10 14:12:53 [main] INFO  epam.library.model.db.ConnectionPool - Connecting to DataBase......
+2019-04-10 14:12:54 [main] INFO  epam.library.model.db.ConnectionPool - Pool Created successfully.
+2019-04-10 14:12:55 [main] INFO  epam.library.model.db.ConnectionPool - Connection returned to the pool successfully
+2019-04-10 14:12:55 [main] INFO  epam.library.model.db.ConnectionPool - Connection returned to the pool successfully
+2019-04-10 14:13:34 [main] INFO  epam.library.model.db.ConnectionPool - Connecting to DataBase......
+2019-04-10 14:13:36 [main] INFO  epam.library.model.db.ConnectionPool - Pool Created successfully.
+2019-04-10 14:13:36 [main] ERROR epam.library.model.dao.UserDao - SqlException in getById method at UserDao class
+java.sql.SQLException: Before start of result set
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:129) ~[mysql-connector-java-8.0.13.jar:8.0.13]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97) ~[mysql-connector-java-8.0.13.jar:8.0.13]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89) ~[mysql-connector-java-8.0.13.jar:8.0.13]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63) ~[mysql-connector-java-8.0.13.jar:8.0.13]
+	at com.mysql.cj.jdbc.result.ResultSetImpl.checkRowPos(ResultSetImpl.java:517) ~[mysql-connector-java-8.0.13.jar:8.0.13]
+	at com.mysql.cj.jdbc.result.ResultSetImpl.getLong(ResultSetImpl.java:921) ~[mysql-connector-java-8.0.13.jar:8.0.13]
+	at com.mysql.cj.jdbc.result.ResultSetImpl.getLong(ResultSetImpl.java:928) ~[mysql-connector-java-8.0.13.jar:8.0.13]
+	at com.epam.library.model.builder.UserBuilder.build(UserBuilder.java:23) ~[classes/:?]
+	at com.epam.library.model.dao.UserDao.getById(UserDao.java:34) [classes/:?]
+	at com.epam.library.Runner.main(Runner.java:43) [classes/:?]

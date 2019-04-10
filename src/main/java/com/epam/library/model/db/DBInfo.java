@@ -8,5 +8,5 @@ public class DBInfo {
     public final static String DB_NAME = "library";
     public final static String DB_URI = "jdbc:mysql://localhost/";
     public final static String LOGIN = "root";
-    public final static String PASSWORD = "javamsdt";
+    public final static String PASSWORD = "";
 }

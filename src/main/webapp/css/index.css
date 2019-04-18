@@ -1,61 +1,96 @@
-
-#mainMenu{
-    overflow:hidden;
-    background-color: #333;
-    position:relative;
-    top: -10px;
-    left: -8px;
-    width: 100vw;
-    height:auto;
-}
-#mainMenu p{
-    float: left;
-    padding-left: 14px;
-    padding-right: 14px;
-    margin-bottom: 0px;
-    margin-top:  10px;
-    display: block;
-    font-family: cursive;
-    font-size: 28px;
-    color: aliceblue;
+* {
+    box-sizing: border-box;
 }
 
-#mainMenu a{
-    float: left;
-    display: block;
-    color: #f2f2f2;
-    padding:25px;
-    text-decoration: none;
+body {
+    margin: 0 auto;
+    background: #f2f2f2;
+}
+.headerImage{
+    width: 100%;
     height: 100%;
+   
 }
 
-#language{
-    float: right;
-    margin-left: -30px;
+header {
+    width: 100%;
+    height: 250px;
+    margin: 0 auto;
+    position: relative;
 }
 
-#mainMenu a:hover{
-    background: #ddd;
-    color: black;
+/* mainRow */
+.mainRow {
+    height: auto;
+    background-color: aqua;
+
 }
 
-#mainMenu a:active{
-    background-color: #4CAF50;
+.epamImage,
+.epamText {
+    float: left;
+    width: 50%;
+    padding: 15px;
+}
+
+.epamText {
+    vertical-align: middle;
+}
+
+.secondRow {
+    clear: both;
+}
+
+.columnTwo {
+    float: left;
+    width: 33.33%;
+    padding: 15px;
+}
+
+.footer {
+    clear: both;
+    background-color: brown;
+    padding: 10px;
+    margin-top: 10px;
+    height: auto;
+}
+
+.footMenu,
+.socialMedia {
+    width: 50%;
+    float: left;
+    text-align: center;
+}
+
+.footer li {
+    list-style: none;
+    padding-bottom: 8px;
+}
+
+.footer a {
     color: white;
 }
 
-
-
-
-@media screen and (max-width: 650px){
-    #mainMenu p, #mainMenu a, #language{
-        float: none;
-        text-align: center;
-        width: 100%;
-        padding: 14px;
-    }
+.footer a:hover {
+    color: aqua;
 }
 
+.copyright {
+    clear: both;
+    text-align: center;
+    color: white;
+}
 
+@media screen and (max-width: 700px) {
 
+    .topnav li a,
+    .dropbtn {
+        display: block;
+    }
 
+    .epamImage,
+    .epamText,
+    .columnTwo {
+        width: 100%;
+    }
+}

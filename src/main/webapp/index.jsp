@@ -1,26 +1,49 @@
-
-<%@ page isErrorPage="true" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<head>
-<title> Epam Library </title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Books Library">
-    <meta name="Keywords" content="book, store, rent, reading">
-    <meta name="author" content="Ahmed Same">
-    <link rel="stylesheet" type="text/css" href="/css/header.css">
 
+<head>
+    <title>Epam Library</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Epam Library">
+    <meta name="author" content="Ahmed Samy">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/index.css">
 </head>
-    <body>
-         <%@ include file="/jsp/menuBar.jsp"%>
-         <h2>Epam Library</h2>
-         <div id="logo_container">
-         <img id="logo_image" src="/images/epam.jpg" alt="Epam Logo">
-         <p id= "para">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-          the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make atype specimen book. It has survived not only five centuries, but also the leap into
-          electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of
-          Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
-          PageMaker including versions of Lorem Ipsum.</p>
-          </div>
-    </body>
+
+<body>
+    <header>
+        <img src="img/book.jpg" class="headerImage">
+    </header>
+
+    <%@include file="jsp/constant/navigation.html"%>
+    <div class="mainRow">
+        <div class="epamImage">
+            <h2>Library</h2>
+            <img src="img/epam.jpg" width="100%" height="auto" alt="Epam Logo">
+        </div>
+        <div class="epamText">
+            <h2>News</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet pretium urna. Vivamus venenatis velit nec neque ultricies, eget elementum magna tristique. Quisque vehicula, risus eget aliquam placerat, purus leo tincidunt eros, eget luctus quam orci in velit. Praesent scelerisque tortor sed accumsan convallis.</p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet pretium urna. Vivamus venenatis velit nec neque ultricies, eget elementum magna tristique. Quisque vehicula, risus eget aliquam placerat, purus leo tincidunt eros, eget luctus quam orci in velit. Praesent scelerisque tortor sed accumsan convallis.</p>
+        </div>
+    </div>
+
+    <div class="secondRow">
+        <div class="columnTwo">
+            <h2>Library</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet pretium urna. Vivamus venenatis velit nec neque ultricies, eget elementum magna tristique. Quisque vehicula, risus eget aliquam placerat, purus leo tincidunt eros, eget luctus quam orci in velit. Praesent scelerisque tortor sed accumsan convallis.</p>
+        </div>
+        <div class="columnTwo">
+            <h2>News</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet pretium urna. Vivamus venenatis velit nec neque ultricies, eget elementum magna tristique. Quisque vehicula, risus eget aliquam placerat, purus leo tincidunt eros, eget luctus quam orci in velit. Praesent scelerisque tortor sed accumsan convallis.</p>
+        </div>
+        <div class="columnTwo">
+            <h2>Awards</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet pretium urna. Vivamus venenatis velit nec neque ultricies, eget elementum magna tristique. Quisque vehicula, risus eget aliquam placerat, purus leo tincidunt eros, eget luctus quam orci in velit. Praesent scelerisque tortor sed accumsan convallis.</p>
+        </div>
+    </div>
+
+ <%@include file="jsp/constant/footer.html"%>
+</body>
 </html>

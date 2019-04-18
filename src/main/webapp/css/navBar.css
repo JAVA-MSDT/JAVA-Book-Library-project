@@ -1,0 +1,82 @@
+/* Navegation */
+body{
+    margin: 0 auto;
+}
+#mobile{
+    padding: 10px;
+    background-color: black;
+    overflow: hidden;
+    color: wheat;
+    display: none;
+}
+
+#navList {
+    list-style-type: none;
+    margin: 0px auto;
+    width: 100%;
+    padding: 0;
+    overflow: hidden;
+    background-color: black;
+}
+
+.topnav li {
+    float: left;
+}
+
+.topnav li a,
+.dropbtn {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.topnav li a:hover,
+.dropdown:hover,
+.dropbtn:hover {
+    background-color: red;
+}
+
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: black;
+    text-align: center;
+    min-width: 100px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    width: 100%;
+    display: block;
+    text-align: left;
+}
+
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+@media screen and (max-width: 600px){
+    #navList{
+        display: ;
+    }
+    
+    .topnav li, .topnav a{
+        width: 100%;
+        float: left;
+    }
+    #mobile{
+        top: 0;
+        margin: 0 auto;
+        display:none;
+        width: 10%;
+        float: left
+    }
+}

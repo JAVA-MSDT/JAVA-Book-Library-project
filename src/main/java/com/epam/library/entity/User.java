@@ -37,16 +37,6 @@ public class User {
         setPassword(password);
     }
 
-    public User(long id, String name, String LastName, String email, String login, String password, Role role) {
-        setId(id);
-        setName(name);
-        setLastName(LastName);
-        setEmail(email);
-        setLogin(login);
-        setPassword(password);
-        setRole(role);
-    }
-
     public User(long id, String name, String lastName, String email, String login, String password, Role role, boolean blocked) {
         setId(id);
         setName(name);
@@ -59,7 +49,16 @@ public class User {
 
     }
 
+    public User(long id, String name, String lastName, String email, String login, String password, boolean blocked) {
+        setId(id);
+        setName(name);
+        setLastName(lastName);
+        setEmail(email);
+        setLogin(login);
+        setPassword(password);
+        setBlocked(blocked);
 
+    }
     public long getId() {
         return id;
     }

@@ -29,6 +29,12 @@ public class ConnectionPool {
      */
     private ConnectionPool() throws ConnectionPoolException {
 
+        init();
+
+    }
+
+
+    private void init() throws ConnectionPoolException {
         logger.log(Level.INFO, "Connecting to DataBase......");
         int currentPoolSize = 0;
         int attemptsCount = 0;
@@ -45,10 +51,7 @@ public class ConnectionPool {
         if (attemptsCount == ATTEMPTS_LIMIT) {
             throw new ConnectionPoolException("Attempting to connect the database several time fails.");
         }
-
     }
-
-
     /**
      * @return instance of the pool.
      */

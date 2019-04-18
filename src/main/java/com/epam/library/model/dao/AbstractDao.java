@@ -2,15 +2,11 @@ package com.epam.library.model.dao;
 
 import com.epam.library.model.builder.Builder;
 import com.epam.library.model.db.ConnectionPool;
-import com.epam.library.model.db.ConnectionPoolException;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,27 +14,43 @@ import java.util.Optional;
 public abstract class AbstractDao<T> implements IDao<T>  {
 private final static Logger logger = LogManager.getLogger();
 
-    protected List<T> executeQuery(String query, Builder<T> builder){
-        Connection connection = null;
-        List<T> entities = new ArrayList<>();
-        try {
-            connection = ConnectionPool.getInstance().getConnection();
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
+private Connection connection;
 
+    public AbstractDao(Connection connection){
+        this.connection = connection;
+    }
+
+    public AbstractDao(){
+
+    }
+
+    protected List<T> executeQuery(String query, Builder<T> builder, String... parameters ) throws DaoException {
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        List<T> entity = new ArrayList<>();
+        try {
+
+            preparedStatement = connection.prepareStatement(query);
+            prepareStatement(preparedStatement, parameters);
+
+            resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
-                T item = builder.build(resultSet);
-                entities.add(item);
+                T build = builder.build(resultSet);
+                entity.add(build);
             }
         } catch (SQLException e) {
-            e.getErrorCode();
+            throw new DaoException(e);
+        }finally {
+            closeResultSet(resultSet);
+            closeStatement(preparedStatement);
+            closeConnection(connection);
         }
-        return entities;
+        return entity;
     }
 
 
-    protected Optional<T> executeSingleResponsceQuery(String query, Builder<T> builder){
-        List<T> list = executeQuery(query, builder);
+    protected Optional<T> executeSingleResponseQuery(String query, Builder<T> builder, String... parameters) throws DaoException {
+        List<T> list = executeQuery(query, builder,parameters);
         if(list.size() == 1){
             return Optional.of(list.get(0));
         }else {
@@ -46,8 +58,29 @@ private final static Logger logger = LogManager.getLogger();
         }
     }
 
+    protected void executeUpdate(String query, String... parameters) throws DaoException {
+        PreparedStatement preparedStatement = null;
 
-    protected void closeStatement(Statement statement){
+        try {
+
+            preparedStatement = connection.prepareStatement(query);
+            prepareStatement(preparedStatement, parameters);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }finally {
+            closeStatement(preparedStatement);
+            closeConnection(connection);
+        }
+    }
+    private void prepareStatement(PreparedStatement statement, String... parameters) throws SQLException {
+        for(int i = 1; i < parameters.length + 1; i++){
+            statement.setObject(i, parameters[i - 1]);
+        }
+    }
+
+    private void closeStatement(Statement statement){
         if(statement != null){
             try {
                 statement.close();
@@ -57,13 +90,13 @@ private final static Logger logger = LogManager.getLogger();
         }
     }
 
-    protected void closeConnection(Connection connection){
+    private void closeConnection(Connection connection){
         if(connection != null){
             ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
-    protected void closeResultSet(ResultSet resultSet){
+    private void closeResultSet(ResultSet resultSet){
         if(resultSet != null){
             try {
                 resultSet.close();
@@ -72,6 +105,5 @@ private final static Logger logger = LogManager.getLogger();
             }
         }
     }
-
 
 }

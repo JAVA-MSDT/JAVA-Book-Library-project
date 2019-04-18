@@ -3,8 +3,10 @@ package com.epam.library.model.dao.query;
 public class UserQuery {
     public final static String INSERT_USER = "INSERT INTO user_table(name, last_name, email, login, password) VALUES(?,?,?,?,?)";
 
-    public final static String UPDATE_USER_DATA = "UPDATE user_table SET name = ?, last_name = ?, email = ?, " +
+    public final static String ADMIN_UPDATE_USER_DATA = "UPDATE user_table SET name = ?, last_name = ?, email = ?, " +
             "login = ?, password = ?, role = ?, blocked = ? WHERE id = ?";
+    public final static String LIBRARIAN_UPDATE_USER_DATA = "UPDATE user_table SET name = ?, last_name = ?, email = ?, " +
+            "login = ?, password = ?, blocked = ? WHERE id = ?";
     public final static String UPDATE_USER_NAME = "UPDATE user_table SET name = ? WHERE id = ?";
     public final static String UPDATE_USER_LAST_NAME = "UPDATE user_table SET last_name = ? WHERE id = ?";
     public final static String UPDATE_USER_EMAIL = "UPDATE user_table SET email = ? WHERE id = ?";

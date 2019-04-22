@@ -9,9 +9,8 @@ public class LogoutCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String page = PageLocation.LOGIN_PAGE;
         request.getSession().invalidate();
 
-        return page;
+        return PageLocation.MAIN_PAGE;
     }
 }

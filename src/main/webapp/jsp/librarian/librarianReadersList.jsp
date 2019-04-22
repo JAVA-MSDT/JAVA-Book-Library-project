@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@page isELIgnored="false" %>
 <!DOCTYPE html>
 
 <head>
@@ -11,7 +14,7 @@
 </head>
 
 <body>
-    <%@ include file="../constant/librarianNavigation.html"%>
+    <%@ include file="../constant/librarianNavigation.jsp"%>
     <div class="profileContainer">
         <div class="basicInfo">
             <h1>Readers List:</h1>
@@ -48,103 +51,24 @@
                             </th>
 
                         </tr>
-                        <tr>
-                            <td>
-                                <h4> 1 </h4>
-                            </td>
-                            <td>
-                                <h4> Ahmed</h4>
-                            </td>
-                            <td>
-                                <h4> Samy </h4>
-                            </td>
-                            <td>
-                                <h4> serenitydiver@hotmail.com </h4>
-                            </td>
-                            <td>
-                                <h4> Login </h4>
-                            </td>
-                            <td>
-                                <h4> Password</h4>
-                            </td>
-                            <td>
-                                <h4> No </h4>
-                            </td>
-                            <td> <a class="edit" name="librarianEditReader" href="librarianEditReader.jsp">Edit</a></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h4> 2 </h4>
-                            </td>
-                            <td>
-                                <h4> Sacha</h4>
-                            </td>
-                            <td>
-                                <h4> Alexander </h4>
-                            </td>
-                            <td>
-                                <h4> librarian@epam.com </h4>
-                            </td>
-                            <td>
-                                <h4> Login </h4>
-                            </td>
-                            <td>
-                                <h4> Password</h4>
-                            </td>
-                            <td>
-                                <h4> No </h4>
-                            </td>
-                             <td> <a class="edit" name="librarianEditReader" href="librarianEditReader.jsp">Edit</a></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h4> 3 </h4>
-                            </td>
-                            <td>
-                                <h4> reader</h4>
-                            </td>
-                            <td>
-                                <h4> read </h4>
-                            </td>
-                            <td>
-                                <h4> reader@epam.com </h4>
-                            </td>
-                            <td>
-                                <h4> Login </h4>
-                            </td>
-                            <td>
-                                <h4> Password</h4>
-                            </td>
-                            <td>
-                                <h4> No </h4>
-                            </td>
-                             <td> <a class="edit" name="librarianEditReader" href="librarianEditReader.jsp">Edit</a></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h4> 4 </h4>
-                            </td>
-                            <td>
-                                <h4> Reading</h4>
-                            </td>
-                            <td>
-                                <h4> Book </h4>
-                            </td>
-                            <td>
-                                <h4> book@epam.com </h4>
-                            </td>
-                            <td>
-                                <h4> Login </h4>
-                            </td>
-                            <td>
-                                <h4> Password</h4>
-                            </td>
-                            <td>
-                                <h4> No </h4>
-                            </td>
-                             <td> <a class="edit" name="librarianEditReader" href="librarianEditReader.jsp">Edit</a></td>
-                        </tr>
 
+                        <c:forEach var="userList" items="${requestScope.usersList}">
+                            <tr>
+                                <td>${userList.id}</td>
+                                <td>${userList.name}</td>
+                                <td>${userList.lastName}</td>
+                                <td>${userList.email}</td>
+                                <td>${userList.login}</td>
+                                <td>${userList.password}</td>
+                                <td>${userList.blocked}</td>
+                                <td> <a class="edit" href="controller?command=libeditreader">Edit</a></td>
+                                <td><form name="libEditReader" action="controller" method="post">
+                                    <input type="hidden" name="command" value="libeditreader">
+                                    <input class="edit" type="submit" name="edit" value="Edit"/>
+                                    <input type="hidden" name="id" value="<c:out value="${userList.id}"/>"/>
+                                </form> </td>
+                            </tr>
+                        </c:forEach>
 
                     </table>
                 </div>
@@ -153,7 +77,7 @@
         </div>
 
     </div>
-    <%@ include file="../constant/readerFooter.html"%>
+    <%@ include file="../constant/readerFooter.jsp"%>
 </body>
 
 </html>

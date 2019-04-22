@@ -32,7 +32,7 @@ public class LibraryServlet extends HttpServlet {
         try {
             page = action.execute(request, response);
         }catch (Exception e){
-            request.setAttribute("errorMessage", e.getMessage());
+          //  request.setAttribute("errorMessage", e.getMessage());
             page = PageLocation.LOGIN_PAGE;
         }
 

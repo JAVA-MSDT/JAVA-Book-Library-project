@@ -10,6 +10,10 @@ import com.epam.library.model.builder.UserBuilder;
 import com.epam.library.model.dao.*;
 import com.epam.library.model.db.ConnectionPool;
 import com.epam.library.model.db.DBInfo;
+import com.epam.library.model.service.ServiceException;
+import com.epam.library.model.service.ServiceFactory;
+import com.epam.library.model.service.UserService;
+import com.epam.library.util.MD5Encrypt;
 
 
 import java.io.*;
@@ -24,7 +28,7 @@ public class Runner {
     public static void main(String[] args) {
 
         try {
-            Class.forName(DBInfo.DB_DRIVER);
+           // Class.forName(DBInfo.DB_DRIVER);
             Connection connection = ConnectionPool.getInstance().getConnection();
             Statement statement = connection.createStatement();
            //  statement.executeUpdate("DROP DATABASE " + DBInfo.DB_NAME);
@@ -44,14 +48,20 @@ public class Runner {
 
 
             UserDao userDao = DaoFactory.getInstance().getUserDao();
-            User user1 = new User(7,"OneTwo", "Two", "One@One", "login", "pasword", Role.LIBRARIAN, true);
-            //userDao.userUpdateByAdmin(user1);
+            User user1 = new User(5,"OneTwo", "Two", "One@One", "login", "password", Role.LIBRARIAN, true);
+            userDao.userUpdateByAdmin(user1);
             //userDao.save(user1);
-            System.out.println(userDao.getById(4));
+            System.out.println("User Dao: " + userDao.findByLoginAndPassword("second", "2222"));
             List<User> users = userDao.getAll();
             for(User u : users){
                 System.out.println(u);
             }
+
+            System.out.println("Crypto Test: " + MD5Encrypt.convert("1111"));
+            System.out.println("Crypto Test: " + MD5Encrypt.convert("2222"));
+
+            UserService userService = ServiceFactory.getInstance().getUserService();
+            System.out.println(userService.findUserRole("login", "password"));
             System.out.println("===============================");
             BookDao bookDao = DaoFactory.getInstance().getBookDao();
             Book book = new Book(7,"newBookAfter", 40);
@@ -63,6 +73,7 @@ public class Runner {
             for (Book b : books){
                 System.out.println(b);
             }
+
 
             System.out.println("===============================");
 
@@ -86,10 +97,10 @@ public class Runner {
 
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.getMessage();
         } catch (DaoException e) {
             e.getCause();
+        } catch (ServiceException e) {
+            e.printStackTrace();
         }
 
     }

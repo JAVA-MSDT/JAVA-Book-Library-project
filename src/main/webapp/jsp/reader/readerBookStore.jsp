@@ -79,7 +79,7 @@
         </div>
 
     </div>
-    <%@ include file="../constant/readerFooter.html"%>
+    <%@ include file="../constant/readerFooter.jsp"%>
 </body>
 
 </html>

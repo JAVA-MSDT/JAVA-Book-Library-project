@@ -63,6 +63,10 @@ body{
     display: block;
 }
 
+.log-out-btn{
+background-color: gray;
+color: green;
+}
 @media screen and (max-width: 600px){
     #navList{
         display: ;

@@ -1,20 +1,20 @@
 INSERT INTO user_table(id, name, last_name, email, login, password, role, blocked)
-VALUES('1', 'Ahmed', 'Samy', 'serenitydiver@hotmail.com', 'JAVAMSDT', 'java', 'ADMIN',false);
+VALUES('1', 'Ahmed', 'Samy', 'serenitydiver@hotmail.com', 'JAVAMSDT', MD5('java'), 'ADMIN',false);
 
 INSERT INTO user_table(name, last_name, email, login, password, role, blocked)
-VALUES('Alaa', 'Gamal', 'alaa@mail.com', 'alaa', 'gamal', 'LIBRARIAN',0);
+VALUES('Alaa', 'Gamal', 'alaa@mail.com', 'alaa', MD5('gamal'), 'LIBRARIAN',0);
 
 INSERT INTO user_table(name, last_name, email, login, password, role, blocked)
-VALUES('readerOne', 'readOne', 'first@read.com', 'first', '1111', 'READER', 0);
+VALUES('readerOne', 'readOne', 'first@read.com', 'first', MD5('1111'), 'READER', 0);
 
 INSERT INTO user_table(name, last_name, email, login, password, role, blocked)
-VALUES('readerTwo', 'readTwo', 'second@read.com', 'second', '2222', 'READER', 0);
+VALUES('readerTwo', 'readTwo', 'second@read.com', 'second', MD5('2222'), 'READER', 0);
 
 INSERT INTO user_table(name, last_name, email, login, password, role, blocked)
-VALUES('readerThree', 'readThree', 'third@read.com', 'third', '3333', 'READER', 0);
+VALUES('readerThree', 'readThree', 'third@read.com', 'third', MD5('3333'), 'READER', 0);
 
 INSERT INTO user_table(name, last_name, email, login, password, role, blocked)
-VALUES('readerFour', 'readFour', 'four@read.com', 'four', '4444', 'READER', 0);
+VALUES('readerFour', 'readFour', 'four@read.com', 'four', MD5('4444'), 'READER', 0);
 
 
 INSERT INTO book(name, quantity)

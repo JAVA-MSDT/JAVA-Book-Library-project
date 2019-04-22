@@ -5,6 +5,7 @@ import com.epam.library.entity.enumeration.Role;
 import com.epam.library.util.validate.ArgumentValidator;
 import com.epam.library.util.EnumService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -31,5 +32,17 @@ public class UserBuilder implements Builder<User> {
 
 
         return new User(id, name, lastName, email, login, password, role, blocked);
+    }
+
+    public User userFromForm(HttpServletRequest request){
+        String id = request.getParameter("librarianReaderId");
+        String name = request.getParameter("librarianReaderName");
+        String lastName = request.getParameter("librarianReaderLastName");
+        String email = request.getParameter("librarianReaderEmail");
+        String login = request.getParameter("librarianReaderLogin");
+        String password = request.getParameter("librarianReaderPassword");
+        String blocked = request.getParameter("librarianReaderBlocked");
+
+        return new User(Long.valueOf(id),name, lastName, email, login, password, Boolean.getBoolean(blocked));
     }
 }

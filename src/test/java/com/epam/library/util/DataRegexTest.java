@@ -23,7 +23,7 @@ public class DataRegexTest {
     @Test
     public void wordRegex(){
         String word = "Ahmed";
-        Matcher matcher = DataMatcher.matches(DataRegex.WORD, word);
+        Matcher matcher = DataMatcher.matches(DataRegex.LOGIN, word);
         Assert.assertTrue(matcher.matches());
     }
 

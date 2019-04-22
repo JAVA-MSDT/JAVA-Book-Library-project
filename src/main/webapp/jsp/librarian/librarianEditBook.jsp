@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <%@ include file="../constant/librarianNavigation.html"%>
+    <%@ include file="../constant/librarianNavigation.jsp"%>
     <div class="profileContainer">
         <div class="basicInfo">
             <h1>Edit Book:</h1>
@@ -51,7 +51,7 @@
         </div>
 
     </div>
-    <%@ include file="../constant/readerFooter.html"%>
+    <%@ include file="../constant/readerFooter.jsp"%>
 </body>
 
 </html>

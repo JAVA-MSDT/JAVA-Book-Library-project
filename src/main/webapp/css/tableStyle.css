@@ -15,7 +15,7 @@
 
 .tableContainer {
     overflow-x: auto;
-    width: 80%;
+    width: 90%;
     box-shadow: 10px 10px 5px gray;
     border-radius: 0 10px 12px 10px;
 }

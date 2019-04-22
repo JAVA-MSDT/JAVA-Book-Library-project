@@ -8,14 +8,7 @@ public class DBConnector {
 
     public static Connection getConnection() throws SQLException {
 
-        Connection connection = null;
-        try {
-            Class.forName(DBInfo.DB_DRIVER);
-            connection = DriverManager.getConnection(DBInfo.DB_URI + DBInfo.DB_NAME, DBInfo.LOGIN, DBInfo.PASSWORD);;
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return connection;
+        return  DriverManager.getConnection(DBInfo.DB_URI + DBInfo.DB_NAME, DBInfo.LOGIN, DBInfo.PASSWORD);
 
     }
 }

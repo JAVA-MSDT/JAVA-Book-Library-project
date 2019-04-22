@@ -67,6 +67,7 @@ private Connection connection;
             prepareStatement(preparedStatement, parameters);
 
             preparedStatement.executeUpdate();
+
         } catch (SQLException e) {
             throw new DaoException(e);
         }finally {

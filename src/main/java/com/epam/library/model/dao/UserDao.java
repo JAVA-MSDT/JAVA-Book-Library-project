@@ -61,28 +61,13 @@ public class UserDao extends AbstractDao<User> {
 
         String blockStatues = item.isBlocked() ? "1" : "0";
         String encryptedPassword = MD5Encrypt.convert(item.getPassword());
-
         String[] userInfo = {item.getName(), item.getLastName(), item.getEmail(), item.getLogin(), encryptedPassword,
-                blockStatues, String.valueOf(item.getId())};
+                item.getRole().name(), blockStatues, String.valueOf(item.getId())};
 
-        executeUpdate(UserQuery.LIBRARIAN_UPDATE_USER_DATA, userInfo);
+        executeUpdate(UserQuery.UPDATE_USER_DATA, userInfo);
 
     }
 
-    /**
-     * @param user to be updated by the Admin, just to set the role.
-     * @throws DaoException
-     */
-    public void userUpdateByAdmin(User user) throws DaoException {
-
-        String blockStatues = user.isBlocked() ? "1" : "0";
-        String encryptedPassword = MD5Encrypt.convert(user.getPassword());
-
-        String[] userInfo = {user.getName(), user.getLastName(), user.getEmail(), user.getLogin(), encryptedPassword,
-                user.getRole().name(), blockStatues, String.valueOf(user.getId())};
-
-        executeUpdate(UserQuery.ADMIN_UPDATE_USER_DATA, userInfo);
-    }
 
     /**
      *

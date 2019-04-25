@@ -6,8 +6,8 @@
     <meta charset="utf-8">
     <meta name="author" content="Ahmed Samy">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href=".../../../../css/mainStyle.css">
-    <link rel="stylesheet" href=".../../../../css/tableStyle.css">
+    <link rel="stylesheet" href="../../css/readerMainStyle.css">
+    <link rel="stylesheet" href="../../css/table.css">
 </head>
 
 <body>

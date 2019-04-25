@@ -22,33 +22,6 @@ public class UserService implements Service<User>{
     public UserService(){
 
     }
-    /**
-     *
-     * @param login of the user
-     * @param password of the user
-     * @return reader role so we can use later in the command layer to direct the reader to it is profile page
-     *         depends on his role
-     * @throws DaoException
-     */
-    public String findUserRole(String login, String password) throws ServiceException {
-        String userRole = null;
-         if(UserValidator.isValidLogin(login) && UserValidator.isValidPassword(password)){
-             try {
-                 Optional<User> user = userDao.findByLoginAndPassword(login, password);
-                 if (user.isPresent()) {
-                     User user1 = user.get();
-                     System.out.println("UserService " + user1);
-                     userRole = user1.getRole().name();
-                 }
-             } catch (DaoException e) {
-                 throw new ServiceException("Dao Exception in findUserRole method in UserService class",e);
-             }
-         }else {
-             userRole = "INVALID";
-         }
-
-        return userRole;
-    }
 
     /**
      *

@@ -5,6 +5,7 @@ import com.epam.library.model.service.ServiceException;
 import com.epam.library.model.service.ServiceFactory;
 import com.epam.library.model.service.UserService;
 import com.epam.library.util.PageLocation;
+import com.epam.library.util.constant.UserConstant;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,9 +27,9 @@ public class LoginCommand implements Command {
         try {
             Optional<User> optionalUser = userService.findByLoginPassword(login, password);
             if (optionalUser.isPresent()) {
-                session.setAttribute("reader", optionalUser.get());
-                request.setAttribute("reader", optionalUser.get());
-                page = defineReaderPage(optionalUser.get());
+                session.setAttribute(UserConstant.USER_ATTRIBUTE, optionalUser.get());
+                request.setAttribute(UserConstant.USER_ATTRIBUTE, optionalUser.get());
+                page = defineReaderPage(optionalUser.get(), request);
             } else {
                 page = PageLocation.LOGIN_PAGE;
                 request.setAttribute("register", "You have no account");
@@ -40,21 +41,28 @@ public class LoginCommand implements Command {
         return page;
     }
 
-    private String defineReaderPage(User user){
-        String readerRole = user.getRole().name();
+    private String defineReaderPage(User user, HttpServletRequest request){
         String readerPage = null;
-        switch (readerRole) {
-            case "ADMIN":
-                readerPage = PageLocation.ADMIN_PAGE;
-                break;
-            case "LIBRARIAN":
-                readerPage = PageLocation.LIBRARIAN_PAGE;
-                break;
-            case "READER":
-                readerPage = PageLocation.READER_PAGE;
-                break;
+
+        if(!user.isBlocked()) {
+            String readerRole = user.getRole().name();
+            switch (readerRole) {
+                case "ADMIN":
+                    readerPage = PageLocation.ADMIN_PAGE;
+                    break;
+                case "LIBRARIAN":
+                    readerPage = PageLocation.LIBRARIAN_PROFILE;
+                    break;
+                case "READER":
+                    readerPage = PageLocation.READER_PAGE;
+                    break;
+            }
+        }else{
+            readerPage = PageLocation.LOGIN_PAGE;
+            request.setAttribute(UserConstant.BLOCK_MESSAGE, "You are Blocked");
         }
         return readerPage;
     }
+
 
 }

@@ -2,6 +2,7 @@ package com.epam.library.model.builder;
 
 import com.epam.library.entity.User;
 import com.epam.library.entity.enumeration.Role;
+import com.epam.library.util.constant.UserConstant;
 import com.epam.library.util.validate.ArgumentValidator;
 import com.epam.library.util.EnumService;
 
@@ -12,7 +13,6 @@ import java.sql.SQLException;
 public class UserBuilder implements Builder<User> {
 
     /**
-     *
      * @param resultSet which has the info of the user
      * @return user after extracting the date from the data base.
      * @throws SQLException
@@ -21,28 +21,44 @@ public class UserBuilder implements Builder<User> {
     public User build(ResultSet resultSet) throws SQLException {
         ArgumentValidator.checkForNull(resultSet, "Not allow for null Result set in UserBuilder");
 
-            long id = resultSet.getLong("id");
-            String name = resultSet.getString("name");
-            String lastName = resultSet.getString("last_name");
-            String email = resultSet.getString("email");
-            String login = resultSet.getString("login");
-            String password = resultSet.getString("password");
-            Role role = EnumService.getRole(resultSet.getString("role"));
-            boolean blocked = resultSet.getBoolean("blocked");
+        long id = resultSet.getLong(UserConstant.ID);
+        String name = resultSet.getString(UserConstant.NAME);
+        String lastName = resultSet.getString(UserConstant.LAST_NAME);
+        String email = resultSet.getString(UserConstant.EMAIL);
+        String login = resultSet.getString(UserConstant.LOGIN);
+        String password = resultSet.getString(UserConstant.PASSWORD);
+        Role role = EnumService.getRole(resultSet.getString(UserConstant.ROLE));
+        boolean blocked = resultSet.getBoolean(UserConstant.BLOCKED);
 
 
         return new User(id, name, lastName, email, login, password, role, blocked);
     }
 
-    public User userFromForm(HttpServletRequest request){
-        String id = request.getParameter("librarianReaderId");
-        String name = request.getParameter("librarianReaderName");
-        String lastName = request.getParameter("librarianReaderLastName");
-        String email = request.getParameter("librarianReaderEmail");
-        String login = request.getParameter("librarianReaderLogin");
-        String password = request.getParameter("librarianReaderPassword");
-        String blocked = request.getParameter("librarianReaderBlocked");
 
-        return new User(Long.valueOf(id),name, lastName, email, login, password, Boolean.getBoolean(blocked));
+    public User buildUserToLibrarianUpdate(HttpServletRequest request, User user) {
+        String id = request.getParameter(UserConstant.ID);
+        String blocked = request.getParameter(UserConstant.BLOCKED);
+        boolean blockStatus = getBooleanValue(blocked);
+
+        User user1 = buildToAddUser(request);
+
+        user1.setId(Long.valueOf(id));
+        user1.setBlocked(blockStatus);
+        user1.setRole(user.getRole());
+
+        return user1;
+    }
+
+    public User buildToAddUser(HttpServletRequest request) {
+        String name = request.getParameter(UserConstant.NAME);
+        String lastName = request.getParameter(UserConstant.LAST_NAME);
+        String email = request.getParameter(UserConstant.EMAIL);
+        String login = request.getParameter(UserConstant.LOGIN);
+        String password = request.getParameter(UserConstant.PASSWORD);
+        return new User(name, lastName, email, login, password);
+    }
+
+    private boolean getBooleanValue(String booleanHolder) {
+        return booleanHolder.equalsIgnoreCase("true");
     }
 }

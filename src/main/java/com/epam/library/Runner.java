@@ -31,16 +31,16 @@ public class Runner {
            // Class.forName(DBInfo.DB_DRIVER);
             Connection connection = ConnectionPool.getInstance().getConnection();
             Statement statement = connection.createStatement();
-           //  statement.executeUpdate("DROP DATABASE " + DBInfo.DB_NAME);
-           //  statement.executeUpdate("CREATE DATABASE " + DBInfo.DB_NAME);
+             statement.executeUpdate("DROP DATABASE " + DBInfo.DB_NAME);
+             statement.executeUpdate("CREATE DATABASE " + DBInfo.DB_NAME);
             System.out.println("Creating .....");
             statement.executeUpdate("USE " + DBInfo.DB_NAME);
             System.out.println("database using....");
 
-           //   updateData(DBInfo.CREATE_SQL_LOCATION, statement);
+              updateData(DBInfo.CREATE_SQL_LOCATION, statement);
             System.out.println("Creating tables Done Successfully!");
 
-           //   updateData(DBInfo.INSERT_INTO_TABLE, statement);
+              updateData(DBInfo.INSERT_INTO_TABLE, statement);
             System.out.println("Data Inserted Successfully..!");
 
             System.out.println("==================================");
@@ -48,26 +48,16 @@ public class Runner {
 
 
             UserDao userDao = DaoFactory.getInstance().getUserDao();
-            User user1 = new User(5,"OneTwo", "Two", "One@One", "login", "password", Role.LIBRARIAN, true);
-            userDao.userUpdateByAdmin(user1);
-            //userDao.save(user1);
-            System.out.println("User Dao: " + userDao.findByLoginAndPassword("second", "2222"));
             List<User> users = userDao.getAll();
             for(User u : users){
                 System.out.println(u);
             }
 
-            System.out.println("Crypto Test: " + MD5Encrypt.convert("1111"));
-            System.out.println("Crypto Test: " + MD5Encrypt.convert("2222"));
 
             UserService userService = ServiceFactory.getInstance().getUserService();
-            System.out.println(userService.findUserRole("login", "password"));
             System.out.println("===============================");
             BookDao bookDao = DaoFactory.getInstance().getBookDao();
-            Book book = new Book(7,"newBookAfter", 40);
-            //bookDao.save(book);
-            //bookDao.update(book);
-           // bookDao.removeById(7);
+
             System.out.println(bookDao.getById(4));
             List<Book> books = bookDao.getAll();
             for (Book b : books){
@@ -85,11 +75,6 @@ public class Runner {
             String mySqlOrderDate = simpleDateFormat.format(orderDate);
             String mySqlREturningDate = simpleDateFormat.format(returningDate);
 
-            Order order = new Order(3, 2, 4, orderDate, returningDate, ReadingPlace.HOME, true);
-            Order order1 = new Order(5,4, 2, orderDate, returningDate, ReadingPlace.HOME, true);
-            // orderDao.update(order1);
-          //  orderDao.save(order1);
-            System.out.println(orderDao.getById(4));
             List<Order> orders = orderDao.getAll();
             for(Order o : orders){
                 System.out.println(o);
@@ -99,8 +84,6 @@ public class Runner {
             e.printStackTrace();
         } catch (DaoException e) {
             e.getCause();
-        } catch (ServiceException e) {
-            e.printStackTrace();
         }
 
     }

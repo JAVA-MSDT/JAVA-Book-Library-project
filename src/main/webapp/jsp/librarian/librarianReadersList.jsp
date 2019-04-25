@@ -9,8 +9,8 @@
     <meta charset="utf-8">
     <meta name="author" content="Ahmed Samy">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href=".../../../../css/mainStyle.css">
-    <link rel="stylesheet" href=".../../../../css/tableStyle.css">
+    <link rel="stylesheet" href="../../css/readerMainStyle.css">
+    <link rel="stylesheet" href="../../css/table.css">
 </head>
 
 <body>
@@ -19,7 +19,10 @@
         <div class="basicInfo">
             <h1>Readers List:</h1>
              <div class="btnContainer">
-                 <a href="librarianEditReader.jsp" name="librarianAddReader"> Add Reader </a>
+                 <form name="librarian-add-reader" action="controller" method="post">
+                     <input type="hidden" name="command" value="librarian-add-reader">
+                     <input class="add-button" type="submit" name="edit" value="Add Reader"/>
+                 </form>
              </div>
             <div class="container">
                 <div class="tableContainer">
@@ -52,18 +55,17 @@
 
                         </tr>
 
-                        <c:forEach var="userList" items="${requestScope.usersList}">
+                        <c:forEach varStatus="loop" var="userList" items="${requestScope.userList}">
                             <tr>
-                                <td>${userList.id}</td>
+                                <td>${loop.count}</td>
                                 <td>${userList.name}</td>
                                 <td>${userList.lastName}</td>
                                 <td>${userList.email}</td>
                                 <td>${userList.login}</td>
                                 <td>${userList.password}</td>
                                 <td>${userList.blocked}</td>
-                                <td> <a class="edit" href="controller?command=libeditreader">Edit</a></td>
-                                <td><form name="libEditReader" action="controller" method="post">
-                                    <input type="hidden" name="command" value="libeditreader">
+                                <td><form name="librarian-edit-read" action="controller" method="post">
+                                    <input type="hidden" name="command" value="librarian-edit-reader">
                                     <input class="edit" type="submit" name="edit" value="Edit"/>
                                     <input type="hidden" name="id" value="<c:out value="${userList.id}"/>"/>
                                 </form> </td>

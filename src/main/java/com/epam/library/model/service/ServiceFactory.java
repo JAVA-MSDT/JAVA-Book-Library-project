@@ -14,6 +14,10 @@ public class ServiceFactory {
     }
 
     public UserService getUserService() {
-        return userService;
+        return new UserService(daoFactory.getUserDao());
+    }
+
+    public BookService getBookService(){
+        return new BookService(daoFactory.getBookDao());
     }
 }

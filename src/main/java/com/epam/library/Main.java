@@ -1,14 +1,11 @@
 package com.epam.library;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
-public class Main extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
-        httpServletResponse.getWriter().println("Library Page");
+
+public class Main {
+    public static void main(String[] args) {
+        String test = "main";
+        String test1 = test.replace('-', '_');
+        System.out.println(test1.toUpperCase());
     }
 }

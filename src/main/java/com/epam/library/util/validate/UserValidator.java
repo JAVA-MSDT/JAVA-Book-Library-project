@@ -10,4 +10,12 @@ public class UserValidator {
     public static boolean isValidPassword(String password){
         return DataMatcher.isValid(DataRegex.PASSWORD, password);
     }
+
+    public static boolean isValidEmail(String email){
+        return DataMatcher.isValid(DataRegex.E_MAIL, email);
+    }
+
+    public static boolean isValidName(String name){
+        return DataMatcher.isValid(DataRegex.NAME, name);
+    }
 }

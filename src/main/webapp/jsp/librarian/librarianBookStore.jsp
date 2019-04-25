@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page isELIgnored="false"%>
 <!DOCTYPE html>
 
 <head>
@@ -6,8 +9,8 @@
     <meta charset="utf-8">
     <meta name="author" content="Ahmed Samy">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href=".../../../../css/tableStyle.css">
-    <link rel="stylesheet" href=".../../../../css/mainStyle.css">
+    <link rel="stylesheet" href="../../css/readerMainStyle.css">
+    <link rel="stylesheet" href="../../css/table.css">
 </head>
 
 <body>
@@ -16,7 +19,10 @@
         <div class="basicInfo">
             <h1>Book Store:</h1>
             <div class="btnContainer">
-                 <a href="librarianEditBook.jsp" name="librarianAddReader"> Add Book </a>
+                <form name="librarian-add-book" action="controller" method="post">
+                    <input type="hidden" name="command" value="librarian-add-book">
+                    <input class="add-button" type="submit" name="add" value="Add Book"/>
+                </form>
             </div>
             <div class="container">
                 <div class="tableContainer">
@@ -35,46 +41,23 @@
                                 <h3> Edit </h3>
                             </th>
                         </tr>
+                        <c:forEach varStatus="loop" var="bookList" items="${requestScope.bookList}">
                         <tr>
                             <td>
-                                <h4> 1 </h4>
+                                <h4> ${loop.count} </h4>
                             </td>
                             <td>
-                                <h4> CS50</h4>
+                                <h4> ${bookList.name}</h4>
                             </td>
-                            <td> 20 </td>
-                            <td> <a class="edit" name="librarianEditBook" href="librarianEditBook.jsp">Edit</a></td>
-                        </tr>
-                        <tr>
+                            <td> <h4> ${bookList.quantity} </h4> </td>
                             <td>
-                                <h4> 2 </h4>
+                                <form name="librarian-edit-book" action="controller" method="post">
+                                    <input type="hidden" name="command" value="librarian-edit-book">
+                                    <input class="edit" type="submit" name="edit" value="Edit"/>
+                                    <input type="hidden" name="id" value="<c:out value="${bookList.id}"/>"/>
+                                </form>
                             </td>
-                            <td>
-                                <h4> JAVA SERVLET</h4>
-                            </td>
-                            <td> 14 </td>
-                            <td> <a class="edit" name="librarianEditBook" href="librarianEditBook.jsp">Edit</a></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h4> 3 </h4>
-                            </td>
-                            <td>
-                                <h4> JAVA EE</h4>
-                            </td>
-                            <td> 8 </td>
-                            <td> <a class="edit" name="librarianEditBook" href="librarianEditBook.jsp">Edit</a></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h4> 4 </h4>
-                            </td>
-                            <td>
-                                <h4> JAVA SE</h4>
-                            </td>
-                            <td> 35 </td>
-                            <td> <a class="edit" name="librarianEditBook" href="librarianEditBook.jsp">Edit</a></td>
-                        </tr>
+                        </c:forEach>
                     </table>
                 </div>
             </div>

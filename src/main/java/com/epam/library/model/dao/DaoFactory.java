@@ -4,7 +4,7 @@ import com.epam.library.model.db.ConnectionPool;
 
 import java.sql.Connection;
 
-public class DaoFactory {
+public class DaoFactory implements AutoCloseable{
 
     private static final DaoFactory instance = new DaoFactory();
     private final Connection connection = ConnectionPool.getInstance().getConnection();
@@ -30,5 +30,10 @@ public class DaoFactory {
 
     public OrderDao getOrderDao() {
         return orderDao;
+    }
+
+    @Override
+    public void close() throws Exception {
+        connection.close();
     }
 }

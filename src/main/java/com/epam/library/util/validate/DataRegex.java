@@ -12,6 +12,8 @@ public class DataRegex {
 
     public final static String PASSWORD = "^([a-zA-Z0-9@*#]{4,10})$";
 
+    public final static String NAME = "[a-zA-Z ]*";
+
 
 
 

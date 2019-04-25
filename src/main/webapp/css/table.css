@@ -15,7 +15,7 @@
 
 .tableContainer {
     overflow-x: auto;
-    width: 90%;
+    width: 95%;
     box-shadow: 10px 10px 5px gray;
     border-radius: 0 10px 12px 10px;
 }
@@ -26,13 +26,13 @@
     background-color: black;
     border-radius: 5px;
     width: 100%;
-    
+
 }
 
 .tableList td, th {
     border: 1px solid black;
     text-align: center;
-    padding: 3px 8px 3px 8px;
+    padding: 5px 8px 5px 8px;
 }
 
 .tableList th {
@@ -51,9 +51,11 @@
     background-color: black;
     color: wheat;
 }
+
 .edit, .cancel{
-    padding: inherit;
-    margin: 2px auto;
+    height: auto;
+    width: 100%;
+    padding: 4px;
     border-radius: 5px;
     background-color:darkgray;
     color: white;

@@ -9,7 +9,7 @@
     <meta charset="utf-8">
     <meta name="author" content="Ahmed Samy">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href=".../../../../css/mainStyle.css">
+    <link rel="stylesheet" href="../../css/readerMainStyle.css">
 
 </head>
 

@@ -12,10 +12,10 @@
             <button id="mobile" onclick="showMenu()">Menu</button>
     
             <ul id="navList">
-            <li><a href="../librarian/librarianProfile.jsp">Librarian Profile</a></li>
-            <li><a href="controller?command=logout">Book Store</a></li>
-            <li><a href="../librarian/librarianOrders.jsp">Orders List</a></li>
-            <li><a href="controller?command=LIBDISPLAYREADERS">Readers List</a></li>
+            <li><a href="controller?command=librarian-profile">Librarian Profile</a></li>
+            <li><a href="controller?command=librarian-book-store">Book Store</a></li>
+            <li><a href="controller?command=librarian-order-store">Orders List</a></li>
+            <li><a href="controller?command=librarian-display-readers">Readers List</a></li>
             <li class="log-out-btn" style="float: right; background-color: gray"><a href="controller?command=logout">Logout</a></li>
             <li style="float: right" class = "dropdown">
                 <a class="dropbtn">Language</a>
@@ -35,5 +35,5 @@
                 </div>
             </div>
 
-            <h2>Librarian Profile</h2>
+            <h2>${requestScope.reader.name}</h2> <h2> ${requestScope.reader.lastName}</h2>
         </header>

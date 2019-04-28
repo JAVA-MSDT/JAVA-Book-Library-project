@@ -1,4 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<fmt:bundle basename="locale"/>
 <html>
 
 <head>
@@ -11,11 +15,11 @@
 </head>
 
 <body>
+
+<jsp:include page="jsp/constant/navigation.jsp"/>
 <header>
     <img src="img/book.jpg" class="headerImage" alt="header image">
 </header>
-
-<jsp:include page="jsp/constant/navigation.jsp"/>
 <div class="mainRow">
     <div class="epamImage">
         <h2>Library</h2>

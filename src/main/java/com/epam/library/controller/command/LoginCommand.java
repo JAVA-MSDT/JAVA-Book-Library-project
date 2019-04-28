@@ -2,9 +2,8 @@ package com.epam.library.controller.command;
 
 import com.epam.library.entity.User;
 import com.epam.library.model.service.ServiceException;
-import com.epam.library.model.service.ServiceFactory;
 import com.epam.library.model.service.UserService;
-import com.epam.library.util.PageLocation;
+import com.epam.library.util.constant.DiffConstant;
 import com.epam.library.util.constant.UserConstant;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,34 +12,39 @@ import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 public class LoginCommand implements Command {
-    private final static String PARAM_NAME_LOGIN = "login";
-    private final static String PARAM_NAME_PASS = "password";
+
+    private UserService userService;
+    public LoginCommand(UserService userService){
+        this.userService = userService;
+    }
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String page = null;
-        UserService userService = ServiceFactory.getInstance().getUserService();
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+        String page;
         HttpSession session = request.getSession();
-        String login = request.getParameter(PARAM_NAME_LOGIN);
-        String password = request.getParameter(PARAM_NAME_PASS);
+        String login = request.getParameter(UserConstant.LOGIN);
+        String password = request.getParameter(UserConstant.PASSWORD);
 
-        try {
             Optional<User> optionalUser = userService.findByLoginPassword(login, password);
             if (optionalUser.isPresent()) {
                 session.setAttribute(UserConstant.USER_ATTRIBUTE, optionalUser.get());
                 request.setAttribute(UserConstant.USER_ATTRIBUTE, optionalUser.get());
                 page = defineReaderPage(optionalUser.get(), request);
             } else {
+                request.setAttribute(UserConstant.INVALID_LOGIN, DiffConstant.READ_FROM_PROPERTIES);
                 page = PageLocation.LOGIN_PAGE;
-                request.setAttribute("register", "You have no account");
 
             }
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
         return page;
     }
 
+
+    /**
+     *
+     * @param user to define his role also to check if it is blocked or not
+     * @param request to set the attribute in order to read it later in the jsp page
+     * @return user page if it is not block and according to his role.
+     */
     private String defineReaderPage(User user, HttpServletRequest request){
         String readerPage = null;
 
@@ -59,7 +63,7 @@ public class LoginCommand implements Command {
             }
         }else{
             readerPage = PageLocation.LOGIN_PAGE;
-            request.setAttribute(UserConstant.BLOCK_MESSAGE, "You are Blocked");
+            request.setAttribute(UserConstant.BLOCK_MESSAGE, DiffConstant.READ_FROM_PROPERTIES);
         }
         return readerPage;
     }

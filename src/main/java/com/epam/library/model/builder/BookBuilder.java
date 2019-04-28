@@ -14,21 +14,21 @@ public class BookBuilder implements Builder<Book> {
      *
      * @param resultSet which has the info of the book
      * @return book after extracting the date from the data base.
-     * @throws SQLException
+     * @throws SQLException if something wrong happens during the building
      */
     @Override
     public Book build(ResultSet resultSet) throws SQLException {
         ArgumentValidator.checkForNull(resultSet, "Not allow for null Result set in BookBuilder");
 
-            int id = resultSet.getInt("id");
-            String bookName = resultSet.getString("name");
-            int quantity = resultSet.getInt("quantity");
+            int id = resultSet.getInt(BookConstant.BOOK_ID);
+            String bookName = resultSet.getString(BookConstant.BOOK_NAME);
+            int quantity = resultSet.getInt(BookConstant.BOOK_QUANTITY);
 
         return new Book(id, bookName, quantity);
     }
 
     /**
-     * To help build the book for the update in the LibrarianUpdateUser class
+     * To help build the book for the update in the LibrarianUpdateBook class
      * @param request to extract the book info from a form
      * @return  book after extracting it's information
      */
@@ -41,7 +41,7 @@ public class BookBuilder implements Builder<Book> {
     }
 
     /**
-     * To help building the book for the update in the LibrarianUpdateUser class
+     * To help building the book for the update in the LibrarianUpdateBook class
      * @param request to extract the book info from a form to add it in the database
      * @return  book after extracting it's information
      */

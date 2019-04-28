@@ -24,6 +24,7 @@ public class UserQuery {
     public final static String SELECT_USER_BY_ROLE = "SELECT * FROM user_table WHERE role = ?";
     public final static String SELECT_USER_BY_USER_BLOCKED = "SELECT * FROM user_table WHERE blocked = ?";
     public final static String SELECT_USER_BY_LOGIN_PASSWORD = "SELECT * FROM user_table WHERE login = ? AND password = ?";
+    public final static String SELECT_USER_BY_READER_ROLE = "SELECT * FROM user_table WHERE role = 'READER'";
 
     public final static String DELETE_USER = "DELETE FROM user_table WHERE id= ?";
 }

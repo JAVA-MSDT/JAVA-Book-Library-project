@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page isELIgnored="false"%>
+<fmt:setBundle basename="locale"/>
 <html>
 
 <head>
-    <title>Epam Library</title>
+    <title> <fmt:message key="label.title.epam"/> </title>
     <meta charset="utf-8">
     <meta name="author" content="Ahmed Samy">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,42 +14,41 @@
 </head>
 
 <body>
-<%@ include file="../constant/librarianNavigation.jsp" %>
+<jsp:include page="/jsp/constant/librarianNavigation.jsp"/>
 <div class="profileContainer">
     <div class="basicInfo">
-        <h1>Profile Page:</h1>
+        <h1> <fmt:message key="label.profile.page"/> </h1>
         <table class="readerInfo">
             <tr>
                 <td>
-                    <h2>Name: </h2>
+                    <h2><fmt:message key="label.name"/> </h2>
                 </td>
                 <td>
-                    <h3>${requestScope.reader.name} </h3>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <h2>E-mail: </h2>
-                </td>
-                <td>
-                    <h3> ${requestScope.reader.email}</h3>
+                    <h3>${sessionScope.reader.name} </h3>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <h2>Login: </h2>
+                    <h2> <fmt:message key="label.email"/> </h2>
                 </td>
                 <td>
-                    <h3> ${requestScope.reader.login}</h3>
+                    <h3> ${sessionScope.reader.email}</h3>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h2> <fmt:message key="label.login"/> </h2>
+                </td>
+                <td>
+                    <h3> ${sessionScope.reader.login}</h3>
                 </td>
             </tr>
         </table>
-        <p class="editInfo"><a href="#">Edit Info</a></p>
+        <p class="editInfo"><a href="#"> <fmt:message key="button.edit"/> </a></p>
     </div>
 
 </div>
 
-<%@ include file="../constant/readerFooter.jsp" %>
+<jsp:include page="/jsp/constant/readerFooter.jsp"/>
 </body>
-
 </html>

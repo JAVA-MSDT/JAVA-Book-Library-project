@@ -1,39 +1,25 @@
 package com.epam.library.model.dao;
 
-import com.epam.library.model.db.ConnectionPool;
-
 import java.sql.Connection;
 
-public class DaoFactory implements AutoCloseable{
+public class DaoFactory {
 
-    private static final DaoFactory instance = new DaoFactory();
-    private final Connection connection = ConnectionPool.getInstance().getConnection();
-    private  UserDao userDao = new UserDao(connection);
-    private  BookDao bookDao = new BookDao(connection);
-    private  OrderDao orderDao = new OrderDao(connection);
+    private final Connection connection;
 
-    private DaoFactory(){
-
-    }
-
-    public static DaoFactory getInstance() {
-        return instance;
+    public DaoFactory(Connection connection){
+        this.connection = connection;
     }
 
     public UserDao getUserDao() {
-        return userDao;
+        return new UserDao(connection);
     }
 
     public BookDao getBookDao() {
-        return bookDao;
+        return new BookDao(connection);
     }
 
     public OrderDao getOrderDao() {
-        return orderDao;
+        return new OrderDao(connection);
     }
 
-    @Override
-    public void close() throws Exception {
-        connection.close();
-    }
 }

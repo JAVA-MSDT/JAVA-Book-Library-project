@@ -83,8 +83,8 @@ header {
 
 @media screen and (max-width: 700px) {
 
-    .topnav li a,
-    .dropbtn {
+    .top-nav li a,
+    .drop-btn {
         display: block;
     }
 

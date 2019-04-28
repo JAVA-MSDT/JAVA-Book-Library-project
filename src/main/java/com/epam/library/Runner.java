@@ -1,24 +1,12 @@
 package com.epam.library;
 
 
-import com.epam.library.entity.Book;
-import com.epam.library.entity.Order;
 import com.epam.library.entity.User;
-import com.epam.library.entity.enumeration.ReadingPlace;
-import com.epam.library.entity.enumeration.Role;
 import com.epam.library.model.builder.UserBuilder;
-import com.epam.library.model.dao.*;
-import com.epam.library.model.db.ConnectionPool;
-import com.epam.library.model.db.DBInfo;
-import com.epam.library.model.service.ServiceException;
-import com.epam.library.model.service.ServiceFactory;
-import com.epam.library.model.service.UserService;
-import com.epam.library.util.MD5Encrypt;
 
 
 import java.io.*;
 import java.sql.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import java.util.Collections;
@@ -26,8 +14,9 @@ import java.util.List;
 
 public class Runner {
     public static void main(String[] args) {
-
-        try {
+        String CREATE_SQL_LOCATION = "src/main/sql/createTables.sql";
+         String INSERT_INTO_TABLE = "src/main/sql/insertData.sql";
+      /*  try {
            // Class.forName(DBInfo.DB_DRIVER);
             Connection connection = ConnectionPool.getInstance().getConnection();
             Statement statement = connection.createStatement();
@@ -47,16 +36,16 @@ public class Runner {
             System.out.println("Testing OrderDao");
 
 
-            UserDao userDao = DaoFactory.getInstance().getUserDao();
+            UserDao userDao = new DaoFactory(connection).getUserDao();
             List<User> users = userDao.getAll();
             for(User u : users){
                 System.out.println(u);
             }
 
 
-            UserService userService = ServiceFactory.getInstance().getUserService();
+            UserService userService = new ServiceFactory(connection).getUserService();
             System.out.println("===============================");
-            BookDao bookDao = DaoFactory.getInstance().getBookDao();
+            BookDao bookDao = new DaoFactory(connection).getBookDao();
 
             System.out.println(bookDao.getById(4));
             List<Book> books = bookDao.getAll();
@@ -67,7 +56,7 @@ public class Runner {
 
             System.out.println("===============================");
 
-            OrderDao orderDao = DaoFactory.getInstance().getOrderDao();
+            OrderDao orderDao = new DaoFactory(connection).getOrderDao();
 
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd");
             Date orderDate = Date.valueOf("2018-10-26");
@@ -85,7 +74,7 @@ public class Runner {
         } catch (DaoException e) {
             e.getCause();
         }
-
+*/
     }
 
     public static void updateData(String sqlLocation, Statement statement) throws SQLException {

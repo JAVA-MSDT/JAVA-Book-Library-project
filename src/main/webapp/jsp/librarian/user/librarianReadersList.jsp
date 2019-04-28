@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@page isELIgnored="false" %>
+<fmt:setBundle basename="locale"/>
 <!DOCTYPE html>
 
 <head>
@@ -9,19 +9,19 @@
     <meta charset="utf-8">
     <meta name="author" content="Ahmed Samy">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../css/readerMainStyle.css">
-    <link rel="stylesheet" href="../../css/table.css">
+    <link rel="stylesheet" href="../../../css/readerMainStyle.css">
+    <link rel="stylesheet" href="../../../css/table.css">
 </head>
 
 <body>
-    <%@ include file="../constant/librarianNavigation.jsp"%>
+<jsp:include page="/jsp/constant/librarianNavigation.jsp"/>
     <div class="profileContainer">
         <div class="basicInfo">
-            <h1>Readers List:</h1>
+            <h1> <fmt:message key="label.reader.list"/> </h1>
              <div class="btnContainer">
                  <form name="librarian-add-reader" action="controller" method="post">
                      <input type="hidden" name="command" value="librarian-add-reader">
-                     <input class="add-button" type="submit" name="edit" value="Add Reader"/>
+                     <input class="add-button" type="submit" name="edit" value="<fmt:message key="label.add.reader"/>"/>
                  </form>
              </div>
             <div class="container">
@@ -29,28 +29,28 @@
                     <table class="tableList">
                         <tr>
                             <th>
-                                <h3> Id </h3>
+                                <h3> <fmt:message key="label.id"/> </h3>
                             </th>
                             <th>
-                                <h3> Name</h3>
+                                <h3> <fmt:message key="label.name"/> </h3>
                             </th>
                             <th>
-                                <h3> Last Name </h3>
+                                <h3> <fmt:message key="label.reader.last.name"/> </h3>
                             </th>
                             <th>
-                                <h3> E-mail </h3>
+                                <h3> <fmt:message key="label.email"/> </h3>
                             </th>
                             <th>
-                                <h3> Login </h3>
+                                <h3> <fmt:message key="label.login"/> </h3>
                             </th>
                             <th>
-                                <h3> Password</h3>
+                                <h3> <fmt:message key="label.password"/> </h3>
                             </th>
                             <th>
-                                <h3> Blocked </h3>
+                                <h3> <fmt:message key="label.reader.blocked"/> </h3>
                             </th>
                             <th>
-                                <h3> Edit </h3>
+                                <h3> <fmt:message key="button.edit"/> </h3>
                             </th>
 
                         </tr>
@@ -66,7 +66,7 @@
                                 <td>${userList.blocked}</td>
                                 <td><form name="librarian-edit-read" action="controller" method="post">
                                     <input type="hidden" name="command" value="librarian-edit-reader">
-                                    <input class="edit" type="submit" name="edit" value="Edit"/>
+                                    <input class="edit" type="submit" name="edit" value="<fmt:message key="button.edit"/>"/>
                                     <input type="hidden" name="id" value="<c:out value="${userList.id}"/>"/>
                                 </form> </td>
                             </tr>
@@ -79,7 +79,7 @@
         </div>
 
     </div>
-    <%@ include file="../constant/readerFooter.jsp"%>
+<jsp:include page="/jsp/constant/readerFooter.jsp"/>
 </body>
 
 </html>

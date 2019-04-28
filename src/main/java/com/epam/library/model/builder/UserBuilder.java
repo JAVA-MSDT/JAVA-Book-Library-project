@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * @Author (Ahmed Samy)
+ * @Email serenitydiver@hotmail.com
+ */
 public class UserBuilder implements Builder<User> {
 
     /**
@@ -35,6 +39,13 @@ public class UserBuilder implements Builder<User> {
     }
 
 
+    /**
+     *
+     * @param request to extract from it the user data
+     * @param user to extract the fields which we do not want it to be null on the processing of creating
+     *             new user from the request
+     * @return new user after coping the proper data from the request and the user object.
+     */
     public User buildUserToLibrarianUpdate(HttpServletRequest request, User user) {
         String id = request.getParameter(UserConstant.ID);
         String blocked = request.getParameter(UserConstant.BLOCKED);
@@ -49,6 +60,12 @@ public class UserBuilder implements Builder<User> {
         return user1;
     }
 
+    /**
+     *
+     * @param request to extract from it the user data
+     * @return the needed fields which has no default value in the sql table to use it
+     * for saving user in the database
+     */
     public User buildToAddUser(HttpServletRequest request) {
         String name = request.getParameter(UserConstant.NAME);
         String lastName = request.getParameter(UserConstant.LAST_NAME);
@@ -58,6 +75,11 @@ public class UserBuilder implements Builder<User> {
         return new User(name, lastName, email, login, password);
     }
 
+    /**
+     *
+     * @param booleanHolder string with a value true or false
+     * @return boolean value depends on the value of the booleanHolder string
+     */
     private boolean getBooleanValue(String booleanHolder) {
         return booleanHolder.equalsIgnoreCase("true");
     }

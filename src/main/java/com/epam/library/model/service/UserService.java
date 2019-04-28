@@ -1,9 +1,11 @@
 package com.epam.library.model.service;
 
 import com.epam.library.entity.User;
+import com.epam.library.model.builder.UserBuilder;
 import com.epam.library.model.dao.DaoException;
 import com.epam.library.model.dao.DaoFactory;
 import com.epam.library.model.dao.UserDao;
+import com.epam.library.model.dao.query.UserQuery;
 import com.epam.library.util.validate.DataMatcher;
 import com.epam.library.util.validate.DataRegex;
 import com.epam.library.util.validate.UserValidator;
@@ -77,11 +79,24 @@ public class UserService implements Service<User>{
         }
     }
 
-    public void librarianUpdateUser(User user) throws ServiceException {
+    public void updateUser(User user) throws ServiceException {
         try {
             userDao.update(user);
         } catch (DaoException e) {
-            throw new ServiceException("Dao Exception in librarianUpdateUser method in UserService class", e);
+            throw new ServiceException("Dao Exception in updateUser method in UserService class", e);
+        }
+    }
+
+    /**
+     *
+     * @return list of user by the role Reader
+     * @throws ServiceException if something wrong happens while executing the query
+     */
+    public List<User> findAllWhereRoleReader() throws ServiceException {
+        try {
+            return userDao.findAllWhereRoleReader();
+        } catch (DaoException e) {
+            throw new ServiceException("Dao Exception in findAllWhereRoleReader method in UserService class", e);
         }
     }
 

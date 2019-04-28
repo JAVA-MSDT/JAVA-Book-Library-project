@@ -2,15 +2,14 @@ package com.epam.library.model.service;
 
 import com.epam.library.model.dao.DaoFactory;
 
+import java.sql.Connection;
+
 public class ServiceFactory {
 
-    private static final ServiceFactory instance = new ServiceFactory();
-    private final DaoFactory daoFactory = DaoFactory.getInstance();
+    private DaoFactory daoFactory;
 
-    private UserService userService = new UserService(daoFactory.getUserDao());
-
-    public static ServiceFactory getInstance() {
-        return instance;
+    public ServiceFactory(Connection connection){
+        daoFactory = new DaoFactory(connection);
     }
 
     public UserService getUserService() {
@@ -20,4 +19,9 @@ public class ServiceFactory {
     public BookService getBookService(){
         return new BookService(daoFactory.getBookDao());
     }
+
+    public OrderService getOrderService(){
+        return new OrderService(daoFactory.getOrderDao());
+    }
+
 }

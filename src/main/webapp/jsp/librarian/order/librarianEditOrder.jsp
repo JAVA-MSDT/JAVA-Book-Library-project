@@ -1,84 +1,90 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setBundle basename="locale"/>
 <!DOCTYPE html>
 
 <head>
-    <title>Epam Library</title>
+    <title> <fmt:message key="label.title.epam"/> </title>
     <meta charset="utf-8">
     <meta name="author" content="Ahmed Samy">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../css/editForm.css">
-    <link rel="stylesheet" href="../../css/readerMainStyle.css">
+    <link rel="stylesheet" href="../../../css/editForm.css">
+    <link rel="stylesheet" href="../../../css/readerMainStyle.css">
 </head>
 
 <body>
-    <%@ include file="../constant/librarianNavigation.jsp"%>
+<jsp:include page="/jsp/constant/librarianNavigation.jsp"/>
     <div class="profileContainer">
         <div class="basicInfo">
-            <h1>Edit Order:</h1>
+            <h1> <fmt:message key="label.edit.order"/> </h1>
             <div class="container">
                 <div class="editContainerForm">
-                    <form id="librarianOrderForm" name="librarianEditOrder">
+                    <form id="librarianOrderForm" name="librarian-update-order" action="controller" method="post">
+                        <input type="hidden" name="command" value="librarian-update-order">
                         <div class="row">
                             <div class="labelCol">
-                                <h3 class="label">Order Id:</h3>
+                                <h3 class="label"> <fmt:message key="label.id"/> </h3>
                             </div>
                             <div class="inputCol">
-                                <input type="text" name="librarianOrderId">
+                                <input type="text" name="id" value="${requestScope.editOrder.orderId}">
                             </div>
                         </div>
                         <div class="row">
                             <div class="labelCol">
-                                <h3 class="label"> Book Id:</h3>
+                                <h3 class="label"> <fmt:message key="label.order.book.id"/> </h3>
                             </div>
                             <div class="inputCol">
-                                <input type="text" name="librarianBookIdOrder">
+                                <input type="text" name="book_id" value="${requestScope.editOrder.bookId}">
                             </div>
                         </div>
                         <div class="row">
                             <div class="labelCol">
-                                <h3 class="label"> Reader Id:</h3>
+                                <h3 class="label"> <fmt:message key="label.order.reader"/> </h3>
                             </div>
                             <div class="inputCol">
-                                <input type="text" name="librarianReaderIdOrder">
+                                <input type="text" name="user_id" value="${requestScope.editOrder.userId}">
                             </div>
                         </div>
                         <div class="row">
                             <div class="labelCol">
-                                <h3 class="label">Order Date:</h3>
+                                <h3 class="label"> <fmt:message key="label.order.date"/> </h3>
                             </div>
                             <div class="inputCol">
-                                <input type="text" name="librarianOrderDate">
+                                <input type="text" name="order_date" value="${requestScope.editOrder.orderDate}">
                             </div>
                         </div>
                         <div class="row">
                             <div class="labelCol">
-                                <h3 class="label"> Returning Date:</h3>
+                                <h3 class="label"> <fmt:message key="label.order.return.date"/> </h3>
                             </div>
                             <div class="inputCol">
-                                <input type="text" name="librarianReturningDate">
+                                <input type="text" name="returning_date" value="${requestScope.editOrder.returningDate}">
                             </div>
                         </div>
                         <div class="row">
                             <div class="labelCol">
-                                <h3 class="label"> Reading Place:</h3>
+                                <h3 class="label"> <fmt:message key="label.order.reading.place"/> </h3>
                             </div>
                             <div class="inputCol">
-                                <select id="librarianReadingPlace" name="librarianReadingPlace">
+
+                                <input type="text" name="reading_place" value="${requestScope.editOrder.readingPlace}">
+                                <%--<select id="librarianReadingPlace" name="reading_place">
                                 <option value="HOME">Home</option>
                                 <option value="HALL">Hall</option>
-                                </select>
+                                </select>--%>
                             </div>
                         </div>
                         <div class="row">
                             <div class="labelCol">
-                                <h3 class="label"> Returned:</h3>
+                                <h3 class="label"> <fmt:message key="label.order.returned"/> </h3>
                             </div>
                             <div class="inputCol">
-                                <input type="text" name="librarianReturned">
+                                <input type="text" name="book_returned" value="${requestScope.editOrder.bookReturned}">
                             </div>
                         </div>
                         <div class="row">
-                            <input type="submit" value="Save Update">
+                            <input type="submit" value="<fmt:message key="label.update"/> ">
                         </div>
                     </form>
                 </div>
@@ -86,7 +92,7 @@
         </div>
 
     </div>
-    <%@ include file="../constant/readerFooter.jsp"%>
+<jsp:include page="/jsp/constant/readerFooter.jsp"/>
 </body>
 
 </html>

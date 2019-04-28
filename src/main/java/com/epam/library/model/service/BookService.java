@@ -23,7 +23,7 @@ public class BookService implements Service<Book>{
         }
     }
 
-    public List<Book> findAllBooks() throws ServiceException {
+    public List<Book> getAll() throws ServiceException {
         try {
             return bookDao.getAll();
         } catch (DaoException e) {

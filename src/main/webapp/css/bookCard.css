@@ -1,0 +1,54 @@
+*{
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.book-card{
+    border: 2px black solid;
+    padding: 10px;
+    background-color: #f2f2f2;
+    margin: 20px 0 20px 0;
+    float: left;
+    border-radius: 15px;
+}
+.card-image{
+    width: 100%;
+    height: 300px;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+.card-image img{
+    width: inherit;
+    height: inherit;
+    border-radius: 25px;
+}
+.book-name, .book-author{
+    width: 100%;
+    margin: 10px 0 10px 0;
+    padding: 10px;
+}
+
+.book-name h2, .book-author h2{
+    float: left;
+    width: 50%;
+}
+.btn-container{
+    width: 95%;
+    clear: both;
+}
+.book-btn{
+    margin: 5px 0 5px 0;
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: darkslategrey;
+    color: white;
+    font-size: 18px;
+}
+
+.book-card:hover{
+    box-shadow: 0 10px 10px 5px darkgray;
+
+
+}

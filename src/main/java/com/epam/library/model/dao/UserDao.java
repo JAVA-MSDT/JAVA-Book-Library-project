@@ -91,4 +91,13 @@ public class UserDao extends AbstractDao<User> {
         return executeSingleResponseQuery(UserQuery.SELECT_USER_BY_LOGIN, new UserBuilder(), login);
     }
 
+    /**
+     *
+     * @return list of user by the role Reader
+     * @throws DaoException if something wrong happens while executing the query
+     */
+    public List<User> findAllWhereRoleReader() throws DaoException {
+         return executeQuery(UserQuery.SELECT_USER_BY_READER_ROLE, new UserBuilder());
+   }
+
 }

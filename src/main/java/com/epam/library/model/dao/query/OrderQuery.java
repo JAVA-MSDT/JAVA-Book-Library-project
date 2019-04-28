@@ -4,8 +4,8 @@ public class OrderQuery {
     public final static String INSERT_ORDER = "INSERT INTO order_book(book_id, user_id, order_date, returning_date, " +
             "reading_place) VALUES(?, ?, ?, ?, ?)";
 
-    public final static String UPDATE_ORDER_DATA = "UPDATE order_book SET book_id = ? user_id = ? order_date = ?" +
-            "returning_date = ? reading_place = ?, book_returned = ? WHERE id = ?";
+    public final static String UPDATE_ORDER_DATA = "UPDATE order_book SET book_id = ?, user_id = ?, order_date = ?," +
+            "returning_date = ?, reading_place = ?, book_returned = ? WHERE id = ?";
     public final static String UPDATE_ORDER_BOOK_ID = "UPDATE order_book SET book_id = ? WHERE id = ?";
     public final static String UPDATE_ORDER_USER_ID = "UPDATE order_book SET user_id = ? WHERE id = ?";
     public final static String UPDATE_ORDER_ORDER_DATE = "UPDATE order_book SET order_date = ? WHERE id = ?";

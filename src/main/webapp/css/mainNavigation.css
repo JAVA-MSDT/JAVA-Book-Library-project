@@ -9,21 +9,20 @@ body{
     color: wheat;
     display: none;
 }
-
-#navList {
+#nav-list {
     list-style-type: none;
-    margin: 0px auto;
+    margin: 0 auto;
     width: 100%;
     padding: 0;
     overflow: hidden;
     background-color: black;
 }
 
-.topnav li {
+.top-nav li {
     float: left;
 }
 
-.topnav li a,
+.top-nav li a,
 .dropbtn {
     display: inline-block;
     color: white;
@@ -32,7 +31,7 @@ body{
     text-decoration: none;
 }
 
-.topnav li a:hover,
+.top-nav li a:hover,
 .dropdown:hover,
 .dropbtn:hover {
     background-color: red;
@@ -64,15 +63,15 @@ body{
 }
 
 .log-out-btn{
-background-color: gray;
-color: green;
+    background-color: gray;
+    color: green;
 }
 @media screen and (max-width: 600px){
     #navList{
-        display: ;
+
     }
-    
-    .topnav li, .topnav a{
+
+    .top-nav li, .top-nav a{
         width: 100%;
         float: left;
     }

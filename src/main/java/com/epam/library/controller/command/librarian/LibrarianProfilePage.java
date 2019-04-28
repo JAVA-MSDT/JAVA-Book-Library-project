@@ -2,7 +2,7 @@ package com.epam.library.controller.command.librarian;
 
 import com.epam.library.controller.command.Command;
 import com.epam.library.entity.User;
-import com.epam.library.util.PageLocation;
+import com.epam.library.controller.command.PageLocation;
 import com.epam.library.util.constant.UserConstant;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +17,7 @@ public class LibrarianProfilePage implements Command {
             request.setAttribute(UserConstant.USER_ATTRIBUTE, user);
             page = PageLocation.LIBRARIAN_PROFILE;
         }
+
         return page;
     }
 }

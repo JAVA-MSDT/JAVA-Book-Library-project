@@ -14,7 +14,6 @@ import java.util.concurrent.locks.ReentrantLock;
 public class ConnectionPool {
 
     private final static int POOL_SIZE = 5;
-    private final static int ATTEMPTS_LIMIT = 5;
     private static LinkedBlockingQueue<Connection> connectionQueue;
 
     private static Logger logger = LogManager.getLogger();
@@ -25,33 +24,24 @@ public class ConnectionPool {
     /**
      * Logic of creating the pool, also attempting to create it for a several time if it is fails from the first time.
      *
-     * @throws ConnectionPoolException if the attempts of creating the pool exceds the ATTEMPTS_LIMIT value.
      */
-    private ConnectionPool() throws ConnectionPoolException {
-
+    private ConnectionPool() {
         init();
-
     }
 
-
-    private void init() throws ConnectionPoolException {
+    /**
+     * to initialize the connection after receiving it is criteria to create a connection
+     */
+    private void init() {
         logger.log(Level.INFO, "Connecting to DataBase......");
-        int currentPoolSize = 0;
-        int attemptsCount = 0;
         connectionQueue = new LinkedBlockingQueue<>(POOL_SIZE);
-        while (currentPoolSize < POOL_SIZE && attemptsCount < ATTEMPTS_LIMIT) {
             try {
                 connectionQueue.offer(DBConnector.getConnection());
-                currentPoolSize++;
             } catch (SQLException e) {
-                attemptsCount++;
-                logger.log(Level.WARN, "Can't get Connection.....", e);
+                logger.warn( "Can't get Connection.....", e);
             }
-        }
-        if (attemptsCount == ATTEMPTS_LIMIT) {
-            throw new ConnectionPoolException("Attempting to connect the database several time fails.");
-        }
     }
+
     /**
      * @return instance of the pool.
      */
@@ -62,10 +52,8 @@ public class ConnectionPool {
                 if (!isCreated.get()) {
                     instance = new ConnectionPool();
                     isCreated.set(true);
-                    logger.log(Level.INFO, "Pool Created successfully.");
+                    logger.info("Pool Created successfully.");
                 }
-            } catch (ConnectionPoolException e) {
-                logger.log(Level.FATAL, "Can not create pool", e);
             } finally {
                 lock.unlock();
             }
@@ -78,37 +66,38 @@ public class ConnectionPool {
      * @return connection for  the connectionQueue pool.
      */
     public Connection getConnection() {
-        Connection connection = null;
+        Connection connection;
 
         try {
             connection = connectionQueue.take();
         } catch (InterruptedException e) {
-            logger.log(Level.INFO, "Can't get the connection from the connectionQueue at ConnectionPool Class");
-            Thread.currentThread().interrupt();
+            throw new RuntimeException("Can't get the connection from the connectionQueue at ConnectionPool Class", e);
+
         }
         return connection;
     }
 
-
+    /**
+     * To return the free connection to the queue
+     * @param connection the is already free
+     */
     public void returnConnection(Connection connection) {
         connectionQueue.offer(connection);
-        logger.log(Level.INFO, "Connection returned to the pool successfully");
+        logger.debug("Connection returned to the pool successfully");
     }
 
-    public static void closePool(){
-        int attemptsCount = 0;
-        while (!connectionQueue.isEmpty() && attemptsCount < ATTEMPTS_LIMIT){
+    /**
+     * Closing the connection pool
+     */
+    public void closePool(){
+        while (!connectionQueue.isEmpty()){
             try {
                 connectionQueue.take().close();
             } catch (SQLException e) {
-                attemptsCount++;
-                logger.log(Level.WARN,"Can not close the connection", e);
+                logger.warn("Can not close the connection", e);
             } catch (InterruptedException e) {
-                logger.log(Level.ERROR, "Can not close the pool", e);
+                logger.error("Can not close the pool", e);
             }
-        }
-        if(!connectionQueue.isEmpty()){
-            logger.log(Level.ERROR, "Can not close the pool");
         }
     }
 }

@@ -8,6 +8,7 @@ public class UserConstant {
     public final static String USER_LIST = "userList";
     public final static String EDIT_USER = "readerEdit";
     public final static String BLOCK_MESSAGE = "blocked";
+    public final static String INVALID_LOGIN = "invalidLogin";
 
     public final static String ID = "id";
     public final static String NAME = "name";

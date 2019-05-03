@@ -59,6 +59,6 @@
     <a class="regbtn" href="jsp/librarian/librarianProfile.jsp"> Librarian Profile </a>
 
 </div>
-<%@include file="jsp/constant/footer.html" %>
+<%@include file="jsp/constant/footer.jsp" %>
 </body>
 </html>

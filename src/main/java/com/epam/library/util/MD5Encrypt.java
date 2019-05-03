@@ -10,12 +10,17 @@ public class MD5Encrypt {
 
     }
 
-    public static String convert(String st){
+    /**
+     *
+     * @param toBeEncrypted is the text that we want to encrypt it
+     * @return encrypted value
+     */
+    public static String encrypt(String toBeEncrypted){
         StringBuilder sb = new StringBuilder();
         try {
             MessageDigest messageDigest = MessageDigest.getInstance(ALGORITHM);
 
-        byte[] bytes = st.getBytes();
+        byte[] bytes = toBeEncrypted.getBytes();
         byte[] digested = messageDigest.digest(bytes);
 
 

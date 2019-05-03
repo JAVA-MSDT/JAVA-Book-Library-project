@@ -9,16 +9,16 @@ public class EnumService {
 
     /**
      * @param values from enum class as array
-     * @param s      String that we need to compare with the values of the enum
+     * @param string  that we need to compare with the values of the enum
      * @return the enum value if it is equal to the string or null if it is not in the list.
      */
-    public static String getString(Enum[] values, String s) {
+    public static String getString(Enum[] values, String string) {
         ArgumentValidator.checkForNull(values, "Not allow for null enum values in EnumService");
-        ArgumentValidator.checkForNullOrEmptyString(s, "Not allow for null or empty string in EnumService");
+        ArgumentValidator.checkForNullOrEmptyString(string, "Not allow for null or empty string in EnumService");
 
         String findingValue = null;
         for (Enum value : values) {
-            if (s.toUpperCase().equalsIgnoreCase(value.name())) {
+            if (string.toUpperCase().equalsIgnoreCase(value.name())) {
                 findingValue = value.name();
             }
         }
@@ -27,15 +27,15 @@ public class EnumService {
 
     /**
      *
-     * @param s from the database at this project
+     * @param role from the database at this project
      * @return enum element for the role to setRole() in User class
      */
-    public static Role getRole(String s) {
-        ArgumentValidator.checkForNullOrEmptyString(s, "Not allow for null or empty string in EnumService");
+    public static Role getRole(String role) {
+        ArgumentValidator.checkForNullOrEmptyString(role, "Not allow for null or empty string in EnumService");
 
         Role findingValue = null;
         for (Role value : Role.values()) {
-            if (s.toUpperCase().equalsIgnoreCase(value.name())) {
+            if (role.toUpperCase().equalsIgnoreCase(value.name())) {
                 findingValue = value;
             }
         }

@@ -1,12 +1,18 @@
 package com.epam.library;
 
 
+import com.epam.library.entity.Book;
+import com.epam.library.entity.Order;
 import com.epam.library.entity.User;
 import com.epam.library.model.builder.UserBuilder;
+import com.epam.library.model.dao.*;
+import com.epam.library.model.db.ConnectionPool;
+import com.epam.library.model.service.*;
 
 
 import java.io.*;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import java.util.Collections;
@@ -16,39 +22,35 @@ public class Runner {
     public static void main(String[] args) {
         String CREATE_SQL_LOCATION = "src/main/sql/createTables.sql";
          String INSERT_INTO_TABLE = "src/main/sql/insertData.sql";
-      /*  try {
+        try {
            // Class.forName(DBInfo.DB_DRIVER);
             Connection connection = ConnectionPool.getInstance().getConnection();
             Statement statement = connection.createStatement();
-             statement.executeUpdate("DROP DATABASE " + DBInfo.DB_NAME);
-             statement.executeUpdate("CREATE DATABASE " + DBInfo.DB_NAME);
+           //  statement.executeUpdate("DROP DATABASE " + "library");
+          //   statement.executeUpdate("CREATE DATABASE " + "library");
             System.out.println("Creating .....");
-            statement.executeUpdate("USE " + DBInfo.DB_NAME);
+            statement.executeUpdate("USE " + "library");
             System.out.println("database using....");
 
-              updateData(DBInfo.CREATE_SQL_LOCATION, statement);
+           //   updateData(CREATE_SQL_LOCATION, statement);
             System.out.println("Creating tables Done Successfully!");
 
-              updateData(DBInfo.INSERT_INTO_TABLE, statement);
+           //   updateData(INSERT_INTO_TABLE, statement);
             System.out.println("Data Inserted Successfully..!");
 
             System.out.println("==================================");
             System.out.println("Testing OrderDao");
 
-
-            UserDao userDao = new DaoFactory(connection).getUserDao();
-            List<User> users = userDao.getAll();
+            ServiceFactory serviceFactory = new ServiceFactory(connection);
+           UserService userService = serviceFactory.getUserService();
+            List<User> users = userService.getAllUsers();
             for(User u : users){
                 System.out.println(u);
             }
 
-
-            UserService userService = new ServiceFactory(connection).getUserService();
             System.out.println("===============================");
-            BookDao bookDao = new DaoFactory(connection).getBookDao();
-
-            System.out.println(bookDao.getById(4));
-            List<Book> books = bookDao.getAll();
+            BookService bookService = serviceFactory.getBookService();
+            List<Book> books = bookService.getAll();
             for (Book b : books){
                 System.out.println(b);
             }
@@ -56,7 +58,7 @@ public class Runner {
 
             System.out.println("===============================");
 
-            OrderDao orderDao = new DaoFactory(connection).getOrderDao();
+            OrderService orderService = serviceFactory.getOrderService();
 
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd");
             Date orderDate = Date.valueOf("2018-10-26");
@@ -64,20 +66,19 @@ public class Runner {
             String mySqlOrderDate = simpleDateFormat.format(orderDate);
             String mySqlREturningDate = simpleDateFormat.format(returningDate);
 
-            List<Order> orders = orderDao.getAll();
+            List<Order> orders = orderService.getAll();
             for(Order o : orders){
                 System.out.println(o);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (DaoException e) {
-            e.getCause();
+        } catch (ServiceException e) {
+            e.getMessage();
         }
-*/
     }
 
-    public static void updateData(String sqlLocation, Statement statement) throws SQLException {
+    private static void updateData(String sqlLocation, Statement statement) throws SQLException {
 
         File file = new File(sqlLocation);
 
@@ -117,7 +118,7 @@ public class Runner {
                 }
             }
         } catch (SQLException var4) {
-
+            System.out.println("Var4");
         }
 
     }
@@ -135,7 +136,7 @@ public class Runner {
             }
 
         } catch (SQLException var4) {
-
+            System.out.println("Var4");
         }
         return Collections.emptyList();
     }

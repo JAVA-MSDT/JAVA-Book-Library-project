@@ -22,14 +22,7 @@
                 <div class="editContainerForm">
                     <form id="librarianReaderForm" name="librarian-update-reader" action="controller" method="post">
                         <input type="hidden" name="command" value="librarian-update-reader">
-                        <div class="row">
-                            <div class="labelCol">
-                                <h3 class="label"> <fmt:message key="label.id"/> </h3>
-                            </div>
-                            <div class="inputCol">
-                                <input type="text" name="id" value="${requestScope.readerEdit.id}" readonly>
-                            </div>
-                        </div>
+                        <input type="hidden" name="id" value="${requestScope.readerEdit.id}">
                         <div class="row">
                             <div class="labelCol">
                                 <h3 class="label"> <fmt:message key="label.name"/> </h3>

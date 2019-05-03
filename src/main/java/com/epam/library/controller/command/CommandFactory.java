@@ -1,19 +1,14 @@
 package com.epam.library.controller.command;
 
 
+import com.epam.library.controller.command.reader.order.*;
+import com.epam.library.controller.command.book.ViewBookCommand;
 import com.epam.library.controller.command.librarian.*;
-import com.epam.library.controller.command.librarian.book.LibrarianAddBook;
-import com.epam.library.controller.command.librarian.book.LibrarianBookStore;
-import com.epam.library.controller.command.librarian.book.LibrarianEditBook;
-import com.epam.library.controller.command.librarian.book.LibrarianUpdateBook;
-import com.epam.library.controller.command.librarian.order.LibrarianAddOrder;
-import com.epam.library.controller.command.librarian.order.LibrarianEditOrder;
-import com.epam.library.controller.command.librarian.order.LibrarianOrderList;
-import com.epam.library.controller.command.librarian.order.LibrarianUpdateOrder;
-import com.epam.library.controller.command.librarian.user.LibrarianAddUser;
-import com.epam.library.controller.command.librarian.user.LibrarianDisplayUser;
-import com.epam.library.controller.command.librarian.user.LibrarianEditUser;
-import com.epam.library.controller.command.librarian.user.LibrarianUpdateUser;
+import com.epam.library.controller.command.librarian.book.*;
+import com.epam.library.controller.command.librarian.order.*;
+import com.epam.library.controller.command.librarian.user.*;
+import com.epam.library.controller.command.book.BookStoreCommand;
+import com.epam.library.controller.command.reader.*;
 import com.epam.library.model.db.ConnectionPool;
 import com.epam.library.model.service.ServiceFactory;
 
@@ -41,35 +36,51 @@ public class CommandFactory implements AutoCloseable {
 
                 // LIBRARIAN CLASSES
             case "LIBRARIAN_PROFILE":
-                return new LibrarianProfilePage();
+                return new LibrarianProfileCommand();
 
             case "LIBRARIAN_BOOK_STORE":
-                return new LibrarianBookStore(serviceFactory.getBookService());
+                return new LibrarianBookStoreCommand(serviceFactory.getBookService());
             case "LIBRARIAN_EDIT_BOOK":
-                return new LibrarianEditBook(serviceFactory.getBookService());
+                return new LibrarianEditBookCommand(serviceFactory.getBookService());
             case "LIBRARIAN_UPDATE_BOOK":
-                return new LibrarianUpdateBook(serviceFactory.getBookService());
+                return new LibrarianUpdateBookCommand(serviceFactory.getBookService());
             case "LIBRARIAN_ADD_BOOK":
-                return new LibrarianAddBook();
+                return new LibrarianAddBookCommand();
 
             case "LIBRARIAN_ORDER_LIST":
-                return new LibrarianOrderList(serviceFactory.getOrderService());
+                return new LibrarianOrderListCommand(serviceFactory.getOrderService());
             case "LIBRARIAN_EDIT_ORDER":
-                return new LibrarianEditOrder(serviceFactory.getOrderService());
+                return new LibrarianEditOrderCommand(serviceFactory.getOrderService());
             case "LIBRARIAN_ADD_ORDER":
-                return new LibrarianAddOrder();
+                return new LibrarianAddOrderCommand();
             case "LIBRARIAN_UPDATE_ORDER":
-                return new LibrarianUpdateOrder(serviceFactory.getOrderService());
+                return new LibrarianUpdateOrderCommand(serviceFactory.getOrderService(), serviceFactory.getBookService());
 
             case "LIBRARIAN_DISPLAY_READERS":
-                return new LibrarianDisplayUser(serviceFactory.getUserService());
+                return new LibrarianDisplayUserCommand(serviceFactory.getUserService());
             case "LIBRARIAN_EDIT_READER":
-                return new LibrarianEditUser(serviceFactory.getUserService());
+                return new LibrarianEditUserCommand(serviceFactory.getUserService());
             case "LIBRARIAN_UPDATE_READER":
-                return new LibrarianUpdateUser(serviceFactory.getUserService());
+                return new LibrarianUpdateUserCommand(serviceFactory.getUserService());
             case "LIBRARIAN_ADD_READER":
-                return new LibrarianAddUser();
+                return new LibrarianAddUserCommand();
+
+                //Reader
+            case"READER_PROFILE":
+                return new ReaderProfileCommand();
+            case "DISPLAY_BOOK":
+                return new BookStoreCommand(serviceFactory.getBookService());
+            case "CONFIRM_ORDER":
+                return new ConfirmOrderCommand(serviceFactory.getBookService(), serviceFactory.getOrderService());
+            case "READER_ORDER":
+                return new ReaderOrderCommand(serviceFactory.getOrderService());
+                //book
+            case "VIEW_BOOK":
+                return new ViewBookCommand(serviceFactory.getBookService());
+            case "ORDER_BOOK":
+                return new OrderBookCommand(serviceFactory.getBookService());
             default:
+
                 throw new IllegalArgumentException("Illegal Command");
         }
     }

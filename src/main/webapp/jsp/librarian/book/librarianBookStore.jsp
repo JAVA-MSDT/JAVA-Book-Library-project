@@ -29,16 +29,16 @@
                     <table class="tableList">
                         <tr>
                             <th>
-                                <h3> <fmt:message key="label.id"/> </h3>
+                                <h3><fmt:message key="label.id"/></h3>
                             </th>
                             <th>
-                                <h3> <fmt:message key="label.name"/> </h3>
+                                <h3><fmt:message key="label.name"/></h3>
                             </th>
                             <th>
-                                <h3> <fmt:message key="label.quantity"/> </h3>
+                                <h3><fmt:message key="label.quantity"/></h3>
                             </th>
                             <th>
-                                <h3> <fmt:message key="button.edit"/> </h3>
+                                <h3><fmt:message key="button.edit"/></h3>
                             </th>
                         </tr>
                         <c:forEach varStatus="loop" var="bookList" items="${requestScope.bookList}">

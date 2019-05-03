@@ -10,7 +10,7 @@
             <button id="mobile" onclick="showMenu()">Menu</button>
     
             <ul id="nav-list">
-            <li><a href="controller?command=librarian-profile"><fmt:message key="nav.librarian"/></a></li>
+            <li><a href="controller?command=librarian-profile"><fmt:message key="nav.profile"/></a></li>
             <li><a href="controller?command=librarian-book-store"><fmt:message key="label.book.store"/></a></li>
             <li><a href="controller?command=librarian-order-list"><fmt:message key="label.order.list"/></a></li>
             <li><a href="controller?command=librarian-display-readers"><fmt:message key="label.reader.list"/></a></li>

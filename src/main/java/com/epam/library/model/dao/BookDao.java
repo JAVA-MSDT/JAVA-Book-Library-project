@@ -60,4 +60,8 @@ public class BookDao extends AbstractDao<Book> {
         String[] bookInfo = {item.getName(), String.valueOf(item.getQuantity()), String.valueOf(item.getId())};
         executeUpdate(BookQuery.UPDATE_BOOK, bookInfo);
     }
+
+    public void updateQuantity(Long bookId, int quantity) throws DaoException {
+        executeUpdate(BookQuery.UPDATE_BOOK_QUANTITY, String.valueOf(quantity), String.valueOf(bookId));
+    }
 }

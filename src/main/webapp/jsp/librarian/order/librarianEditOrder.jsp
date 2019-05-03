@@ -22,14 +22,8 @@
                 <div class="editContainerForm">
                     <form id="librarianOrderForm" name="librarian-update-order" action="controller" method="post">
                         <input type="hidden" name="command" value="librarian-update-order">
-                        <div class="row">
-                            <div class="labelCol">
-                                <h3 class="label"> <fmt:message key="label.id"/> </h3>
-                            </div>
-                            <div class="inputCol">
-                                <input type="text" name="id" value="${requestScope.editOrder.orderId}">
-                            </div>
-                        </div>
+                        <input type="hidden" name="id" value="${requestScope.editOrder.orderId}">
+
                         <div class="row">
                             <div class="labelCol">
                                 <h3 class="label"> <fmt:message key="label.order.book.id"/> </h3>

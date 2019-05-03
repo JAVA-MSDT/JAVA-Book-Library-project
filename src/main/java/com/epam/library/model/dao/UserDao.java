@@ -40,7 +40,7 @@ public class UserDao extends AbstractDao<User> {
     public void save(User item) throws DaoException {
         ArgumentValidator.checkForNull(item, "User item in save method at UserDao class can not be null");
 
-        String encryptedPassword = MD5Encrypt.convert(item.getPassword());
+        String encryptedPassword = MD5Encrypt.encrypt(item.getPassword());
         String[] userInfo = {item.getName(), item.getLastName(), item.getEmail(), item.getLogin(), encryptedPassword};
 
         executeUpdate(UserQuery.INSERT_USER, userInfo);
@@ -60,7 +60,7 @@ public class UserDao extends AbstractDao<User> {
         ArgumentValidator.checkForNull(item, "User item in update method at UserDao class can not be null");
 
         String blockStatues = item.isBlocked() ? "1" : "0";
-        String encryptedPassword = MD5Encrypt.convert(item.getPassword());
+        String encryptedPassword = MD5Encrypt.encrypt(item.getPassword());
         String[] userInfo = {item.getName(), item.getLastName(), item.getEmail(), item.getLogin(), encryptedPassword,
                 item.getRole().name(), blockStatues, String.valueOf(item.getId())};
 
@@ -80,7 +80,7 @@ public class UserDao extends AbstractDao<User> {
         ArgumentValidator.checkForNullOrEmptyString(login, "Not allow for a null or empty login in findByLoginAndPassword at UserDao class");
         ArgumentValidator.checkForNullOrEmptyString(login, "Not allow for a null or empty password in findByLoginAndPassword at UserDao class");
 
-        String encryptedPassword = MD5Encrypt.convert(password);
+        String encryptedPassword = MD5Encrypt.encrypt(password);
         return executeSingleResponseQuery(UserQuery.SELECT_USER_BY_LOGIN_PASSWORD, new UserBuilder(), login, encryptedPassword);
     }
 

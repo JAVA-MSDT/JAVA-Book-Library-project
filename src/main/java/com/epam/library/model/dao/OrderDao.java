@@ -53,4 +53,13 @@ public class OrderDao extends AbstractDao<Order> {
 
         executeUpdate(OrderQuery.UPDATE_ORDER_DATA, orderInfo);
     }
+
+    public List<Order> findOrderByUserId(long userId) throws DaoException {
+        return executeQuery(OrderQuery.SELECT_ORDER_BY_USER_ID, new OrderBuilder(), String.valueOf(userId));
+    }
+
+    public List<Order> getAllOrder() throws DaoException {
+        return executeQuery(OrderQuery.SELECT_ORDER_FOR_REVIEW, new OrderBuilder());
+    }
+
 }

@@ -2,6 +2,11 @@
 body{
     margin: 0 auto;
 }
+.top-nav{
+    position: fixed;
+    top: 0;
+}
+
 #mobile{
     padding: 10px;
     background-color: black;

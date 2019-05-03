@@ -46,3 +46,9 @@ VALUES ('1', '5', '2010-01-11 14:56:59', '2010-01-20 15:56:59', 'HALL');
 
 INSERT INTO order_book(book_id, user_id, order_date, returning_date, reading_place)
 VALUES ('3', '3', '2015-04-13 17:56:59', '2015-05-20 15:56:59', 'HOME');
+
+/*SELECT order_book.id, user_table.name, user_table.email, book.name, order_book.order_date,
+order_book.returning_date, order_book.reading_place, order_book.book_returned FROM order_book
+INNER JOIN user_table ON order_book.user_id = user_table.id
+INNER JOIN book ON order_book.book_id = book.id;
+*/

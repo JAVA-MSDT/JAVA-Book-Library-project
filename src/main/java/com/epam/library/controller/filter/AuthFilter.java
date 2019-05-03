@@ -12,11 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-//@WebFilter("/controller")
+@WebFilter("/controller")
 public class AuthFilter implements Filter {
 
     @Override
@@ -30,15 +28,23 @@ public class AuthFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession session = request.getSession();
-        User user =(User) session.getAttribute(UserConstant.USER_ATTRIBUTE);
+        User user = (User) session.getAttribute(UserConstant.USER_ATTRIBUTE);
         String command = request.getParameter("command");
-        System.out.println("Command is:" + command);
-        System.out.println("User is: " + user);
-        if(user.getRole() == Role.LIBRARIAN && librarianPage(command)){
+
+        if (!commonCommand(command)) {
+            if (user.getRole() == Role.LIBRARIAN && librarianCommand(command)) {
+
+                filterChain.doFilter(servletRequest, servletResponse);
+            } else if(user.getRole() == Role.READER && readerCommand(command)) {
+
+                filterChain.doFilter(servletRequest, servletResponse);
+            } else{
+                response.sendRedirect(PageLocation.LOGIN_PAGE);
+
+            }
+        }else {
+       
             filterChain.doFilter(servletRequest, servletResponse);
-        }
-        else {
-            response.sendRedirect(PageLocation.LOGIN_PAGE);
         }
     }
 
@@ -46,25 +52,45 @@ public class AuthFilter implements Filter {
     public void destroy() {
 
     }
-    public boolean librarianPage(String command){
-        List<String> commandPage = new ArrayList<>();
-        commandPage.add("librarian-profile");
-        commandPage.add("librarian-book-store");
-        commandPage.add("librarian-order-list");
-        commandPage.add("librarian-display-readers");
 
-        return commandPage.contains(command);
+    private boolean librarianCommand(String command) {
+        List<String> commandList = new ArrayList<>();
+        commandList.add("librarian-profile");
+
+        commandList.add("librarian-book-store");
+        commandList.add("librarian-edit-book");
+        commandList.add("librarian-add-book");
+        commandList.add("librarian-update-book");
+
+        commandList.add("librarian-order-list");
+        commandList.add("librarian-edit-order");
+        commandList.add("librarian-add-order");
+        commandList.add("librarian-update-order");
+
+        commandList.add("librarian-display-readers");
+        commandList.add("librarian-edit-reader");
+        commandList.add("librarian-add-reader");
+        commandList.add("librarian-update-reader");
+
+        return commandList.contains(command);
     }
 
-    public String adminpage(String command){
-        Map<String, String> pages = new HashMap<>();
-        pages.put(command, PageLocation.ADMIN_PAGE);
-        return pages.getOrDefault(command, null);
+    private boolean readerCommand(String command) {
+        List<String> commandList = new ArrayList<>();
+        commandList.add("reader-profile");
+        commandList.add("reader-book");
+        commandList.add("confirm-order");
+        commandList.add("reader-order");
+        return commandList.contains(command);
     }
 
-    public String readerPage(String command){
-        Map<String, String> pages = new HashMap<>();
-        pages.put(command, PageLocation.ADMIN_PAGE);
-        return pages.getOrDefault(command, null);
+    private boolean commonCommand(String command) {
+        List<String> commandList = new ArrayList<>();
+        commandList.add("Login");
+        commandList.add("logout");
+        commandList.add("display-book");
+        commandList.add("view-book");
+        commandList.add("order-book");
+        return commandList.contains(command);
     }
 }

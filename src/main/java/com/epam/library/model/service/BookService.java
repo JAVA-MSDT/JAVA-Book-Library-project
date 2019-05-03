@@ -3,6 +3,7 @@ package com.epam.library.model.service;
 import com.epam.library.entity.Book;
 import com.epam.library.model.dao.BookDao;
 import com.epam.library.model.dao.DaoException;
+import com.epam.library.model.dao.query.BookQuery;
 import com.epam.library.util.validate.ArgumentValidator;
 
 import java.util.List;
@@ -54,6 +55,14 @@ public class BookService implements Service<Book>{
             bookDao.update(book);
         } catch (DaoException e) {
             throw new ServiceException("exception in updateBook at bookService class", e);
+        }
+    }
+
+    public void updateQuantity(Long bookId, int quantity) throws ServiceException {
+        try {
+            bookDao.updateQuantity(bookId, quantity);
+        } catch (DaoException e) {
+            throw new ServiceException("exception in updateQuantity at bookService class", e);
         }
     }
 

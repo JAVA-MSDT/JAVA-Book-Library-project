@@ -28,7 +28,7 @@ public class BookBuilder implements Builder<Book> {
     }
 
     /**
-     * To help build the book for the update in the LibrarianUpdateBook class
+     * To help build the book for the update in the LibrarianUpdateBookCommand class
      * @param request to extract the book info from a form
      * @return  book after extracting it's information
      */
@@ -41,7 +41,7 @@ public class BookBuilder implements Builder<Book> {
     }
 
     /**
-     * To help building the book for the update in the LibrarianUpdateBook class
+     * To help building the book for the update in the LibrarianUpdateBookCommand class
      * @param request to extract the book info from a form to add it in the database
      * @return  book after extracting it's information
      */

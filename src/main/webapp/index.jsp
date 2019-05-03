@@ -17,9 +17,7 @@
 <body>
 
 <jsp:include page="jsp/constant/navigation.jsp"/>
-<header>
-    <img src="img/book.jpg" class="headerImage" alt="header image">
-</header>
+<jsp:include page="jsp/constant/header.jsp"/>
 <div class="mainRow">
     <div class="epamImage">
         <h2>Library</h2>
@@ -63,6 +61,6 @@
     </div>
 </div>
 
-<%@include file="/jsp/constant/footer.html" %>
+<%@include file="/jsp/constant/footer.jsp" %>
 </body>
 </html>

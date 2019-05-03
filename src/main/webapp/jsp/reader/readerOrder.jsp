@@ -1,4 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setBundle basename="locale"/>
+
 <!DOCTYPE html>
 
 <head>
@@ -6,12 +10,12 @@
     <meta charset="utf-8">
     <meta name="author" content="Ahmed Samy">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href=".../../../../css/mainStyle.css">
-    <link rel="stylesheet" href=".../../../../css/tableStyle.css">
+    <link rel="stylesheet" href="../../css/readerMainStyle.css">
+    <link rel="stylesheet" href="../../css/table.css">
 </head>
 
 <body>
-    <%@ include file="../constant/readerNavigation.html"%>
+    <%@ include file="../constant/readerNavigation.jsp"%>
     <div class="profileContainer">
         <div class="basicInfo">
             <h1>My Order:</h1>
@@ -32,62 +36,23 @@
                                 <h2> Returning Date </h2>
                             </th>
                         </tr>
-                        <tr>
-                            <td>
-                                <h3> 1 </h3>
-                            </td>
-                            <td>
-                                <h3> CS50</h3>
-                            </td>
-                            <td>
-                                <h3> 11-02-2018</h3>
-                            </td>
-                            <td>
-                                <h3> 15-02-2018</h3>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h3> 2 </h3>
-                            </td>
-                            <td>
-                                <h3> JAVA SERVLET</h3>
-                            </td>
-                            <td>
-                                <h3> 21-04-2018</h3>
-                            </td>
-                            <td>
-                                <h3> 29-04-2018</h3>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h3> 3 </h3>
-                            </td>
-                            <td>
-                                <h3> JAVA EE</h3>
-                            </td>
-                            <td>
-                                <h3> 01-06-2018</h3>
-                            </td>
-                            <td>
-                                <h3> 10-06-2018</h3>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h3> 4 </h3>
-                            </td>
-                            <td>
-                                <h3> JAVA SE</h3>
-                            </td>
-                            <td>
-                                <h3> 22-03-2019</h3>
-                            </td>
-                            <td>
-                                <h3> 27-03-2019</h3>
-                            </td>
-                        </tr>
+                        <c:forEach varStatus="loop" var="orderList" items="${requestScope.orderList}">
+                            <tr>
+                                <th>
+                                    <h2> ${loop.count}</h2>
+                                </th>
+                                <th>
+                                    <h2> Name</h2>
+                                </th>
+                                <th>
+                                    <h2> ${orderList.orderDate} </h2>
+                                </th>
+                                <th>
+                                    <h2> ${orderList.returningDate} </h2>
+                                </th>
+                            </tr>
+                        </c:forEach>
+
                     </table>
                 </div>
             </div>

@@ -58,7 +58,7 @@ public class LoginCommand implements Command {
                     readerPage = PageLocation.LIBRARIAN_PROFILE;
                     break;
                 case "READER":
-                    readerPage = PageLocation.READER_PAGE;
+                    readerPage = PageLocation.READER_PROFILE;
                     break;
             }
         }else{

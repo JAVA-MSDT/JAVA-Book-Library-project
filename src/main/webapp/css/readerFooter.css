@@ -1,10 +1,11 @@
 
-*{
-box-sizing: border-box;
-margin: 0 auto;
-padding: 0;}
+* {
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 0;
+}
 
-.profileFooter{
+.profileFooter {
     background-color: brown;
     height: auto;
     padding: 20px;
@@ -13,7 +14,7 @@ padding: 0;}
     clear: both;
 }
 
-.profileFooter a{
+.profileFooter a {
     color: aqua;
     padding-left: 5px;
 }

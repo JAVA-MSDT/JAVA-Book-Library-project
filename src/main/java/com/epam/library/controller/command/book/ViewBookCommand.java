@@ -18,11 +18,17 @@ public class ViewBookCommand implements Command {
         this.bookService = bookService;
     }
 
+    /**
+     * @param request  from the jsp
+     * @param response to the jsp
+     * @return page which hold information about a specific book to display it on a separate page
+     * @throws ServiceException is something wrong during the connection with database
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String bookId = request.getParameter(BookConstant.BOOK_ID);
-        Optional<Book> optionalBook= bookService.findById(Long.valueOf(bookId));
-        if(optionalBook.isPresent()){
+        Optional<Book> optionalBook = bookService.getById(Long.valueOf(bookId));
+        if (optionalBook.isPresent()) {
             request.setAttribute(BookConstant.BOOK_ATTRIBUTE, optionalBook.get());
             return PageLocation.VIEW_BOOK;
         }

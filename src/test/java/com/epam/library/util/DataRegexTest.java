@@ -13,22 +13,23 @@ import java.util.regex.Matcher;
 public class DataRegexTest {
 
     @Test
-    public void e_mailRegex(){
+    public void e_mailRegex() {
         String email = "serenitydiver@hotmail.com";
         Matcher matcher = DataMatcher.matches(DataRegex.E_MAIL, email);
 
         Assert.assertTrue(matcher.matches());
 
     }
+
     @Test
-    public void wordRegex(){
+    public void wordRegex() {
         String word = "Ahmed";
         Matcher matcher = DataMatcher.matches(DataRegex.LOGIN, word);
         Assert.assertTrue(matcher.matches());
     }
 
     @Test
-    public void numberRegex(){
+    public void numberRegex() {
         String number = "4400";
         Matcher matcher = DataMatcher.matches(DataRegex.NUMBER, number);
 
@@ -36,7 +37,7 @@ public class DataRegexTest {
     }
 
     @Test
-    public void passwordRegex(){
+    public void passwordRegex() {
         String password = "4400@jCkmf";
         Matcher matcher = DataMatcher.matches(DataRegex.PASSWORD, password);
 
@@ -44,7 +45,7 @@ public class DataRegexTest {
     }
 
     @Test
-    public void wordAnyLanguageRegex(){
+    public void wordAnyLanguageRegex() {
         String word = "سامى";
         Matcher matcher = DataMatcher.matches(DataRegex.WORDS_ANY_LANGUAGE, word);
 

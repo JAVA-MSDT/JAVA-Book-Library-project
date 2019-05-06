@@ -3,20 +3,19 @@ package com.epam.library.model.service;
 import com.epam.library.entity.Book;
 import com.epam.library.model.dao.BookDao;
 import com.epam.library.model.dao.DaoException;
-import com.epam.library.model.dao.query.BookQuery;
 import com.epam.library.util.validate.ArgumentValidator;
 
 import java.util.List;
 import java.util.Optional;
 
-public class BookService implements Service<Book>{
+public class BookService implements Service<Book> {
     private BookDao bookDao;
 
-    public BookService(BookDao bookDao){
+    public BookService(BookDao bookDao) {
         this.bookDao = bookDao;
     }
 
-    public Optional<Book> findById(long id) throws ServiceException {
+    public Optional<Book> getById(long id) throws ServiceException {
         try {
             return bookDao.getById(id);
         } catch (DaoException e) {
@@ -32,12 +31,12 @@ public class BookService implements Service<Book>{
         }
     }
 
-    public void saveBook(Book book) throws ServiceException {
-        ArgumentValidator.checkForNull(book, "Not allow for a null book in saveBook at bookService class");
+    public void save(Book book) throws ServiceException {
+        ArgumentValidator.checkForNull(book, "Not allow for a null book in save at bookService class");
         try {
             bookDao.save(book);
         } catch (DaoException e) {
-            throw new ServiceException("exception in saveBook at bookService class", e);
+            throw new ServiceException("exception in save at bookService class", e);
         }
     }
 
@@ -45,16 +44,16 @@ public class BookService implements Service<Book>{
         try {
             bookDao.removeById(id);
         } catch (DaoException e) {
-            throw new ServiceException("exception in saveBook at bookService class", e);
+            throw new ServiceException("exception in save at bookService class", e);
         }
     }
 
-    public void updateBook(Book book) throws ServiceException {
-        ArgumentValidator.checkForNull(book, "Not allow for a null book in updateBook at bookService class");
+    public void update(Book book) throws ServiceException {
+        ArgumentValidator.checkForNull(book, "Not allow for a null book in update at bookService class");
         try {
             bookDao.update(book);
         } catch (DaoException e) {
-            throw new ServiceException("exception in updateBook at bookService class", e);
+            throw new ServiceException("exception in update at bookService class", e);
         }
     }
 

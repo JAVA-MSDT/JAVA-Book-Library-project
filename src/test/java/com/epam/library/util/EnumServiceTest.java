@@ -7,11 +7,11 @@ import org.junit.Test;
 
 public class EnumServiceTest {
     private final static String STRING_IN_ENUM = "admin";
-    private final static String ROLE = "reader";
+    private final static String ROLE = "user";
     private final static String READING_PLACE = "home";
 
     @Test
-    public void getStringPass(){
+    public void getStringPass() {
         String actual = "ADMIN";
         String expected = EnumService.getString(Role.values(), STRING_IN_ENUM);
 
@@ -19,7 +19,7 @@ public class EnumServiceTest {
     }
 
     @Test
-    public void getRolePass(){
+    public void getRolePass() {
         Role actual = Role.READER;
         Role expected = EnumService.getRole(ROLE);
 
@@ -27,7 +27,7 @@ public class EnumServiceTest {
     }
 
     @Test
-    public void getReadingPlacePass(){
+    public void getReadingPlacePass() {
         ReadingPlace actual = ReadingPlace.HOME;
         ReadingPlace expected = EnumService.getReadingPlace(READING_PLACE);
 

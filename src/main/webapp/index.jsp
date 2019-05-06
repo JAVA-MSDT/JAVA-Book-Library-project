@@ -2,8 +2,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<fmt:bundle basename="locale"/>
-<html>
+
+<fmt:setLocale value="${sessionScope.language}"/>
+<fmt:setBundle basename="locale"/>
+<html lang="${sessionScope.language}">
 
 <head>
     <title>Epam Library</title>
@@ -15,9 +17,8 @@
 </head>
 
 <body>
-
-<jsp:include page="jsp/constant/navigation.jsp"/>
-<jsp:include page="jsp/constant/header.jsp"/>
+<jsp:include page="jsp/commoncode/siteNavigation.jsp"/>
+<jsp:include page="jsp/commoncode/header.jsp"/>
 <div class="mainRow">
     <div class="epamImage">
         <h2>Library</h2>
@@ -61,6 +62,6 @@
     </div>
 </div>
 
-<%@include file="/jsp/constant/footer.jsp" %>
+<%@include file="/jsp/commoncode/footer.jsp" %>
 </body>
 </html>

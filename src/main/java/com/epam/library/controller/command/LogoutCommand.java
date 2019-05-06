@@ -12,11 +12,11 @@ public class LogoutCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
         HttpSession session = request.getSession(false);
-        if(session != null){
+        if (session != null) {
             session.removeAttribute(UserConstant.USER_ATTRIBUTE);
-            session.invalidate();
+            //session.invalidate();
         }
 
-        return PageLocation.MAIN_PAGE;
+        return PageLocation.LOGIN_PAGE;
     }
 }

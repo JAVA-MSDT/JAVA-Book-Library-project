@@ -8,7 +8,7 @@ public class ServiceFactory {
 
     private DaoFactory daoFactory;
 
-    public ServiceFactory(Connection connection){
+    public ServiceFactory(Connection connection) {
         daoFactory = new DaoFactory(connection);
     }
 
@@ -16,11 +16,11 @@ public class ServiceFactory {
         return new UserService(daoFactory.getUserDao());
     }
 
-    public BookService getBookService(){
+    public BookService getBookService() {
         return new BookService(daoFactory.getBookDao());
     }
 
-    public OrderService getOrderService(){
+    public OrderService getOrderService() {
         return new OrderService(daoFactory.getOrderDao());
     }
 

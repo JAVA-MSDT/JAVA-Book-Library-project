@@ -14,7 +14,8 @@ import java.util.Optional;
 public class LoginCommand implements Command {
 
     private UserService userService;
-    public LoginCommand(UserService userService){
+
+    public LoginCommand(UserService userService) {
         this.userService = userService;
     }
 
@@ -25,30 +26,31 @@ public class LoginCommand implements Command {
         String login = request.getParameter(UserConstant.LOGIN);
         String password = request.getParameter(UserConstant.PASSWORD);
 
-            Optional<User> optionalUser = userService.findByLoginPassword(login, password);
-            if (optionalUser.isPresent()) {
-                session.setAttribute(UserConstant.USER_ATTRIBUTE, optionalUser.get());
-                request.setAttribute(UserConstant.USER_ATTRIBUTE, optionalUser.get());
-                page = defineReaderPage(optionalUser.get(), request);
-            } else {
-                request.setAttribute(UserConstant.INVALID_LOGIN, DiffConstant.READ_FROM_PROPERTIES);
-                page = PageLocation.LOGIN_PAGE;
+        //if blocked return
 
-            }
+        Optional<User> optionalUser = userService.findByLoginPassword(login, password);
+        if (optionalUser.isPresent()) {
+            session.setAttribute(UserConstant.USER_ATTRIBUTE, optionalUser.get());
+            request.setAttribute(UserConstant.USER_ATTRIBUTE, optionalUser.get());
+            page = defineReaderPage(optionalUser.get(), request);
+        } else {
+            request.setAttribute(UserConstant.INVALID_LOGIN, DiffConstant.READ_FROM_PROPERTIES);
+            page = PageLocation.LOGIN_PAGE;
+
+        }
         return page;
     }
 
 
     /**
-     *
-     * @param user to define his role also to check if it is blocked or not
+     * @param user    to define his role also to check if it is blocked or not
      * @param request to set the attribute in order to read it later in the jsp page
      * @return user page if it is not block and according to his role.
      */
-    private String defineReaderPage(User user, HttpServletRequest request){
+    private String defineReaderPage(User user, HttpServletRequest request) {//role
         String readerPage = null;
 
-        if(!user.isBlocked()) {
+        if (!user.isBlocked()) {
             String readerRole = user.getRole().name();
             switch (readerRole) {
                 case "ADMIN":
@@ -58,10 +60,10 @@ public class LoginCommand implements Command {
                     readerPage = PageLocation.LIBRARIAN_PROFILE;
                     break;
                 case "READER":
-                    readerPage = PageLocation.READER_PROFILE;
+                    readerPage = PageLocation.USER_PROFILE;
                     break;
             }
-        }else{
+        } else {
             readerPage = PageLocation.LOGIN_PAGE;
             request.setAttribute(UserConstant.BLOCK_MESSAGE, DiffConstant.READ_FROM_PROPERTIES);
         }

@@ -2,10 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<fmt:setLocale value="${sessionScope.language}"/>
 <fmt:setBundle basename="locale"/>
-<fmt:setLocale value="${param.language}"/>
-
-<html lang="${param.language}">
+<html>
 <head>
     <title>Epam Library</title>
     <meta charset="utf-8">
@@ -16,7 +15,7 @@
     <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
-<jsp:include page="jsp/constant/navigation.jsp"/>
+<jsp:include page="jsp/commoncode/siteNavigation.jsp"/>
 
 <div class="loginContainer">
     <div class="form">
@@ -26,19 +25,19 @@
 
         <div class="error-message">
             <c:if test="${not empty requestScope.invalidLogin}">
-                <h2 style="color: brown"><fmt:message key="message.loginError"/> </h2>
+                <h2 style="color: brown"><fmt:message key="message.loginError"/></h2>
             </c:if>
             <c:if test="${not empty requestScope.blocked}">
-                <h2 style="color: brown"><fmt:message key="message.blockedUser"/> </h2>
+                <h2 style="color: brown"><fmt:message key="message.blockedUser"/></h2>
             </c:if>
         </div>
 
         <form name="LoginForm" action="controller" method="POST">
             <input type="hidden" name="command" value="Login"/>
             <input type="text" placeholder=
-            <fmt:message key="label.login"/> name="login"/>
+            <fmt:message key="label.login"/> name="login" pattern="[a-zA-z0-9]+"/>
             <input type="password" placeholder=
-            <fmt:message key="label.password"/> name="password"/>
+            <fmt:message key="label.password"/> name="password" pattern="^([a-zA-Z0-9@*#]{4,10})$"/>
             <input type="submit" value=
             <fmt:message key="label.login"/> id="btnLog">
         </form>
@@ -54,11 +53,6 @@
 
     </div>
 </div>
-<div class="testing">
-    <a class="regbtn" href="jsp/reader/readerProfile.jsp"> Reader Profile </a><br/>
-    <a class="regbtn" href="jsp/librarian/librarianProfile.jsp"> Librarian Profile </a>
-
-</div>
-<%@include file="jsp/constant/footer.jsp" %>
+<%@include file="jsp/commoncode/footer.jsp" %>
 </body>
 </html>

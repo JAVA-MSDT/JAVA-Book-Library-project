@@ -1,10 +1,9 @@
 package com.epam.library.util.constant;
 
 
-
 public class UserConstant {
 
-    public final static String USER_ATTRIBUTE = "reader";
+    public final static String USER_ATTRIBUTE = "user";
     public final static String USER_LIST = "userList";
     public final static String EDIT_USER = "readerEdit";
     public final static String BLOCK_MESSAGE = "blocked";

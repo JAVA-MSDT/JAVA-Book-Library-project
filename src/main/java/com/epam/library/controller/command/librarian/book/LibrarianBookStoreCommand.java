@@ -1,14 +1,11 @@
 package com.epam.library.controller.command.librarian.book;
 
 import com.epam.library.controller.command.Command;
-import com.epam.library.entity.Book;
-import com.epam.library.entity.User;
 import com.epam.library.controller.command.PageLocation;
+import com.epam.library.entity.Book;
 import com.epam.library.model.service.BookService;
 import com.epam.library.model.service.ServiceException;
-import com.epam.library.model.service.ServiceFactory;
 import com.epam.library.util.constant.BookConstant;
-import com.epam.library.util.constant.UserConstant;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,10 +17,18 @@ import java.util.List;
 public class LibrarianBookStoreCommand implements Command {
     private BookService bookService;
 
-    public LibrarianBookStoreCommand(BookService bookService){
+    public LibrarianBookStoreCommand(BookService bookService) {
         this.bookService = bookService;
     }
 
+
+    /**
+     * @param request  from the jsp
+     * @param response to the jsp
+     * @return page which holds the information about the books to display them on the page, for the
+     * librarian to control them, adding or editing
+     * @throws ServiceException is something wrong during the connection with database
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
 

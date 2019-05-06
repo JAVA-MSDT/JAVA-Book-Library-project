@@ -19,6 +19,12 @@ public class BookStoreCommand implements Command {
         this.bookService = bookService;
     }
 
+    /**
+     * @param request  from the jsp
+     * @param response to the jsp
+     * @return page which holds the information about the books to display them on the page
+     * @throws ServiceException is something wrong during the connection with database
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         List<Book> books = bookService.getAll();

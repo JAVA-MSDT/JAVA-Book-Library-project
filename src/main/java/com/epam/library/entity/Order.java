@@ -3,7 +3,6 @@ package com.epam.library.entity;
 import com.epam.library.entity.enumeration.ReadingPlace;
 import com.epam.library.util.validate.ArgumentValidator;
 
-
 import java.sql.Date;
 import java.util.Objects;
 
@@ -16,7 +15,6 @@ public class Order {
     private Date returningDate;
     private ReadingPlace readingPlace;
     private boolean bookReturned;
-
 
 
     public Order(long userId, Date orderDate, Date returningDate, ReadingPlace readingPlace) {
@@ -42,6 +40,7 @@ public class Order {
         setReturningDate(returningDate);
         setReadingPlace(readingPlace);
     }
+
     public Order(long orderId, long bookId, long userId, Date orderDate, Date returningDate, ReadingPlace readingPlace, boolean bookReturned) {
         setOrderId(orderId);
         setBookId(bookId);
@@ -116,14 +115,14 @@ public class Order {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()){
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        if (this == o){
+        if (this == o) {
             return true;
         }
         Order order = (Order) o;
-        return  bookReturned == order.bookReturned &&
+        return bookReturned == order.bookReturned &&
                 orderId == order.orderId &&
                 bookId == order.bookId &&
                 userId == order.userId &&
@@ -136,12 +135,12 @@ public class Order {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + (int) (orderId ^ ( orderId >>> 32));
-        result = prime * result + (int) (bookId ^ ( bookId >>> 32));
-        result = prime * result + (int) (userId ^ ( userId >>> 32));
-        result = prime * result + ((orderDate != null) ? orderDate.hashCode() :0);
+        result = prime * result + (int) (orderId ^ (orderId >>> 32));
+        result = prime * result + (int) (bookId ^ (bookId >>> 32));
+        result = prime * result + (int) (userId ^ (userId >>> 32));
+        result = prime * result + ((orderDate != null) ? orderDate.hashCode() : 0);
         result = prime * result + ((returningDate != null) ? returningDate.hashCode() : 0);
-        result = prime * result + ((readingPlace != null) ? readingPlace.hashCode() :0);
+        result = prime * result + ((readingPlace != null) ? readingPlace.hashCode() : 0);
         result = prime * result + (bookReturned ? 1231 : 1237);
         return result;
     }

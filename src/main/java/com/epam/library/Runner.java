@@ -5,53 +5,54 @@ import com.epam.library.entity.Book;
 import com.epam.library.entity.Order;
 import com.epam.library.entity.User;
 import com.epam.library.model.builder.UserBuilder;
-import com.epam.library.model.dao.*;
+import com.epam.library.model.dao.DaoException;
+import com.epam.library.model.dao.OrderDao;
+import com.epam.library.model.dao.query.OrderQuery;
 import com.epam.library.model.db.ConnectionPool;
 import com.epam.library.model.service.*;
-
+import com.epam.library.model.service.orderservice.AdministrationOrderDisplay;
 
 import java.io.*;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
 import java.util.Collections;
 import java.util.List;
 
 public class Runner {
     public static void main(String[] args) {
         String CREATE_SQL_LOCATION = "src/main/sql/createTables.sql";
-         String INSERT_INTO_TABLE = "src/main/sql/insertData.sql";
+        String INSERT_INTO_TABLE = "src/main/sql/insertData.sql";
         try {
-           // Class.forName(DBInfo.DB_DRIVER);
+            // Class.forName(DBInfo.DB_DRIVER);
             Connection connection = ConnectionPool.getInstance().getConnection();
             Statement statement = connection.createStatement();
-           //  statement.executeUpdate("DROP DATABASE " + "library");
-          //   statement.executeUpdate("CREATE DATABASE " + "library");
+            //  statement.executeUpdate("DROP DATABASE " + "library");
+            //   statement.executeUpdate("CREATE DATABASE " + "library");
             System.out.println("Creating .....");
             statement.executeUpdate("USE " + "library");
             System.out.println("database using....");
 
-           //   updateData(CREATE_SQL_LOCATION, statement);
+            //   updateData(CREATE_SQL_LOCATION, statement);
             System.out.println("Creating tables Done Successfully!");
 
-           //   updateData(INSERT_INTO_TABLE, statement);
+            //   updateData(INSERT_INTO_TABLE, statement);
             System.out.println("Data Inserted Successfully..!");
 
             System.out.println("==================================");
             System.out.println("Testing OrderDao");
 
             ServiceFactory serviceFactory = new ServiceFactory(connection);
-           UserService userService = serviceFactory.getUserService();
-            List<User> users = userService.getAllUsers();
-            for(User u : users){
+            UserService userService = serviceFactory.getUserService();
+            List<User> users = userService.getAll();
+            for (User u : users) {
                 System.out.println(u);
             }
 
             System.out.println("===============================");
             BookService bookService = serviceFactory.getBookService();
             List<Book> books = bookService.getAll();
-            for (Book b : books){
+            for (Book b : books) {
                 System.out.println(b);
             }
 
@@ -67,14 +68,27 @@ public class Runner {
             String mySqlREturningDate = simpleDateFormat.format(returningDate);
 
             List<Order> orders = orderService.getAll();
-            for(Order o : orders){
+            for (Order o : orders) {
                 System.out.println(o);
             }
+
+            ResultSet resultSet = statement.executeQuery(OrderQuery.SELECT_ORDER_FOR_REVIEW);
+            printTable(resultSet);
+
+            OrderDao orderDao = new OrderDao(connection);
+            List<AdministrationOrderDisplay> orderDisplayList = orderDao.administrationAllOrder();
+            for (AdministrationOrderDisplay display : orderDisplayList) {
+                System.out.println(display);
+            }
+
+
 
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ServiceException e) {
             e.getMessage();
+        } catch (DaoException e) {
+            e.getLocalizedMessage();
         }
     }
 

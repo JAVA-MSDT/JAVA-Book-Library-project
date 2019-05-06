@@ -59,6 +59,7 @@ public class User {
         setBlocked(blocked);
 
     }
+
     public long getId() {
         return id;
     }
@@ -132,14 +133,14 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()){
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        if (this == o){
+        if (this == o) {
             return true;
         }
         User user = (User) o;
-        return  id == user.id &&
+        return id == user.id &&
                 Objects.equals(name, user.name) &&
                 Objects.equals(LastName, user.LastName) &&
                 Objects.equals(email, user.email) &&
@@ -154,11 +155,11 @@ public class User {
         final int prime = 31;
         int result = 1;
         result = prime * result + (int) (id ^ (id >>> 32));
-        result = prime * result + ((name != null) ? name.hashCode() :0);
+        result = prime * result + ((name != null) ? name.hashCode() : 0);
         result = prime * result + ((LastName != null) ? LastName.hashCode() : 0);
-        result = prime * result + ((email != null) ? email.hashCode() :0);
+        result = prime * result + ((email != null) ? email.hashCode() : 0);
         result = prime * result + ((login != null) ? login.hashCode() : 0);
-        result = prime * result + ((password != null) ? password.hashCode() :0);
+        result = prime * result + ((password != null) ? password.hashCode() : 0);
         result = prime * result + ((role != null) ? role.hashCode() : 0);
         result = prime * result + (blocked ? 1231 : 1237);
         return result;

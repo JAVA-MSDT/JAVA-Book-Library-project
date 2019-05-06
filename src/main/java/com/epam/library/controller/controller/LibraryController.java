@@ -49,7 +49,7 @@ public class LibraryController extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    public void destroy(){
+    public void destroy() {
         ConnectionPool.getInstance().closePool();
     }
 }

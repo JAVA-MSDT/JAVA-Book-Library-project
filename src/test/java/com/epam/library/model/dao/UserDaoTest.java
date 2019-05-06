@@ -3,7 +3,6 @@ package com.epam.library.model.dao;
 import com.epam.library.entity.User;
 import com.epam.library.entity.enumeration.Role;
 import com.epam.library.model.db.ConnectionPool;
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -16,14 +15,14 @@ public class UserDaoTest {
     private static User user;
 
     @BeforeClass
-    public static void init(){
+    public static void init() {
         connection = ConnectionPool.getInstance().getConnection();
         userDao = new UserDao(connection);
     }
 
     @Test
     public void getByIdPass() throws DaoException {
-        user = new User(1, "Ahmed","Samy","serenitydiver@hotmail.com", "JAVAMSDT",
+        user = new User(1, "Ahmed", "Samy", "serenitydiver@hotmail.com", "JAVAMSDT",
                 "java", Role.ADMIN, false);
         long id = 1;
         Optional<User> userOptional = userDao.getById(1);

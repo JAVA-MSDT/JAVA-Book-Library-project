@@ -10,9 +10,9 @@ public class PropertiesExtractorTest {
     private final static String PROPERTIES_FILE_NAME = "dataBase";
 
     @Test
-    public void getValueFromPropertiesPass(){
+    public void getValueFromPropertiesPass() {
         String db_name = PropertiesExtractor.getValueFromProperties(KEY, PROPERTIES_FILE_NAME);
 
-        Assert.assertEquals(DB_NAME,db_name);
+        Assert.assertEquals(DB_NAME, db_name);
     }
 }

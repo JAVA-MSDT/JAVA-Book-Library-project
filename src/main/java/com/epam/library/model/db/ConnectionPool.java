@@ -23,7 +23,6 @@ public class ConnectionPool {
 
     /**
      * Logic of creating the pool, also attempting to create it for a several time if it is fails from the first time.
-     *
      */
     private ConnectionPool() {
         init();
@@ -35,11 +34,11 @@ public class ConnectionPool {
     private void init() {
         logger.log(Level.INFO, "Connecting to DataBase......");
         connectionQueue = new LinkedBlockingQueue<>(POOL_SIZE);
-            try {
-                connectionQueue.offer(DBConnector.getConnection());
-            } catch (SQLException e) {
-                logger.warn( "Can't get Connection.....", e);
-            }
+        try {
+            connectionQueue.offer(DBConnector.getConnection());
+        } catch (SQLException e) {
+            logger.warn("Can't get Connection.....", e);
+        }
     }
 
     /**
@@ -62,7 +61,6 @@ public class ConnectionPool {
     }
 
     /**
-     *
      * @return connection for  the connectionQueue pool.
      */
     public Connection getConnection() {
@@ -79,7 +77,8 @@ public class ConnectionPool {
 
     /**
      * To return the free connection to the queue
-     * @param connection the is already free
+     *
+     * @param connection that is already free
      */
     public void returnConnection(Connection connection) {
         connectionQueue.offer(connection);
@@ -89,8 +88,8 @@ public class ConnectionPool {
     /**
      * Closing the connection pool
      */
-    public void closePool(){
-        while (!connectionQueue.isEmpty()){
+    public void closePool() {
+        while (!connectionQueue.isEmpty()) {
             try {
                 connectionQueue.take().close();
             } catch (SQLException e) {

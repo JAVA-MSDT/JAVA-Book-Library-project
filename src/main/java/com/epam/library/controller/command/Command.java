@@ -1,7 +1,6 @@
 package com.epam.library.controller.command;
 
 
-import com.epam.library.model.dao.DaoException;
 import com.epam.library.model.service.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;

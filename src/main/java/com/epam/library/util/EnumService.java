@@ -9,7 +9,7 @@ public class EnumService {
 
     /**
      * @param values from enum class as array
-     * @param string  that we need to compare with the values of the enum
+     * @param string that we need to compare with the values of the enum
      * @return the enum value if it is equal to the string or null if it is not in the list.
      */
     public static String getString(Enum[] values, String string) {
@@ -26,7 +26,6 @@ public class EnumService {
     }
 
     /**
-     *
      * @param role from the database at this project
      * @return enum element for the role to setRole() in User class
      */
@@ -43,7 +42,6 @@ public class EnumService {
     }
 
     /**
-     *
      * @param s from the database at this project
      * @return enum element for the role to setReadingPlace() in Order class
      */

@@ -1,11 +1,17 @@
 package com.epam.library.model.dao;
 
 import com.epam.library.entity.Order;
+import com.epam.library.model.builder.AdministrationOrderBuilder;
 import com.epam.library.model.builder.OrderBuilder;
 import com.epam.library.model.dao.query.OrderQuery;
+import com.epam.library.model.service.orderservice.AdministrationOrderDisplay;
 import com.epam.library.util.validate.ArgumentValidator;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,8 +64,28 @@ public class OrderDao extends AbstractDao<Order> {
         return executeQuery(OrderQuery.SELECT_ORDER_BY_USER_ID, new OrderBuilder(), String.valueOf(userId));
     }
 
-    public List<Order> getAllOrder() throws DaoException {
-        return executeQuery(OrderQuery.SELECT_ORDER_FOR_REVIEW, new OrderBuilder());
+    /**
+     *
+     * @return list of a special class to use it later to display the detailed order
+     * information for the librarian and admin
+     * @throws DaoException is something wrong during the process
+     */
+    public List<AdministrationOrderDisplay> administrationAllOrder() throws DaoException {
+        List<AdministrationOrderDisplay> orderDisplayList = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = getConnection().prepareStatement(OrderQuery.SELECT_ORDER_FOR_REVIEW);
+
+            prepareStatement(preparedStatement);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                AdministrationOrderBuilder builder = new AdministrationOrderBuilder();
+                AdministrationOrderDisplay orderDisplay = builder.build(resultSet);
+                orderDisplayList.add(orderDisplay);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return orderDisplayList;
     }
 
 }

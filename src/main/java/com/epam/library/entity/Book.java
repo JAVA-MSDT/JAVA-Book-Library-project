@@ -30,7 +30,7 @@ public class Book {
     }
 
     public void setId(long id) {
-        ArgumentValidator.checkForNull(id,"Book Id not allow to be null in Book class");
+        ArgumentValidator.checkForNull(id, "Book Id not allow to be null in Book class");
         this.id = id;
     }
 
@@ -54,14 +54,14 @@ public class Book {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()){
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
         if (this == o) {
             return true;
         }
         Book book = (Book) o;
-        return  quantity == book.quantity &&
+        return quantity == book.quantity &&
                 id == book.id &&
                 Objects.equals(name, book.name);
     }
@@ -70,8 +70,8 @@ public class Book {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + (int)(id ^ (id >>> 32));
-        result = prime * result + ((name != null) ? name.hashCode() :0);
+        result = prime * result + (int) (id ^ (id >>> 32));
+        result = prime * result + ((name != null) ? name.hashCode() : 0);
         result = prime * result + quantity;
         return result;
     }

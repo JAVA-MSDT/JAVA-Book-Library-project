@@ -14,6 +14,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Authorised filter to direct the users depends on their role to the right page where they are authorised
+ * to use and to go
+ */
 @WebFilter("/controller")
 public class AuthFilter implements Filter {
 
@@ -21,6 +25,7 @@ public class AuthFilter implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {
 
     }
+
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
@@ -35,15 +40,15 @@ public class AuthFilter implements Filter {
             if (user.getRole() == Role.LIBRARIAN && librarianCommand(command)) {
 
                 filterChain.doFilter(servletRequest, servletResponse);
-            } else if(user.getRole() == Role.READER && readerCommand(command)) {
+            } else if (user.getRole() == Role.READER && userCommand(command)) {
 
                 filterChain.doFilter(servletRequest, servletResponse);
-            } else{
+            } else {
                 response.sendRedirect(PageLocation.LOGIN_PAGE);
 
             }
-        }else {
-       
+        } else {
+
             filterChain.doFilter(servletRequest, servletResponse);
         }
     }
@@ -53,6 +58,10 @@ public class AuthFilter implements Filter {
 
     }
 
+    /**
+     * @param command to be checked if the librarian authorised to access it or not
+     * @return true if the admin authorised or false if it is not authorised
+     */
     private boolean librarianCommand(String command) {
         List<String> commandList = new ArrayList<>();
         commandList.add("librarian-profile");
@@ -67,23 +76,31 @@ public class AuthFilter implements Filter {
         commandList.add("librarian-add-order");
         commandList.add("librarian-update-order");
 
-        commandList.add("librarian-display-readers");
-        commandList.add("librarian-edit-reader");
-        commandList.add("librarian-add-reader");
-        commandList.add("librarian-update-reader");
+        commandList.add("librarian-display-user");
+        commandList.add("librarian-edit-user");
+        commandList.add("librarian-add-user");
+        commandList.add("librarian-update-user");
 
         return commandList.contains(command);
     }
 
-    private boolean readerCommand(String command) {
+    /**
+     * @param command to be checked if the user authorised to access it or not
+     * @return true if the user authorised or false if it is not authorised
+     */
+    private boolean userCommand(String command) {
         List<String> commandList = new ArrayList<>();
-        commandList.add("reader-profile");
-        commandList.add("reader-book");
+        commandList.add("user-profile");
+        commandList.add("user-book");
         commandList.add("confirm-order");
-        commandList.add("reader-order");
+        commandList.add("user-order");
         return commandList.contains(command);
     }
 
+    /**
+     * @param command that are common for all the users registered or not
+     * @return true if it is for all the users or false.
+     */
     private boolean commonCommand(String command) {
         List<String> commandList = new ArrayList<>();
         commandList.add("Login");
@@ -91,6 +108,7 @@ public class AuthFilter implements Filter {
         commandList.add("display-book");
         commandList.add("view-book");
         commandList.add("order-book");
+        commandList.add("change-language");
         return commandList.contains(command);
     }
 }

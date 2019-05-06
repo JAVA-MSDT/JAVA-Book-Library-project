@@ -19,7 +19,7 @@ public class DBConnector {
         String dbURI = PropertiesExtractor.getValueFromProperties(URI, DB_PROPERTIES_URI);
         String dbLogin = PropertiesExtractor.getValueFromProperties(LOGIN, DB_PROPERTIES_URI);
         String dbPassword = PropertiesExtractor.getValueFromProperties(PASSWORD, DB_PROPERTIES_URI);
-       return DriverManager.getConnection(dbURI + dbName, dbLogin, dbPassword);
+        return DriverManager.getConnection(dbURI + dbName, dbLogin, dbPassword);
 
     }
 }

@@ -1,28 +1,42 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.language}"/>
 <fmt:setBundle basename="locale"/>
 <html>
 <head>
-    <title>${requestScope.book.name}</title>
+    <title>
+        <c:if test="${ not empty sessionScope.user}">
+            ${requestScope.book.name}
+        </c:if>
+        <c:if test="${sessionScope.user == null}">
+            <fmt:message key="label.title.epam"/>
+        </c:if>
+    </title>
     <link rel="stylesheet" href="../../css/viewBook.css"/>
     <link rel="stylesheet" href="../../css/editForm.css"/>
 </head>
 <body>
-<c:if test="${ not empty sessionScope.reader}">
-    <jsp:include page="../constant/readerNavigation.jsp"/>
+<c:if test="${ not empty sessionScope.user}">
+    <jsp:include page="../commoncode/userNavigation.jsp"/>
 </c:if>
-<c:if test="${sessionScope.reader == null}">
-    <jsp:include page="../constant/navigation.jsp"/>
-    <jsp:include page="../constant/header.jsp"/>
+<c:if test="${sessionScope.user == null}">
+    <jsp:include page="../commoncode/siteNavigation.jsp"/>
+    <jsp:include page="../commoncode/header.jsp"/>
 </c:if>
 <div class="main-container">
     <div class="tiny-header">
         <p> ${requestScope.book.name} </p>
     </div>
+
     <c:if test="${not empty requestScope.invalidLogin}">
         <h2 class="permission"><fmt:message key="message.login.register"/></h2> <br>
     </c:if>
+
+    <c:if test="${not empty requestScope.done}">
+        <h2 class="permission" style="color: green"><fmt:message key="message.book.order.done"/></h2> <br>
+    </c:if>
+
     <div class="book-container">
         <div class="book-img">
             <img alt="Effective Java" src="../../img/effective.jpg"/>
@@ -48,7 +62,7 @@
             <div class="book-info">
                 <table class="book-table-info">
                     <tr>
-                        <th colspan="2">Author Info</th>
+                        <th colspan="2"><h3>Author Info</h3></th>
                     </tr>
                     <tr>
                         <th> Nationality</th>
@@ -63,7 +77,7 @@
                         <td> Link</td>
                     </tr>
                     <tr>
-                        <th colspan="2">Edition Notes:</th>
+                        <th colspan="2"><h3>Edition Notes:</h3></th>
                     </tr>
                     <tr>
                         <th> Edition Info:</th>
@@ -132,7 +146,12 @@
             </div>
         </div>
     </c:if>
+
+    <hr>
     <div class="container" style="margin-bottom: 20px">
+        <div class="add-comment">
+            <h2> Add Comment</h2>
+        </div>
         <div class="editContainerForm">
             <form id="comment" name="comment" action="controller" method="post">
                 <input type="hidden" name="command" value="confirm-comment">
@@ -168,11 +187,11 @@
         </div>
     </div>
 </div>
-<c:if test="${ not empty sessionScope.reader}">
-    <jsp:include page="../constant/readerFooter.jsp"/>
+<c:if test="${ not empty sessionScope.user}">
+    <jsp:include page="../commoncode/userFooter.jsp"/>
 </c:if>
-<c:if test="${sessionScope.reader == null}">
-    <jsp:include page="../constant/footer.jsp"/>
+<c:if test="${sessionScope.user == null}">
+    <jsp:include page="../commoncode/footer.jsp"/>
 </c:if>
 </body>
 </html>

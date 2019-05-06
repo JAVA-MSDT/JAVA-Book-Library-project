@@ -4,7 +4,7 @@ public class BookQuery {
     public final static String INSERT_BOOK = "INSERT INTO book(name, quantity) VALUES (?, ?)";
 
     public final static String UPDATE_BOOK = "UPDATE book SET name = ?, quantity = ? WHERE id = ?";
-    public final static String UPDATE_BOOK_QUANTITY ="UPDATE book SET quantity= ? WHERE id= ?";
+    public final static String UPDATE_BOOK_QUANTITY = "UPDATE book SET quantity= ? WHERE id= ?";
     public final static String UPDATE_BOOK_NAME = "UPDATE book SET name= ? WHERE id= ?";
 
     public final static String SELECT_ALL_BOOKS = "SELECT * FROM book";

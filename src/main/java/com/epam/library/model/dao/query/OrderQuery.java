@@ -9,7 +9,7 @@ public class OrderQuery {
     public final static String UPDATE_ORDER_BOOK_ID = "UPDATE order_book SET book_id = ? WHERE id = ?";
     public final static String UPDATE_ORDER_USER_ID = "UPDATE order_book SET user_id = ? WHERE id = ?";
     public final static String UPDATE_ORDER_ORDER_DATE = "UPDATE order_book SET order_date = ? WHERE id = ?";
-    public final static String UPDATE_ORDER_RETURNING_DATE= "UPDATE order_book SET returning_date = ? WHERE id = ?";
+    public final static String UPDATE_ORDER_RETURNING_DATE = "UPDATE order_book SET returning_date = ? WHERE id = ?";
     public final static String UPDATE_ORDER_READING_PLACE = "UPDATE order_book SET reading_place = ? WHERE id = ?";
     public final static String UPDATE_ORDER_BOOK_RETURNED = "UPDATE order_book SET book_returned = ? WHERE id = ?";
 
@@ -24,8 +24,8 @@ public class OrderQuery {
     public final static String DELETE_ORDER = "DELETE FROM order_book WHERE id = ?";
     public final static String DELET_ORDER_BY_USER_ID = "DELETE FROM order_book WHERE user_id = ?";
 
-    public final static String SELECT_ORDER_FOR_REVIEW = "SELECT order_book.id, user_table.name, user_table.email, book.name, order_book.order_date," +
-            "order_book.returning_date, order_book.reading_place, order_book.book_returned FROM order_book" +
-            "INNER JOIN user_table ON order_book.user_id = user_table.id" +
+    public final static String SELECT_ORDER_FOR_REVIEW = "SELECT order_book.id, user_table.name, user_table.email, book.name, order_book.order_date, " +
+            "order_book.returning_date, order_book.reading_place, order_book.book_returned FROM order_book " +
+            "INNER JOIN user_table ON order_book.user_id = user_table.id " +
             "INNER JOIN book ON order_book.book_id = book.id";
 }

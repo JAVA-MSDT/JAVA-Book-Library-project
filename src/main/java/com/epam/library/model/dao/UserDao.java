@@ -70,10 +70,9 @@ public class UserDao extends AbstractDao<User> {
 
 
     /**
-     *
-     * @param login of the user
+     * @param login    of the user
      * @param password of the user
-     * @return
+     * @return userOptional
      * @throws DaoException
      */
     public Optional<User> findByLoginAndPassword(String login, String password) throws DaoException {
@@ -85,19 +84,18 @@ public class UserDao extends AbstractDao<User> {
     }
 
     public Optional<User> findByLogin(String login) throws DaoException {
-        ArgumentValidator.checkForNullOrEmptyString(login,"Not allow for null or empty value in findByLogin " +
-                "method at userdao Class" );
+        ArgumentValidator.checkForNullOrEmptyString(login, "Not allow for null or empty value in findByLogin " +
+                "method at userDao Class");
 
         return executeSingleResponseQuery(UserQuery.SELECT_USER_BY_LOGIN, new UserBuilder(), login);
     }
 
     /**
-     *
      * @return list of user by the role Reader
      * @throws DaoException if something wrong happens while executing the query
      */
     public List<User> findAllWhereRoleReader() throws DaoException {
-         return executeQuery(UserQuery.SELECT_USER_BY_READER_ROLE, new UserBuilder());
-   }
+        return executeQuery(UserQuery.SELECT_USER_BY_READER_ROLE, new UserBuilder());
+    }
 
 }

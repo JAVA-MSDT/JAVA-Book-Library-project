@@ -6,7 +6,7 @@ public class DaoFactory {
 
     private final Connection connection;
 
-    public DaoFactory(Connection connection){
+    public DaoFactory(Connection connection) {
         this.connection = connection;
     }
 

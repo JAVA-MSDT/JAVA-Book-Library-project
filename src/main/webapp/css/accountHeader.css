@@ -1,13 +1,10 @@
-* {
-    box-sizing: border-box;
-}
-
 .infoHeader {
     width: 100%;
     height: 200px;
     background-image: url(../img/green.jpg);
     background-repeat: no-repeat;
     background-size: cover;
+    margin-top: 46px;
 }
 
 .avContainer {
@@ -40,13 +37,15 @@
     transition: 0.5s ease;
     opacity: 0;
 }
-.overlay input[type = submit]{
+
+.overlay input[type = submit] {
     background-color: transparent;
     padding: 25px 0 25px 0;
     margin-bottom: -11px;
     border-radius: 0 0 30px 30px;
     font-size: 24px;
 }
+
 .overlay h3 {
     color: white;
     font-size: 24px;
@@ -54,7 +53,7 @@
 
 .overlay:hover,
 .avContainer:hover,
-.overlay input[type = submit]:hover{
+.overlay input[type = submit]:hover {
     opacity: 1;
     border: 0;
 

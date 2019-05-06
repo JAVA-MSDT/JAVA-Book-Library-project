@@ -1,6 +1,7 @@
-2019-05-03 11:33:30 [http-bio-8188-exec-8] DEBUG epam.library.model.db.ConnectionPool - Connection returned to the pool successfully
-2019-05-03 11:33:35 [http-bio-8188-exec-10] DEBUG epam.library.model.db.ConnectionPool - Connection returned to the pool successfully
-2019-05-03 11:47:54 [http-bio-8188-exec-1] DEBUG epam.library.model.db.ConnectionPool - Connection returned to the pool successfully
-2019-05-03 11:47:54 [http-bio-8188-exec-1] DEBUG epam.library.model.db.ConnectionPool - Connection returned to the pool successfully
-2019-05-03 11:48:16 [http-bio-8188-exec-1] DEBUG epam.library.model.db.ConnectionPool - Connection returned to the pool successfully
-2019-05-03 11:48:16 [http-bio-8188-exec-1] DEBUG epam.library.model.db.ConnectionPool - Connection returned to the pool successfully
+2019-05-06 22:31:06 [http-bio-8188-exec-10] DEBUG epam.library.model.db.ConnectionPool - Connection returned to the pool successfully
+2019-05-06 22:32:40 [http-bio-8188-exec-4] INFO  epam.library.model.db.ConnectionPool - Connecting to DataBase......
+2019-05-06 22:32:40 [http-bio-8188-exec-4] INFO  epam.library.model.db.ConnectionPool - Pool Created successfully.
+2019-05-06 22:32:40 [http-bio-8188-exec-4] DEBUG epam.library.model.db.ConnectionPool - Connection returned to the pool successfully
+2019-05-06 22:32:49 [http-bio-8188-exec-7] DEBUG epam.library.model.db.ConnectionPool - Connection returned to the pool successfully
+2019-05-06 22:32:51 [http-bio-8188-exec-8] DEBUG epam.library.model.db.ConnectionPool - Connection returned to the pool successfully
+2019-05-06 22:33:14 [http-bio-8188-exec-1] DEBUG epam.library.model.db.ConnectionPool - Connection returned to the pool successfully

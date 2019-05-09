@@ -1,0 +1,63 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0 auto;
+    background: #f2f2f2;
+}
+
+.headerImage {
+    width: 100%;
+    height: 100%;
+
+}
+
+header {
+    width: 100%;
+    height: 250px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* mainRow */
+.mainRow {
+    height: auto;
+    background-color: aqua;
+
+}
+
+.epamImage,
+.epamText {
+    float: left;
+    width: 50%;
+    padding: 15px;
+}
+
+.epamText {
+    vertical-align: middle;
+}
+
+.secondRow {
+    clear: both;
+}
+
+.columnTwo {
+    float: left;
+    width: 33.33%;
+    padding: 15px;
+}
+
+@media screen and (max-width: 700px) {
+
+    .top-nav li a,
+    .drop-btn {
+        display: block;
+    }
+
+    .epamImage,
+    .epamText,
+    .columnTwo {
+        width: 100%;
+    }
+}

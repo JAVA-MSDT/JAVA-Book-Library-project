@@ -11,7 +11,7 @@
     <meta charset="utf-8">
     <meta name="author" content="Ahmed Samy">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}../css/readerMainStyle.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/accountBodyStyle.css">
 
 </head>
 
@@ -22,6 +22,7 @@
 <div class="profileContainer">
     <div class="basicInfo">
         <h1><fmt:message key="label.profile.page"/></h1>
+        <hr>
         <table class="readerInfo">
             <tr>
                 <td>

@@ -1,4 +1,4 @@
-package com.epam.library.controller.command.librarian.user;
+package com.epam.library.controller.command.administration.user;
 
 import com.epam.library.controller.builder.UserBuilderFromRequest;
 import com.epam.library.controller.command.Command;
@@ -7,6 +7,7 @@ import com.epam.library.entity.User;
 import com.epam.library.entity.enumeration.Role;
 import com.epam.library.model.service.ServiceException;
 import com.epam.library.model.service.UserService;
+import com.epam.library.util.constant.DiffConstant;
 import com.epam.library.util.constant.UserConstant;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,11 +42,14 @@ public class LibrarianUpdateUserCommand implements Command {
                 Role role = optionalUser.get().getRole();
                 User updateUser = builderFromRequest.buildUserToLibrarianUpdate(request, role);
                 userService.update(updateUser);
+                request.setAttribute(DiffConstant.SUCCESS_INFO_UPDATE, DiffConstant.READ_FROM_PROPERTIES);
+
                 page = PageLocation.ADMINISTRATION_EDIT_USER;
             }
         } else {
             User user = builderFromRequest.buildToAddUser(request);
             userService.save(user);
+            request.setAttribute(DiffConstant.INSERT_SUCCESS, DiffConstant.READ_FROM_PROPERTIES);
             page = PageLocation.ADMINISTRATION_EDIT_USER;
         }
         return page;

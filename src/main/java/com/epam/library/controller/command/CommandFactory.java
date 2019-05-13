@@ -1,20 +1,24 @@
 package com.epam.library.controller.command;
 
 
+import com.epam.library.controller.command.admin.AdminChangeRoleCommand;
 import com.epam.library.controller.command.admin.AdminRemoveBookCommand;
+import com.epam.library.controller.command.admin.AdminRemoveUserCommand;
+import com.epam.library.controller.command.admin.AdminUpdateRoleCommand;
+import com.epam.library.controller.command.administration.book.LibrarianBookStoreCommand;
+import com.epam.library.controller.command.administration.book.LibrarianEditBookCommand;
+import com.epam.library.controller.command.administration.book.LibrarianUpdateBookCommand;
+import com.epam.library.controller.command.administration.order.LibrarianEditOrderCommand;
+import com.epam.library.controller.command.administration.order.LibrarianOrderListCommand;
+import com.epam.library.controller.command.administration.order.LibrarianUpdateOrderCommand;
+import com.epam.library.controller.command.administration.user.LibrarianEditUserCommand;
+import com.epam.library.controller.command.administration.user.LibrarianUpdateUserCommand;
+import com.epam.library.controller.command.administration.user.LibrarianUserListCommand;
 import com.epam.library.controller.command.book.BookStoreCommand;
+import com.epam.library.controller.command.book.SearchBookCommand;
+import com.epam.library.controller.command.book.SortBookCommand;
 import com.epam.library.controller.command.book.ViewBookCommand;
-import com.epam.library.controller.command.commoncommand.LanguageCommand;
-import com.epam.library.controller.command.commoncommand.ProfileCommand;
-import com.epam.library.controller.command.librarian.book.LibrarianBookStoreCommand;
-import com.epam.library.controller.command.librarian.book.LibrarianEditBookCommand;
-import com.epam.library.controller.command.librarian.book.LibrarianUpdateBookCommand;
-import com.epam.library.controller.command.librarian.order.LibrarianEditOrderCommand;
-import com.epam.library.controller.command.librarian.order.LibrarianOrderListCommand;
-import com.epam.library.controller.command.librarian.order.LibrarianUpdateOrderCommand;
-import com.epam.library.controller.command.librarian.user.LibrarianEditUserCommand;
-import com.epam.library.controller.command.librarian.user.LibrarianUpdateUserCommand;
-import com.epam.library.controller.command.librarian.user.LibrarianUserListCommand;
+import com.epam.library.controller.command.commoncommand.*;
 import com.epam.library.controller.command.user.UserOrderCommand;
 import com.epam.library.controller.command.user.order.ConfirmOrderCommand;
 import com.epam.library.controller.command.user.order.OrderBookCommand;
@@ -63,6 +67,10 @@ public class CommandFactory implements AutoCloseable {
                 return new LibrarianEditOrderCommand(serviceFactory.getOrderService());
             case "ADMINISTRATION_UPDATE_ORDER":
                 return new LibrarianUpdateOrderCommand(serviceFactory.getOrderService(), serviceFactory.getBookService(), transactionManager);
+            case "ADMINISTRATION_SORT_ORDER":
+                return new AdministrationSortOrderCommand(serviceFactory.getOrderService());
+            case "ADMINISTRATION_SEARCH_ORDER":
+                return new AdministrationSearchOrderCommand(serviceFactory.getOrderService());
 
             case "ADMINISTRATION_DISPLAY_USER":
                 return new LibrarianUserListCommand(serviceFactory.getUserService());
@@ -70,11 +78,20 @@ public class CommandFactory implements AutoCloseable {
                 return new LibrarianEditUserCommand(serviceFactory.getUserService());
             case "ADMINISTRATION_UPDATE_USER":
                 return new LibrarianUpdateUserCommand(serviceFactory.getUserService());
+            case "ADMINISTRATION_SEARCH_USER":
+                return new AdministrationSearchUserCommand(serviceFactory.getUserService());
+            case "ADMINISTRATION_SORT_USER":
+                return new AdministrationSortUserCommand(serviceFactory.getUserService());
 
                 // Admin only
-            case "ADMINISTRATION_REMOVE_BOOK":
+            case "ADMIN_REMOVE_BOOK":
                 return new AdminRemoveBookCommand(serviceFactory.getBookService());
-
+            case "ADMIN_REMOVE_USER":
+                return new AdminRemoveUserCommand(serviceFactory.getUserService());
+            case "ADMIN_CHANGE_ROLE":
+                return new AdminChangeRoleCommand(serviceFactory.getUserService());
+            case "ADMIN_UPDATE_ROLE":
+                return new AdminUpdateRoleCommand(serviceFactory.getUserService());
 
             //Reader
 
@@ -91,6 +108,10 @@ public class CommandFactory implements AutoCloseable {
                 return new ViewBookCommand(serviceFactory.getBookService());
             case "ORDER_BOOK":
                 return new OrderBookCommand(serviceFactory.getBookService());
+            case "SEARCH_BOOK":
+                return new SearchBookCommand(serviceFactory.getBookService());
+            case "SORT_BOOK":
+                return new SortBookCommand(serviceFactory.getBookService());
             default:
 
                 throw new IllegalArgumentException("Illegal Command");

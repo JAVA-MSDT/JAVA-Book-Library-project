@@ -43,6 +43,8 @@ public class ConfirmOrderCommand implements Command {
         String page = null;
         User user = (User) request.getSession(false).getAttribute(UserConstant.USER_ATTRIBUTE);
         String bookId = request.getParameter(BookConstant.BOOK_ID);
+        String bookOrderDate = request.getParameter(OrderConstant.ORDER_DATE);
+        System.out.println("Book order Date: " + bookOrderDate);
 
         if (user != null) {
             Optional<Book> optionalBook = bookService.getById(Long.valueOf(bookId));
@@ -50,6 +52,7 @@ public class ConfirmOrderCommand implements Command {
                 Book book = optionalBook.get();
                 Order order = builderFromRequest.userOrder(request, book.getId(), user.getId());
                 orderService.confirmUserOrder(order, book, bookService, transactionManager);
+
                 request.setAttribute(BookConstant.BOOK_ATTRIBUTE, book);
                 request.setAttribute(OrderConstant.ORDER_DONE, DiffConstant.READ_FROM_PROPERTIES);
                 page = PageLocation.VIEW_BOOK;

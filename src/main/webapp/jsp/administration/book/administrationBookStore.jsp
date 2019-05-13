@@ -11,8 +11,8 @@
     <meta charset="utf-8">
     <meta name="author" content="Ahmed Samy">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../css/readerMainStyle.css">
-    <link rel="stylesheet" href="../../../css/table.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/accountBodyStyle.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/table.css">
 </head>
 
 <body>
@@ -21,74 +21,131 @@
 <div class="profileContainer">
     <div class="basicInfo">
         <h1><fmt:message key="label.book.store"/></h1>
-        <div class="btnContainer">
-            <form name="administration-edit-book" action="controller" method="post">
-                <input type="hidden" name="command" value="administration-edit-book">
-                <input class="add-button" type="submit" name="add" value="<fmt:message key="label.add.book"/>"/>
-            </form>
-        </div>
-        <div class="container">
-            <div class="tableContainer">
-                <table class="tableList">
-                    <tr>
-                        <th>
-                            <h3><fmt:message key="label.id"/></h3>
-                        </th>
-                        <th>
-                            <h3><fmt:message key="label.name"/></h3>
-                        </th>
-                        <th>
-                            <h3><fmt:message key="label.quantity"/></h3>
-                        </th>
-                        <th>
-                            <h3><fmt:message key="button.edit"/></h3>
-                        </th>
+        <hr>
 
-                        <c:if test="${sessionScope.user.role eq 'ADMIN'}">
-                            <th>
-                                <h3><fmt:message key="button.remove"/></h3>
-                            </th>
-                        </c:if>
-
-                    </tr>
-                    <c:forEach varStatus="loop" var="bookList" items="${requestScope.bookList}">
-                    <tr>
-                        <td>
-                            <h4> ${loop.count} </h4>
-                        </td>
-                        <td>
-                            <h4> ${bookList.name}</h4>
-                        </td>
-                        <td><h4> ${bookList.quantity} </h4></td>
-                        <td>
-                            <form name="administration-edit-book" action="controller" method="post">
-                                <input type="hidden" name="command" value="administration-edit-book">
-                                <input class="edit" type="submit" name="edit"
-                                       value="<fmt:message key="button.edit"/> "/>
-                                <input type="hidden" name="id" value="<c:out value="${bookList.id}"/>"/>
-                            </form>
-                        </td>
-
-                        <c:if test="${sessionScope.user.role eq 'ADMIN'}">
-                        <td>
-                            <form name="administration-remove-book" action="controller" method="post">
-                                <input type="hidden" name="command" value="administration-remove-book">
-                                <input class="edit" type="submit" name="edit"
-                                       value="<fmt:message key="button.remove"/> "/>
-                                <input type="hidden" name="id" value="<c:out value="${bookList.id}"/>"/>
-                            </form>
-                        </td>
-                        </c:if>
-
-                        </c:forEach>
-                </table>
+        <%-- Adding - sorting - seraching bar --%>
+        <div class="main-row">
+            <div class="add-column">
+                <form name="administration-edit-book" action="controller" method="post">
+                    <input type="hidden" name="command" value="administration-edit-book">
+                    <input class="add-button" type="submit" name="edit" value="<fmt:message key="label.add.book"/>"/>
+                </form>
+            </div>
+            <div class="search-column">
+                <form name="search-book" action="controller" method="post">
+                    <input type="hidden" name="command" value="search-book">
+                    <input class="search-field" type="text" name="query" required
+                           placeholder="<fmt:message key="button.search"/> "/>
+                    <select class="select-option" name="type">
+                        <option value="name"><fmt:message key="label.book.name"/></option>
+                    </select>
+                    <input class="submit-button" type="submit" value="<fmt:message key="button.search"/>"/>
+                </form>
+            </div>
+            <div class="sort-column">
+                <form name="sort-book" action="controller" method="post">
+                    <input type="hidden" name="command" value="sort-book">
+                    <div class="row-option">
+                        <div class="label-col">
+                            <label for="sort-option"> <fmt:message key="label.sort.by"/> </label>
+                        </div>
+                        <div class="option-col">
+                            <select id="sort-option" class="select-option" name="type">
+                                <option value="name"><fmt:message key="label.name"/></option>
+                                <option value="quantity"><fmt:message key="label.quantity"/></option>
+                            </select>
+                            <input class="submit-button" type="submit" value="<fmt:message key="button.sort"/>"/>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
 
+        <%-- in case of removing a book one of these messages will be displayed--%>
+        <c:choose>
+            <c:when test="${not empty requestScope.removeDone}">
+                <h2 class="permission" style="color: green; margin: 10px auto"><fmt:message
+                        key="message.remove.done"/></h2> <br>
+            </c:when>
+            <c:when test="${not empty requestScope.removeFail}">
+                <h2 class="permission" style="color: brown; margin: 10px auto"><fmt:message
+                        key="message.remove.fail"/></h2> <br>
+            </c:when>
+
+        </c:choose>
+
+        <%-- in case of search for a book and it is not exist the below message will be displayed
+        instead of book list --%>
+        <c:choose>
+            <c:when test="${not empty requestScope.bookNotExist}">
+                <h2 class="permission" style="color: brown"><fmt:message key="message.book.not.exist"/></h2> <br>
+            </c:when>
+            <c:otherwise>
+
+                <%-- Book Table --%>
+                <div class="container">
+                    <div class="tableContainer">
+                        <table class="tableList">
+                            <tr>
+                                <th>
+                                    <h3><fmt:message key="label.id"/></h3>
+                                </th>
+                                <th>
+                                    <h3><fmt:message key="label.name"/></h3>
+                                </th>
+                                <th>
+                                    <h3><fmt:message key="label.quantity"/></h3>
+                                </th>
+                                <th>
+                                    <h3><fmt:message key="button.edit"/></h3>
+                                </th>
+
+                                <c:if test="${sessionScope.user.role eq 'ADMIN'}">
+                                    <th>
+                                        <h3><fmt:message key="button.remove"/></h3>
+                                    </th>
+                                </c:if>
+
+                            </tr>
+                            <c:forEach varStatus="loop" var="bookList" items="${requestScope.bookList}">
+                            <tr>
+                                <td>
+                                    <h4> ${loop.count} </h4>
+                                </td>
+                                <td>
+                                    <h4> ${bookList.name}</h4>
+                                </td>
+                                <td><h4> ${bookList.quantity} </h4></td>
+                                <td>
+                                    <form name="administration-edit-book" action="controller" method="post">
+                                        <input type="hidden" name="command" value="administration-edit-book">
+                                        <input class="edit" type="submit" name="edit"
+                                               value="<fmt:message key="button.edit"/> "/>
+                                        <input type="hidden" name="id" value="<c:out value="${bookList.id}"/>"/>
+                                    </form>
+                                </td>
+
+                                <c:if test="${sessionScope.user.role eq 'ADMIN'}">
+                                <td>
+                                    <form name="admin-remove-book" action="controller" method="post">
+                                        <input type="hidden" name="command" value="admin-remove-book">
+                                        <input class="edit" type="submit" name="edit"
+                                               value="<fmt:message key="button.remove"/> "/>
+                                        <input type="hidden" name="id" value="<c:out value="${bookList.id}"/>"/>
+                                    </form>
+                                </td>
+                                </c:if>
+
+                                </c:forEach>
+                        </table>
+                    </div>
+                </div>
+            </c:otherwise>
+        </c:choose>
     </div>
 
 </div>
-<jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/footer.jsp" />
+<jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/footer.jsp"/>
 </body>
 
 </html>

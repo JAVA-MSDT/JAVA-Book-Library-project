@@ -11,8 +11,8 @@
     <meta charset="utf-8">
     <meta name="author" content="Ahmed Samy">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../css/editForm.css">
-    <link rel="stylesheet" href="../../../css/readerMainStyle.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/form.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/accountBodyStyle.css">
 </head>
 
 <body>
@@ -20,15 +20,29 @@
 <div class="profileContainer">
     <div class="basicInfo">
 
-<c:choose>
-    <c:when test="${requestScope.editBook.id eq null}">
-        <h1><fmt:message key="label.add.book"/> </h1>
-    </c:when>
-    <c:otherwise>
-        <h1><fmt:message key="label.edit.book"/></h1>
-    </c:otherwise>
+        <c:choose>
+            <c:when test="${requestScope.editBook.id eq null}">
+                <h1><fmt:message key="label.add.book"/></h1>
+            </c:when>
+            <c:otherwise>
+                <h1><fmt:message key="label.edit.book"/></h1>
+            </c:otherwise>
+        </c:choose>
+        <hr>
+
+        <%-- in case of updating an existing book or inserting a new book one of these messages will be displaye--%>
+        <c:choose>
+            <c:when test="${not empty requestScope.updateDone}">
+                <h2 class="permission" style="color: green; margin: 20px auto"><fmt:message
+                        key="message.update.done"/></h2> <br>
+            </c:when>
+            <c:when test="${not empty requestScope.insertDone}">
+                <h2 class="permission" style="color: green; margin: 20px auto"><fmt:message
+                        key="message.insert.done"/></h2> <br>
+            </c:when>
 </c:choose>
 
+        <%-- Book Form for adding or editting --%>
         <div class="container">
             <div class="editContainerForm">
                 <form id="librarianBookForm" name="administration-update-book" action="controller" method="post">
@@ -37,11 +51,13 @@
                            value="${not empty requestScope.editBook.id ? requestScope.editBook.id : ''}">
                     <div class="row">
                         <div class="labelCol">
-                            <h3 class="label"><fmt:message key="label.name"/></h3>
+                            <h3 class="label"><fmt:message key="label.book.name"/></h3>
                         </div>
                         <div class="inputCol">
                             <input type="text" name="name"
-                                   value="${not empty requestScope.editBook.name ? requestScope.editBook.name : ''}">
+                                   value="${not empty requestScope.editBook.name ? requestScope.editBook.name : ''}"
+                                   pattern="[a-zA-z0-9 ]{1,40)" placeholder="<fmt:message key="label.book.name"/>"
+                                   required>
                         </div>
                     </div>
                     <div class="row">
@@ -50,7 +66,8 @@
                         </div>
                         <div class="inputCol">
                             <input type="text" name="quantity"
-                                   value="${ not empty requestScope.editBook.quantity ? requestScope.editBook.quantity : ''}">
+                                   value="${ not empty requestScope.editBook.quantity ? requestScope.editBook.quantity : ''}"
+                                   pattern="[0-9]+" placeholder="<fmt:message key="label.quantity"/>" required>
                         </div>
                     </div>
                     <div class="row">
@@ -62,7 +79,7 @@
     </div>
 
 </div>
-<jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/footer.jsp" />
+<jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/footer.jsp"/>
 </body>
 
 </html>

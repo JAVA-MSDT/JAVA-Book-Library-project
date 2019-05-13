@@ -52,3 +52,8 @@ order_book.returning_date, order_book.reading_place, order_book.book_returned FR
 INNER JOIN user_table ON order_book.user_id = user_table.id
 INNER JOIN book ON order_book.book_id = book.id;
 */
+
+/*SELECT book.name, order_book.order_date, order_book.returning_date,
+order_book.reading_place, order_book.book_returned FROM order_book
+INNER JOIN book ON order_book.book_id = book.id;
+*/

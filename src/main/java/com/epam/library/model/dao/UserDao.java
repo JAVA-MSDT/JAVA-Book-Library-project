@@ -90,6 +90,10 @@ public class UserDao extends AbstractDao<User> {
         return executeSingleResponseQuery(UserQuery.SELECT_USER_BY_LOGIN, new UserBuilder(), login);
     }
 
+    public Optional<User> findByEmail(String email) throws DaoException {
+        return executeSingleResponseQuery(UserQuery.SELECT_USER_BY_EMAIL, new UserBuilder(), email);
+    }
+
     /**
      * @return list of user by the role Reader
      * @throws DaoException if something wrong happens while executing the query
@@ -98,8 +102,17 @@ public class UserDao extends AbstractDao<User> {
         return executeQuery(UserQuery.SELECT_USER_BY_READER_ROLE, new UserBuilder());
     }
 
-    public void updateRole(Long id) throws DaoException {
-        executeUpdate(UserQuery.UPDATE_USER_ROLE, String.valueOf(id));
+    public void updateRole(Long id, String role) throws DaoException {
+
+        executeUpdate(UserQuery.UPDATE_USER_ROLE, role, String.valueOf(id));
     }
 
+    // User Sorting
+    public List<User> sortUsersByName() throws DaoException {
+        return executeQuery(UserQuery.SELECT_ALL_USERS_SORTING_BY_NAME, new UserBuilder());
+    }
+
+    public List<User> sortUsersByEmail() throws DaoException {
+        return executeQuery(UserQuery.SELECT_ALL_USERS_SORTING_BY_EMAIL, new UserBuilder());
+    }
 }

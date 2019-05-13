@@ -1,7 +1,7 @@
 package com.epam.library.model.builder;
 
 import com.epam.library.entity.enumeration.ReadingPlace;
-import com.epam.library.model.service.orderservice.AdministrationOrderDisplay;
+import com.epam.library.model.service.orderservice.adminstration.AdministrationOrderDisplay;
 import com.epam.library.util.EnumService;
 import com.epam.library.util.constant.OrderConstant;
 
@@ -16,7 +16,7 @@ public class AdministrationOrderBuilder implements Builder<AdministrationOrderDi
 
     @Override
     public AdministrationOrderDisplay build(ResultSet resultSet) throws SQLException {
-        long orderId = resultSet.getInt(OrderConstant.ORDER_ID);
+        long orderId = resultSet.getLong(OrderConstant.ORDER_ID);
         String bookName = resultSet.getString(BOOK_NAME);
         String userName = resultSet.getString(USER_NAME);
         String userEmail = resultSet.getString(USER_EMAIL);

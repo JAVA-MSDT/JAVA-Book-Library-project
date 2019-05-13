@@ -12,9 +12,9 @@
     <meta charset="utf-8">
     <meta name="author" content="Ahmed Samy">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../css/readerMainStyle.css">
-    <link rel="stylesheet" href="../../../css/table.css">
-    <link rel="stylesheet" href="../../../css/bookCard.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/accountBodyStyle.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/table.css">
+
 </head>
 
 <body>
@@ -23,12 +23,79 @@
 <div class="profileContainer">
     <div class="basicInfo">
         <h1><fmt:message key="label.order.list"/></h1>
-        <div class="btnContainer">
-            <form name="administration-edit-order" action="controller" method="post">
-                <input type="hidden" name="command" value="administration-edit-order">
-                <input class="add-button" type="submit" name="add" value="<fmt:message key="label.add.order"/>"/>
-            </form>
+        <hr>
+
+        <%-- Adding - sorting - seraching bar --%>
+
+        <div class="main-row">
+            <div class="add-column">
+                <form name="administration-edit-order" action="controller" method="post">
+                    <input type="hidden" name="command" value="administration-edit-order">
+                    <input class="add-button" type="submit" name="edit" value="<fmt:message key="label.add.order"/>"/>
+                </form>
+            </div>
+            <div class="search-column">
+                <form name="administration-search-order" action="controller" method="post">
+                    <input type="hidden" name="command" value="administration-search-order">
+                    <input class="search-field" type="text" name="query" required
+                           placeholder="<fmt:message key="button.search"/> "/>
+                    <select class="select-option" name="type">
+                        <option value="bookName"><fmt:message key="label.book.name"/></option>
+                        <option value="userName"><fmt:message key="label.user.name"/></option>
+                        <option value="email"><fmt:message key="label.email"/></option>
+                        <option value="orderDate"><fmt:message key="label.order.date"/></option>
+                        <option value="returningDate"><fmt:message key="label.order.return.date"/></option>
+                        <option value="readingPlace"><fmt:message key="label.order.reading.place"/></option>
+                    </select>
+                    <input class="submit-button" type="submit" value="<fmt:message key="button.search"/>"/>
+                </form>
+            </div>
+            <div class="sort-column">
+                <form name="administration-sort-order" action="controller" method="post">
+                    <input type="hidden" name="command" value="administration-sort-order">
+                    <div class="row-option">
+                        <div class="label-col">
+                            <label for="sort-option"> <fmt:message key="label.sort.by"/> </label>
+                        </div>
+                        <div class="option-col">
+                            <select id="sort-option" class="select-option" name="type">
+                                <option value="bookName"><fmt:message key="label.book.name"/></option>
+                                <option value="userName"><fmt:message key="label.user.name"/></option>
+                                <option value="email"><fmt:message key="label.email"/></option>
+                                <option value="orderDate"><fmt:message key="label.order.date"/></option>
+                                <option value="returningDate"><fmt:message key="label.order.return.date"/></option>
+                                <option value="readingPlace"><fmt:message key="label.order.reading.place"/></option>
+                            </select>
+                            <input class="submit-button" type="submit" value="<fmt:message key="button.sort"/>"/>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
         </div>
+
+        <%-- in case of removing an order one of these messages will be displayed--%>
+
+        <c:choose>
+            <c:when test="${not empty requestScope.removeDone}">
+                <h2 class="permission" style="color: green; margin: 10px auto"><fmt:message
+                        key="message.remove.done"/></h2> <br>
+            </c:when>
+            <c:when test="${not empty requestScope.removeFail}">
+                <h2 class="permission" style="color: brown; margin: 10px auto"><fmt:message
+                        key="message.remove.fail"/></h2> <br>
+            </c:when>
+
+        </c:choose>
+
+        <%-- in case of search for an order and it is not exist the below message will be displayed
+        instead of order list --%>
+        <c:choose>
+            <c:when test="${not empty requestScope.orderNotExist}">
+                <h2 class="permission" style="color: brown"><fmt:message key="message.order.not.exist"/></h2> <br>
+            </c:when>
+            <c:otherwise>
+                <%-- Order table --%>
         <div class="container">
             <div class="tableContainer">
                 <table class="tableList">
@@ -84,7 +151,8 @@
                 </table>
             </div>
         </div>
-        <br>
+            </c:otherwise>
+        </c:choose>
 
     </div>
 

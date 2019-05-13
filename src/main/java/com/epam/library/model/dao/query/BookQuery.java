@@ -12,5 +12,8 @@ public class BookQuery {
     public final static String SELECT_BOOK_BY_NAME = "SELECT * FROM book WHERE name = ?";
     public final static String SELECT_BOOK_BY_QUANTITY = "SELECT * FROM book WHERE quantity = ?";
 
+    public final static String SELECT_ALL_BOOKS_SORTED_BY_NAME = "SELECT * FROM book ORDER BY name ASC";
+    public final static String SELECT_ALL_BOOKS_SORTED_BY_QUANTITY = "SELECT * FROM book ORDER BY quantity ASC";
+
     public final static String DELETE_BOOK = "DELETE FROM book WHERE id= ?";
 }

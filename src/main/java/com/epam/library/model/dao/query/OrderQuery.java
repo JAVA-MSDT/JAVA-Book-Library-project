@@ -28,4 +28,8 @@ public class OrderQuery {
             "order_book.returning_date, order_book.reading_place, order_book.book_returned FROM order_book " +
             "INNER JOIN user_table ON order_book.user_id = user_table.id " +
             "INNER JOIN book ON order_book.book_id = book.id";
+
+    public final static String SELECT_ORDER_FOR_USER = "SELECT order_book.id, order_book.user_id, book.name, order_book.order_date, " +
+            "order_book.returning_date, order_book.reading_place, order_book.book_returned FROM order_book " +
+            "INNER JOIN book ON order_book.book_id = book.id";
 }

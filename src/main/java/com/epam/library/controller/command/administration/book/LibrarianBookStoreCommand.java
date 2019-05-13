@@ -1,4 +1,4 @@
-package com.epam.library.controller.command.librarian.book;
+package com.epam.library.controller.command.administration.book;
 
 import com.epam.library.controller.command.Command;
 import com.epam.library.controller.command.PageLocation;
@@ -26,7 +26,7 @@ public class LibrarianBookStoreCommand implements Command {
      * @param request  from the jsp
      * @param response to the jsp
      * @return page which holds the information about the books to display them on the page, for the
-     * librarian to control them, adding or editing
+     * administration to control them, adding or editing
      * @throws ServiceException is something wrong during the connection with database
      */
     @Override

@@ -13,11 +13,11 @@
     <meta name="description" content="Epam Library">
     <meta name="author" content="Ahmed Samy">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}css/index.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
 </head>
 
 <body>
-<jsp:include page="${pageContext.request.contextPath}jsp/commoncode/navigation.jsp"/>
+<jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/navigation.jsp"/>
 
 <div class="mainRow">
     <div class="epamImage">

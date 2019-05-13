@@ -50,11 +50,6 @@ header {
 
 @media screen and (max-width: 700px) {
 
-    .top-nav li a,
-    .drop-btn {
-        display: block;
-    }
-
     .epamImage,
     .epamText,
     .columnTwo {

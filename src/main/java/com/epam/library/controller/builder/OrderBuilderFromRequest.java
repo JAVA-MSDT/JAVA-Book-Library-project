@@ -21,7 +21,7 @@ public class OrderBuilderFromRequest {
 
         Order order = buildToAdd(request);
         order.setOrderId(Long.valueOf(orderId));
-        order.setBookReturned(getBooleanValue(bookReturned));
+        order.setBookReturned(Boolean.valueOf(bookReturned.trim()));
 
         return order;
     }
@@ -33,6 +33,7 @@ public class OrderBuilderFromRequest {
      * @return order after extracting it's information
      */
     public Order buildToAdd(HttpServletRequest request) {
+
         String bookId = request.getParameter(OrderConstant.BOOK_ID);
         String userId = request.getParameter(OrderConstant.USER_ID);
         String orderDate = request.getParameter(OrderConstant.ORDER_DATE);
@@ -59,11 +60,4 @@ public class OrderBuilderFromRequest {
                 Date.valueOf(returningDate), EnumService.getReadingPlace(readingPlace));
     }
 
-    /**
-     * @param booleanHolder string with a value true or false
-     * @return boolean value depends on the value of the booleanHolder string
-     */
-    private boolean getBooleanValue(String booleanHolder) {
-        return booleanHolder.equalsIgnoreCase("true");
-    }
 }

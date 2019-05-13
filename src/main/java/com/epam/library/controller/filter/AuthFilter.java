@@ -38,15 +38,14 @@ public class AuthFilter implements Filter {
 
         if (!commonCommand(command)) {
             if (user.getRole() == Role.LIBRARIAN && administrationCommand(command)) {
-                System.out.println("Librarian Filter");
                 filterChain.doFilter(servletRequest, servletResponse);
             } else if (user.getRole() == Role.ADMIN && administrationCommand(command)) {
-                System.out.println("Admin Filter");
                 filterChain.doFilter(servletRequest, servletResponse);
             }else if (user.getRole() == Role.READER && userCommand(command)) {
 
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
+                System.out.println("Filter Error");
                 response.sendRedirect(PageLocation.LOGIN_PAGE);
 
             }
@@ -62,7 +61,7 @@ public class AuthFilter implements Filter {
     }
 
     /**
-     * @param command to be checked if the librarian authorised to access it or not
+     * @param command to be checked if the administration authorised to access it or not
      * @return true if the admin authorised or false if it is not authorised
      */
     private boolean administrationCommand(String command) {
@@ -76,15 +75,20 @@ public class AuthFilter implements Filter {
         commandList.add("administration-order-list");
         commandList.add("administration-edit-order");
         commandList.add("administration-update-order");
+        commandList.add("administration-sort-order");
+        commandList.add("administration-search-order");
 
         commandList.add("administration-display-user");
         commandList.add("administration-edit-user");
         commandList.add("administration-update-user");
-
+        commandList.add("administration-search-user");
+        commandList.add("administration-sort-user");
         // Admin Only
 
-        commandList.add("administration-remove-book");
-        commandList.add("administration-change-role");
+        commandList.add("admin-remove-book");
+        commandList.add("admin-change-role");
+        commandList.add("admin-remove-user");
+        commandList.add("admin-update-role");
 
         return commandList.contains(command);
     }
@@ -114,6 +118,8 @@ public class AuthFilter implements Filter {
         commandList.add("view-book");
         commandList.add("order-book");
         commandList.add("change-language");
+        commandList.add("search-book");
+        commandList.add("sort-book");
         return commandList.contains(command);
     }
 }

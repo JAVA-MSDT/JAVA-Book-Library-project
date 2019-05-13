@@ -1,4 +1,4 @@
-package com.epam.library.controller.command.librarian.book;
+package com.epam.library.controller.command.administration.book;
 
 import com.epam.library.controller.builder.BookBuilderFromRequest;
 import com.epam.library.controller.command.Command;
@@ -7,6 +7,7 @@ import com.epam.library.entity.Book;
 import com.epam.library.model.service.BookService;
 import com.epam.library.model.service.ServiceException;
 import com.epam.library.util.constant.BookConstant;
+import com.epam.library.util.constant.DiffConstant;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,10 +37,12 @@ public class LibrarianUpdateBookCommand implements Command {
         if (bookId != null && !bookId.isEmpty()) {
             Book book = builderFromRequest.buildBookToUpdate(request);
             bookService.update(book);
+            request.setAttribute(DiffConstant.SUCCESS_INFO_UPDATE, DiffConstant.READ_FROM_PROPERTIES);
             page = PageLocation.ADMINISTRATION_EDIT_BOOK;
         } else {
             Book book = builderFromRequest.buildBookToAdd(request);
             bookService.save(book);
+            request.setAttribute(DiffConstant.INSERT_SUCCESS, DiffConstant.READ_FROM_PROPERTIES);
             page = PageLocation.ADMINISTRATION_EDIT_BOOK;
         }
         return page;

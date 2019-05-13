@@ -5,6 +5,7 @@ import com.epam.library.controller.command.PageLocation;
 import com.epam.library.entity.User;
 import com.epam.library.model.service.ServiceException;
 import com.epam.library.model.service.UserService;
+import com.epam.library.util.constant.DiffConstant;
 import com.epam.library.util.constant.UserConstant;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,12 +29,14 @@ public class AdminChangeRoleCommand implements Command {
             if (optionalUser.isPresent()) {
                 User user = optionalUser.get();
                 request.setAttribute(UserConstant.EDIT_USER, user);
-                page = PageLocation.ADMINISTRATION_EDIT_USER;
+                page = PageLocation.ADMIN_CHANGE_ROLE;
             } else {
-                page = PageLocation.PROFILE;
+                request.setAttribute(UserConstant.USER_NOT_EXIST, DiffConstant.READ_FROM_PROPERTIES);
+                page = PageLocation.ADMINISTRATION_USER_LIST;
             }
         }else {
-            page = PageLocation.ADMINISTRATION_EDIT_USER;
+            request.setAttribute(UserConstant.USER_NOT_EXIST, DiffConstant.READ_FROM_PROPERTIES);
+            page = PageLocation.ADMINISTRATION_USER_LIST;
         }
 
         return page;

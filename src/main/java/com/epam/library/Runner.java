@@ -10,7 +10,7 @@ import com.epam.library.model.dao.OrderDao;
 import com.epam.library.model.dao.query.OrderQuery;
 import com.epam.library.model.db.ConnectionPool;
 import com.epam.library.model.service.*;
-import com.epam.library.model.service.orderservice.AdministrationOrderDisplay;
+import com.epam.library.model.service.orderservice.user.UserOrderDisplay;
 
 import java.io.*;
 import java.sql.*;
@@ -43,7 +43,9 @@ public class Runner {
             System.out.println("Testing OrderDao");
 
             ServiceFactory serviceFactory = new ServiceFactory(connection);
+
             UserService userService = serviceFactory.getUserService();
+            System.out.println("Select By email: " + userService.findByEmail("filter@auth.com"));
             List<User> users = userService.getAll();
             for (User u : users) {
                 System.out.println(u);
@@ -72,12 +74,12 @@ public class Runner {
                 System.out.println(o);
             }
 
-            ResultSet resultSet = statement.executeQuery(OrderQuery.SELECT_ORDER_FOR_REVIEW);
+            ResultSet resultSet = statement.executeQuery(OrderQuery.SELECT_ORDER_FOR_USER);
             printTable(resultSet);
-
+            System.out.println("============================");
             OrderDao orderDao = new OrderDao(connection);
-            List<AdministrationOrderDisplay> orderDisplayList = orderDao.administrationAllOrder();
-            for (AdministrationOrderDisplay display : orderDisplayList) {
+            List<UserOrderDisplay> orderDisplayList = orderDao.userOrders();
+            for (UserOrderDisplay display : orderDisplayList) {
                 System.out.println(display);
             }
 

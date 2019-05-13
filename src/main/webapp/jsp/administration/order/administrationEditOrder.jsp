@@ -11,8 +11,8 @@
     <meta charset="utf-8">
     <meta name="author" content="Ahmed Samy">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../css/editForm.css">
-    <link rel="stylesheet" href="../../../css/readerMainStyle.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/form.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/accountBodyStyle.css">
 </head>
 
 <body>
@@ -20,6 +20,7 @@
 
 <div class="profileContainer">
     <div class="basicInfo">
+
         <c:choose>
             <c:when test="${requestScope.editOrder.orderId eq null}">
                 <h1><fmt:message key="label.add.order"/> </h1>
@@ -28,6 +29,22 @@
                 <h1><fmt:message key="label.edit.order"/></h1>
             </c:otherwise>
         </c:choose>
+        <hr>
+
+        <%-- in case of updating an existing order or inserting a new order one of these messages will be displaye--%>
+
+        <c:choose>
+            <c:when test="${not empty requestScope.updateDone}">
+                <h2 class="permission" style="color: green; margin: 20px auto"><fmt:message
+                        key="message.update.done"/></h2> <br>
+            </c:when>
+            <c:when test="${not empty requestScope.insertDone}">
+                <h2 class="permission" style="color: green; margin: 20px auto"><fmt:message
+                        key="message.insert.done"/></h2> <br>
+            </c:when>
+        </c:choose>
+
+        <%-- Order Form for adding or editting --%>
 
         <div class="container">
             <div class="editContainerForm">
@@ -41,7 +58,8 @@
                         </div>
                         <div class="inputCol">
                             <input type="text" name="book_id"
-                                   value="${not empty requestScope.editOrder.bookId ? requestScope.editOrder.bookId : ''}">
+                                   value="${not empty requestScope.editOrder.bookId ? requestScope.editOrder.bookId : ''}"
+                                   pattern="[0-9]+" placeholder="<fmt:message key="label.order.book.id"/>" required>
                         </div>
                     </div>
                     <div class="row">
@@ -50,7 +68,8 @@
                         </div>
                         <div class="inputCol">
                             <input type="text" name="user_id"
-                                   value="${not empty requestScope.editOrder.userId ? requestScope.editOrder.userId : ''}">
+                                   value="${not empty requestScope.editOrder.userId ? requestScope.editOrder.userId : ''}"
+                                   pattern="[0-9]+" placeholder="<fmt:message key="label.order.reader"/>" required>
                         </div>
                     </div>
                     <div class="row">
@@ -58,8 +77,9 @@
                             <h3 class="label"><fmt:message key="label.order.date"/></h3>
                         </div>
                         <div class="inputCol">
-                            <input type="text" name="order_date"
-                                   value="${not empty requestScope.editOrder.orderDate ? requestScope.editOrder.orderDate : ''}">
+                            <input type="date" name="order_date"
+                                   value="${not empty requestScope.editOrder.orderDate ? requestScope.editOrder.orderDate : ''}"
+                                   placeholder="<fmt:message key="label.order.date"/>" required>
                         </div>
                     </div>
                     <div class="row">
@@ -67,8 +87,10 @@
                             <h3 class="label"><fmt:message key="label.order.return.date"/></h3>
                         </div>
                         <div class="inputCol">
-                            <input type="text" name="returning_date"
-                                   value="${not empty requestScope.editOrder.returningDate ? requestScope.editOrder.returningDate : ''}">
+                            <input type="date" name="returning_date"
+                                   value="${not empty requestScope.editOrder.returningDate ? requestScope.editOrder.returningDate : ''}"
+                                   placeholder="<fmt:message key="label.order.return.date"/>" required>
+
                         </div>
                     </div>
                     <div class="row">
@@ -76,13 +98,14 @@
                             <h3 class="label"><fmt:message key="label.order.reading.place"/></h3>
                         </div>
                         <div class="inputCol">
-
-                            <input type="text" name="reading_place"
-                                   value="${not empty requestScope.editOrder.readingPlace ? requestScope.editOrder.readingPlace : ''}">
-                            <%--<select id="librarianReadingPlace" name="reading_place">
-                            <option value="HOME">Home</option>
-                            <option value="HALL">Hall</option>
-                            </select>--%>
+                            <select id="librarianReadingPlace" name="reading_place">
+                                <option value=" ${requestScope.editOrder.readingPlace eq 'HOME' ? 'HOME' : 'HOME'}">
+                                    <fmt:message key="label.order.home"/>
+                                </option>
+                                <option value="${requestScope.editOrder.readingPlace eq 'HALL' ? 'HALL' : 'HALL'}">
+                                    <fmt:message key="label.order.hall"/>
+                                </option>
+                            </select>
                         </div>
                     </div>
                     <div class="row">
@@ -90,8 +113,14 @@
                             <h3 class="label"><fmt:message key="label.order.returned"/></h3>
                         </div>
                         <div class="inputCol">
-                            <input type="text" name="book_returned"
-                                   value="${not empty requestScope.editOrder.bookReturned ? requestScope.editOrder.bookReturned : ''}">
+                            <select id="book-return" name="book_returned">
+                                <option value=" ${requestScope.editOrder.bookReturned eq  'false' ? 'false' : 'false'}">
+                                    <fmt:message key="label.false"/>
+                                </option>
+                                <option value="${requestScope.editOrder.bookReturned eq 'true' ? 'true' : 'true'}">
+                                    <fmt:message key="label.true"/>
+                                </option>
+                            </select>
                         </div>
                     </div>
                     <div class="row">

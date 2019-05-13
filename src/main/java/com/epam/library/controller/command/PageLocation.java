@@ -9,6 +9,7 @@ public class PageLocation {
     public final static String VIEW_BOOK = "/jsp/book/viewBook.jsp";
     public final static String PROFILE = "/profile.jsp";
 
+    public final static String ADMIN_CHANGE_ROLE = "/jsp/administration/user/administrationChangeRole.jsp";
     // Administration Pages
 
     public final static String ADMINISTRATION_USER_LIST = "/jsp/administration/user/administrationUserList.jsp";

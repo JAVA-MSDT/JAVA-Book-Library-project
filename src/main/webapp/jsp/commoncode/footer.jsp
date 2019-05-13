@@ -8,7 +8,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/footer.css">
 
+
 <c:choose>
+    <%-- if the user is not in the system the foter will be as below--%>
     <c:when test="${sessionScope.user == null}">
         <footer class="footer">
             <div class="footLinks">
@@ -36,6 +38,7 @@
             </div>
         </footer>
     </c:when>
+    <%-- otherwise if the user in the system the footer will be as his own page footer--%>
 
     <c:otherwise>
         <footer class="profileFooter">

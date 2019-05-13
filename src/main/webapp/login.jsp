@@ -22,7 +22,7 @@
     <div class="form">
 
         <img src="${pageContext.request.contextPath}img/epam.jpg" width="100" height="100">
-        <h2>Welcome Back</h2>
+        <h2><fmt:message key="message.welcome.back"/></h2>
 
         <div class="error-message">
             <c:if test="${not empty requestScope.invalidLogin}">
@@ -44,11 +44,11 @@
         </form>
         <div class="register">
 						<span class="txt1">
-							Don’t have an account?
+							<fmt:message key="message.no.account"/>
 						</span>
 
             <a class="regbtn" href="#">
-                Register
+                <fmt:message key="label.register"/>
             </a>
         </div>
 

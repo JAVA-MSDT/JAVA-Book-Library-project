@@ -51,6 +51,9 @@ public class Order {
         setBookReturned(bookReturned);
     }
 
+    public Order() {
+    }
+
     public long getOrderId() {
         return orderId;
     }

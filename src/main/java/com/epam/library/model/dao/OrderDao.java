@@ -3,8 +3,10 @@ package com.epam.library.model.dao;
 import com.epam.library.entity.Order;
 import com.epam.library.model.builder.AdministrationOrderBuilder;
 import com.epam.library.model.builder.OrderBuilder;
+import com.epam.library.model.builder.UserOrderBuilder;
 import com.epam.library.model.dao.query.OrderQuery;
-import com.epam.library.model.service.orderservice.AdministrationOrderDisplay;
+import com.epam.library.model.service.orderservice.adminstration.AdministrationOrderDisplay;
+import com.epam.library.model.service.orderservice.user.UserOrderDisplay;
 import com.epam.library.util.validate.ArgumentValidator;
 
 import java.sql.Connection;
@@ -64,10 +66,15 @@ public class OrderDao extends AbstractDao<Order> {
         return executeQuery(OrderQuery.SELECT_ORDER_BY_USER_ID, new OrderBuilder(), String.valueOf(userId));
     }
 
+    public Optional<Order> findOrderByBookId(Long bookId) throws DaoException {
+        return executeSingleResponseQuery(OrderQuery.SELECT_ORDER_BY_BOOK_ID, new OrderBuilder(), String.valueOf(bookId));
+    }
+
+
     /**
      *
-     * @return list of a special class to use it later to display the detailed order
-     * information for the librarian and admin
+     * @return list of a special object to use it later to display the detailed order
+     * information for the administration and admin
      * @throws DaoException is something wrong during the process
      */
     public List<AdministrationOrderDisplay> administrationAllOrder() throws DaoException {
@@ -83,9 +90,31 @@ public class OrderDao extends AbstractDao<Order> {
                 orderDisplayList.add(orderDisplay);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DaoException(e);
         }
         return orderDisplayList;
     }
 
+    /**
+     * @return list of a special object to use it later to display the detailed order
+     * information for the User
+     * @throws DaoException is something wrong during the process
+     */
+    public List<UserOrderDisplay> userOrders() throws DaoException {
+        List<UserOrderDisplay> orderDisplayList = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = getConnection().prepareStatement(OrderQuery.SELECT_ORDER_FOR_USER);
+
+            prepareStatement(preparedStatement);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                UserOrderBuilder builder = new UserOrderBuilder();
+                UserOrderDisplay orderDisplay = builder.build(resultSet);
+                orderDisplayList.add(orderDisplay);
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        return orderDisplayList;
+    }
 }

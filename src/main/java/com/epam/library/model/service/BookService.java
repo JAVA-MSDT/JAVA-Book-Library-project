@@ -65,4 +65,28 @@ public class BookService implements Service<Book> {
         }
     }
 
+    public List<Book> findByName(String name) throws ServiceException {
+        try {
+            return bookDao.findByName(name);
+        } catch (DaoException e) {
+            throw new ServiceException("exception in findByName at bookService class", e);
+        }
+    }
+
+    // Sorting
+    public List<Book> sortBooksByName() throws ServiceException {
+        try {
+            return bookDao.sortBooksByName();
+        } catch (DaoException e) {
+            throw new ServiceException("exception in sortBooksByName at bookService class", e);
+        }
+    }
+
+    public List<Book> sortBookByQuantity() throws ServiceException {
+        try {
+            return bookDao.sortBookByQuantity();
+        } catch (DaoException e) {
+            throw new ServiceException("exception in sortBookByQuantity at bookService class", e);
+        }
+    }
 }

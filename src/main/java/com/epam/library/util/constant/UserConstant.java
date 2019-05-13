@@ -8,6 +8,8 @@ public class UserConstant {
     public final static String EDIT_USER = "editUser";
     public final static String BLOCK_MESSAGE = "blocked";
     public final static String INVALID_LOGIN = "invalidLogin";
+    public final static String USER_NOT_EXIST = "userNotExist";
+
 
     public final static String ID = "id";
     public final static String NAME = "name";
@@ -17,6 +19,7 @@ public class UserConstant {
     public final static String PASSWORD = "password";
     public final static String ROLE = "role";
     public final static String BLOCKED = "blocked";
+
 }
 
 

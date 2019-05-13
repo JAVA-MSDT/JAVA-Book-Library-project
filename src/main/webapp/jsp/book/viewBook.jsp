@@ -6,32 +6,30 @@
 <html>
 <head>
     <title>
-        <c:if test="${ not empty sessionScope.user}">
-            ${requestScope.book.name}
-        </c:if>
-        <c:if test="${sessionScope.user == null}">
-            <fmt:message key="label.title.epam"/>
-        </c:if>
+        ${requestScope.book.name}
     </title>
-    <link rel="stylesheet" href="../../css/viewBook.css"/>
-    <link rel="stylesheet" href="../../css/editForm.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bookView.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/form.css"/>
 </head>
 <body>
-<jsp:include page="../commoncode/navigation.jsp"/>
+<jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/navigation.jsp"/>
 
 <div class="main-container">
     <div class="tiny-header">
         <p> ${requestScope.book.name} </p>
     </div>
 
+    <%-- if the user wanted to order a book and he is not in the system this message will be displayed--%>
     <c:if test="${not empty requestScope.invalidLogin}">
         <h2 class="permission"><fmt:message key="message.login.register"/></h2> <br>
     </c:if>
 
+    <%-- if the user who is in the system confirming an order and the order done successfully--%>
     <c:if test="${not empty requestScope.done}">
         <h2 class="permission" style="color: green"><fmt:message key="message.book.order.done"/></h2> <br>
     </c:if>
 
+    <%-- Book view --%>
     <div class="book-container">
         <div class="book-img">
             <img alt="Effective Java" src="../../img/effective.jpg"/>
@@ -99,7 +97,8 @@
         </div>
     </div>
 
-    <!-- if the user if logged in and he is authorised, this part wil be display -->
+    <!-- if the user is logged in and he wants to order a book, this part wil be display -->
+
     <c:if test="${not empty requestScope.display}">
         <div class="container">
             <div class="editContainerForm">
@@ -111,15 +110,16 @@
                             <h3 class="label"><fmt:message key="label.order.date"/></h3>
                         </div>
                         <div class="inputCol">
-                            <input type="text" name="order_date" value="" placeholder="YYYY-MM-DD">
+                            <input type="date" name="order_date" placeholder="YYYY-MM-DD"/>
                         </div>
                     </div>
                     <div class="row">
                         <div class="labelCol">
                             <h3 class="label"><fmt:message key="label.order.return.date"/></h3>
+
                         </div>
                         <div class="inputCol">
-                            <input type="text" name="returning_date" value="" placeholder="YYYY-MM-DD">
+                            <input type="date" name="returning_date" placeholder="YYYY-MM-DD"/>
                         </div>
                     </div>
                     <div class="row">
@@ -127,7 +127,7 @@
                             <h3 class="label"><fmt:message key="label.order.reading.place"/></h3>
                         </div>
                         <div class="inputCol">
-                            <select id="librarianReadingPlace" name="reading_place">
+                            <select id="readingPlace" name="reading_place">
                                 <option value="HOME"><fmt:message key="label.order.home"/></option>
                                 <option value="HALL"><fmt:message key="label.order.hall"/></option>
                             </select>
@@ -143,9 +143,11 @@
     </c:if>
 
     <hr>
+
+    <%-- Optional for the users to leave a comment on the specified book--%>
     <div class="container" style="margin-bottom: 20px">
         <div class="add-comment">
-            <h2> Add Comment</h2>
+            <h2> Add a Comment </h2>
         </div>
         <div class="editContainerForm">
             <form id="comment" name="comment" action="controller" method="post">

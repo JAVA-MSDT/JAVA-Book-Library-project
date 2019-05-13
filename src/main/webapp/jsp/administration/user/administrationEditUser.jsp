@@ -11,8 +11,8 @@
     <meta charset="utf-8">
     <meta name="author" content="Ahmed Samy">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../css/editForm.css">
-    <link rel="stylesheet" href="../../../css/readerMainStyle.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/form.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/accountBodyStyle.css">
 </head>
 
 <body>
@@ -30,7 +30,23 @@
                 <h1><fmt:message key="label.edit.reader"/></h1>
             </c:otherwise>
         </c:choose>
-        
+        <hr>
+
+        <%-- in case of updating an existing User or inserting a new User one of these messages will be displaye--%>
+
+        <c:choose>
+            <c:when test="${not empty requestScope.updateDone}">
+                <h2 class="permission" style="color: green; margin: 20px auto"><fmt:message
+                        key="message.update.done"/></h2> <br>
+            </c:when>
+            <c:when test="${not empty requestScope.insertDone}">
+                <h2 class="permission" style="color: green; margin: 20px auto"><fmt:message
+                        key="message.insert.done"/></h2> <br>
+            </c:when>
+        </c:choose>
+
+        <%-- User Form for adding or editting --%>
+
         <div class="container">
             <div class="editContainerForm">
                 <form id="librarianReaderForm" name="administration-update-user" action="controller" method="post">
@@ -42,7 +58,8 @@
                         </div>
                         <div class="inputCol">
                             <input type="text" name="name"
-                                   value="${not empty requestScope.editUser.name ? requestScope.editUser.name : ''}">
+                                   value="${not empty requestScope.editUser.name ? requestScope.editUser.name : ''}"
+                                   pattern="[a-zA-z0-9 ]+" placeholder="<fmt:message key="label.user.name"/>" required>
                         </div>
                     </div>
                     <div class="row">
@@ -51,7 +68,8 @@
                         </div>
                         <div class="inputCol">
                             <input type="text" name="last_name"
-                                   value="${not empty requestScope.editUser.lastName ? requestScope.editUser.lastName : ''}">
+                                   value="${not empty requestScope.editUser.lastName ? requestScope.editUser.lastName : ''}"
+                                   pattern="[a-zA-z0-9 ]+" placeholder="<fmt:message key="label.user.name"/>" required>
                         </div>
                     </div>
                     <div class="row">
@@ -60,7 +78,9 @@
                         </div>
                         <div class="inputCol">
                             <input type="text" name="email"
-                                   value="${not empty requestScope.editUser.email ? requestScope.editUser.email : ''}">
+                                   value="${not empty requestScope.editUser.email ? requestScope.editUser.email : ''}"
+                                   pattern="^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$"
+                                   placeholder="<fmt:message key="label.email"/>" required>
                         </div>
                     </div>
                     <div class="row">
@@ -69,7 +89,8 @@
                         </div>
                         <div class="inputCol">
                             <input type="text" name="login"
-                                   value="${not empty requestScope.editUser.login ? requestScope.editUser.login : ''}">
+                                   value="${not empty requestScope.editUser.login ? requestScope.editUser.login : ''}"
+                                   pattern="[a-zA-z0-9]+" placeholder="<fmt:message key="label.login"/>" required>
                         </div>
                     </div>
                     <div class="row">
@@ -78,7 +99,9 @@
                         </div>
                         <div class="inputCol">
                             <input type="text" name="password"
-                                   value="${not empty requestScope.editUser.password ? requestScope.editUser.password : ''}">
+                                   value="${not empty requestScope.editUser.password ? requestScope.editUser.password : ''}"
+                                   pattern="^([a-zA-Z0-9@*#]{4,10})$"
+                                   placeholder="<fmt:message key="label.role.password.disc"/>" required>
                         </div>
                     </div>
                     <div class="row">
@@ -86,12 +109,12 @@
                             <h3 class="label"><fmt:message key="label.reader.blocked"/></h3>
                         </div>
                         <div class="inputCol">
-                            <input type="text" name="blocked"
-                                   value="${not empty requestScope.editUser.blocked ? requestScope.editUser.blocked : ''}">
-                            <%--<select name="blocked">
-                                <option value="false">${requestScope..blocked}</option>
-                                <option value="true">${requestScope..blocked}</option>
-                            </select>--%>
+                            <select name="blocked">
+                                <option value="${requestScope.editUser.blocked eq 'false' ? 'FALSE' : 'FALSE'}">
+                                    <fmt:message key="label.false"/></option>
+                                <option value="${requestScope.editUser.blocked eq 'true' ? 'TRUE' : 'TRUE'}">
+                                    <fmt:message key="label.true"/></option>
+                            </select>
                         </div>
                     </div>
                     <div class="row">

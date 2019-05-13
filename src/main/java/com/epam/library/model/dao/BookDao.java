@@ -57,4 +57,17 @@ public class BookDao extends AbstractDao<Book> {
         executeUpdate(BookQuery.UPDATE_BOOK_QUANTITY, String.valueOf(quantity), String.valueOf(bookId));
     }
 
+    public List<Book> findByName(String name) throws DaoException {
+        return executeQuery(BookQuery.SELECT_BOOK_BY_NAME, new BookBuilder(), name);
+    }
+
+    // Sorting
+    public List<Book> sortBooksByName() throws DaoException {
+        return executeQuery(BookQuery.SELECT_ALL_BOOKS_SORTED_BY_NAME, new BookBuilder());
+    }
+
+    public List<Book> sortBookByQuantity() throws DaoException {
+        return executeQuery(BookQuery.SELECT_ALL_BOOKS_SORTED_BY_QUANTITY, new BookBuilder());
+    }
+
 }

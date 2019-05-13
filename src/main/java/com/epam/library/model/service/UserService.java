@@ -69,7 +69,11 @@ public class UserService implements Service<User> {
 
     @Override
     public void removeById(long id) throws ServiceException {
-
+        try {
+            userDao.removeById(id);
+        } catch (DaoException e) {
+            throw new ServiceException("Dao Exception in removeById method in UserService class", e);
+        }
     }
 
     public void update(User user) throws ServiceException {
@@ -92,12 +96,44 @@ public class UserService implements Service<User> {
         }
     }
 
-    public void updateRole(Long id) throws ServiceException {
+    public Optional<User> findByLogin(String login) throws ServiceException {
         try {
-            userDao.updateRole(id);
+            return userDao.findByLogin(login);
+        } catch (DaoException e) {
+            throw new ServiceException("Dao Exception in findByLogin method in UserService class", e);
+        }
+    }
+
+    public Optional<User> findByEmail(String email) throws ServiceException {
+        try {
+            return userDao.findByEmail(email);
+        } catch (DaoException e) {
+            throw new ServiceException("Dao Exception in findByEmail method in UserService class", e);
+        }
+    }
+
+    public void updateRole(Long id, String role) throws ServiceException {
+        try {
+            userDao.updateRole(id, role);
         } catch (DaoException e) {
             throw new ServiceException("Dao Exception in updateRole method in UserService class", e);
         }
     }
 
+    // User Sorting
+    public List<User> sortUsersByName() throws ServiceException {
+        try {
+            return userDao.sortUsersByName();
+        } catch (DaoException e) {
+            throw new ServiceException("Dao Exception in sortUsersByName method in UserService class", e);
+        }
+    }
+
+    public List<User> sortUsersByEmail() throws ServiceException {
+        try {
+            return userDao.sortUsersByEmail();
+        } catch (DaoException e) {
+            throw new ServiceException("Dao Exception in sortUsersByEmail method in UserService class", e);
+        }
+    }
 }

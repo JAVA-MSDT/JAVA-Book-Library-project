@@ -34,7 +34,7 @@ public class EnumService {
 
         Role findingValue = null;
         for (Role value : Role.values()) {
-            if (role.toUpperCase().equalsIgnoreCase(value.name())) {
+            if (role.trim().equalsIgnoreCase(value.name())) {
                 findingValue = value;
             }
         }
@@ -42,15 +42,14 @@ public class EnumService {
     }
 
     /**
-     * @param s from the database at this project
+     * @param readingPlace from the database at this project
      * @return enum element for the role to setReadingPlace() in Order class
      */
-    public static ReadingPlace getReadingPlace(String s) {
-        ArgumentValidator.checkForNullOrEmptyString(s, "Not allow for null or empty string in EnumService");
-
+    public static ReadingPlace getReadingPlace(String readingPlace) {
+        ArgumentValidator.checkForNullOrEmptyString(readingPlace, "Not allow for null or empty string in EnumService");
         ReadingPlace findingValue = null;
         for (ReadingPlace value : ReadingPlace.values()) {
-            if (s.toUpperCase().equalsIgnoreCase(value.name())) {
+            if (readingPlace.trim().equalsIgnoreCase(value.name())) {
                 findingValue = value;
             }
         }

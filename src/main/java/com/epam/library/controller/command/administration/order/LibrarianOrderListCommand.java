@@ -1,10 +1,10 @@
-package com.epam.library.controller.command.librarian.order;
+package com.epam.library.controller.command.administration.order;
 
 import com.epam.library.controller.command.Command;
 import com.epam.library.controller.command.PageLocation;
 import com.epam.library.model.service.OrderService;
 import com.epam.library.model.service.ServiceException;
-import com.epam.library.model.service.orderservice.AdministrationOrderDisplay;
+import com.epam.library.model.service.orderservice.adminstration.AdministrationOrderDisplay;
 import com.epam.library.util.constant.OrderConstant;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,13 +22,12 @@ public class LibrarianOrderListCommand implements Command {
      * @param request  from the jsp
      * @param response to the jsp
      * @return page which holds the information about the orders to display them on the page, for the
-     * librarian to control them, adding or editing
+     * administration to control them, adding or editing
      * @throws ServiceException if something wrong during the connection with database
      */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
 
-       // List<Order> orders = orderService.getAll();
         List<AdministrationOrderDisplay> orders = orderService.administrationAllOrder();
         request.setAttribute(OrderConstant.ORDER_LIST, orders);
         return PageLocation.ADMINISTRATION_ORDER_LIST;

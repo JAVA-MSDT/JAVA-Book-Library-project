@@ -1,4 +1,4 @@
-package com.epam.library.controller.command.librarian.book;
+package com.epam.library.controller.command.administration.book;
 
 import com.epam.library.controller.command.Command;
 import com.epam.library.controller.command.PageLocation;
@@ -6,6 +6,7 @@ import com.epam.library.entity.Book;
 import com.epam.library.model.service.BookService;
 import com.epam.library.model.service.ServiceException;
 import com.epam.library.util.constant.BookConstant;
+import com.epam.library.util.constant.DiffConstant;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,7 +42,8 @@ public class LibrarianEditBookCommand implements Command {
                 page = PageLocation.ADMINISTRATION_EDIT_BOOK;
 
             } else {
-                page = PageLocation.PROFILE;
+                request.setAttribute(BookConstant.BOOK_NOT_EXIST, DiffConstant.READ_FROM_PROPERTIES);
+                page = PageLocation.ADMINISTRATION_BOOK_STORE;
             }
         }else {
             page = PageLocation.ADMINISTRATION_EDIT_BOOK;

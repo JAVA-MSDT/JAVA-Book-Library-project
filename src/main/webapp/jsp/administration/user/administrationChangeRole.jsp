@@ -11,23 +11,28 @@
     <meta charset="utf-8">
     <meta name="author" content="Ahmed Samy">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../css/editForm.css">
-    <link rel="stylesheet" href="../../../css/readerMainStyle.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/form.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/accountBodyStyle.css">
 </head>
 
 <body>
 
 <jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/navigation.jsp"/>
 
+<%-- User Form for update user role jst for admin to use --%>
 <div class="profileContainer">
     <div class="basicInfo">
 
        <h1><fmt:message key="button.change.role"/> </h1>
-
+        <hr>
+        <c:if test="${not empty requestScope.updateDone}">
+            <h2 class="permission" style="color: green; margin: 20px auto"><fmt:message key="message.update.done"/></h2>
+            <br>
+        </c:if>
         <div class="container">
             <div class="editContainerForm">
-                <form id="librarianReaderForm" name="administration-update-role" action="controller" method="post">
-                    <input type="hidden" name="command" value="administration-update-role">
+                <form id="librarianReaderForm" name="admin-update-role" action="controller" method="post">
+                    <input type="hidden" name="command" value="admin-update-role">
                     <input type="hidden" name="id" value="${requestScope.editUser.id}">
                     <div class="row">
                         <div class="labelCol">
@@ -35,7 +40,8 @@
                         </div>
                         <div class="inputCol">
                             <input type="text" name="name"
-                                   value="${not empty requestScope.editUser.name ? requestScope.editUser.name : ''}">
+                                   value="${not empty requestScope.editUser.name ? requestScope.editUser.name : ''}"
+                                   readonly>
                         </div>
                     </div>
                     <div class="row">
@@ -44,7 +50,8 @@
                         </div>
                         <div class="inputCol">
                             <input type="text" name="last_name"
-                                   value="${not empty requestScope.editUser.lastName ? requestScope.editUser.lastName : ''}">
+                                   value="${not empty requestScope.editUser.lastName ? requestScope.editUser.lastName : ''}"
+                                   readonly>
                         </div>
                     </div>
                     <div class="row">
@@ -53,38 +60,23 @@
                         </div>
                         <div class="inputCol">
                             <input type="text" name="email"
-                                   value="${not empty requestScope.editUser.email ? requestScope.editUser.email : ''}">
+                                   value="${not empty requestScope.editUser.email ? requestScope.editUser.email : ''}"
+                                   readonly>
                         </div>
                     </div>
                     <div class="row">
                         <div class="labelCol">
-                            <h3 class="label"><fmt:message key="label.login"/></h3>
+                            <h3 class="label"><fmt:message key="label.reader.role"/></h3>
                         </div>
                         <div class="inputCol">
-                            <input type="text" name="login"
-                                   value="${not empty requestScope.editUser.login ? requestScope.editUser.login : ''}">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="labelCol">
-                            <h3 class="label"><fmt:message key="label.password"/></h3>
-                        </div>
-                        <div class="inputCol">
-                            <input type="text" name="password"
-                                   value="${not empty requestScope.editUser.password ? requestScope.editUser.password : ''}">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="labelCol">
-                            <h3 class="label"><fmt:message key="label.reader.blocked"/></h3>
-                        </div>
-                        <div class="inputCol">
-                            <input type="text" name="blocked"
-                                   value="${not empty requestScope.editUser.blocked ? requestScope.editUser.blocked : ''}">
-                            <%--<select name="blocked">
-                                <option value="false">${requestScope..blocked}</option>
-                                <option value="true">${requestScope..blocked}</option>
-                            </select>--%>
+                            <select name="role">
+                                <option value="${requestScope.editUser.role eq 'ADMIN' ? 'ADMIN' : 'ADMIN'}">
+                                    <fmt:message key="label.role.admin"/></option>
+                                <option value="${requestScope.editUser.role eq 'LIBRARIAN' ? 'LIBRARIAN' : 'LIBRARIAN'}">
+                                    <fmt:message key="label.role.librarian"/></option>
+                                <option value="${requestScope.editUser.role eq 'READER' ? 'READER' : 'READER'}">
+                                    <fmt:message key="label.role.reader"/></option>
+                            </select>
                         </div>
                     </div>
                     <div class="row">

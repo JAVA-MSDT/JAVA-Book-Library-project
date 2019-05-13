@@ -11,7 +11,7 @@
     <meta charset="utf-8">
     <meta name="author" content="Ahmed Samy">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/readerMainStyle.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/accountBodyStyle.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/table.css">
 </head>
 
@@ -19,24 +19,26 @@
 
 <jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/navigation.jsp"/>
 
+<%-- Just to display to the user his orders --%>
 <div class="profileContainer">
     <div class="basicInfo">
         <h1>My Order:</h1>
+        <hr>
         <div class="container">
             <div class="tableContainer">
                 <table class="tableList">
                     <tr>
                         <th>
-                            <h2> Id </h2>
+                            <h2><fmt:message key="label.id"/></h2>
                         </th>
                         <th>
-                            <h2> Name</h2>
+                            <h2><fmt:message key="label.book.name"/></h2>
                         </th>
                         <th>
-                            <h2> Order Date </h2>
+                            <h2><fmt:message key="label.order.date"/></h2>
                         </th>
                         <th>
-                            <h2> Returning Date </h2>
+                            <h2><fmt:message key="label.order.return.date"/></h2>
                         </th>
                     </tr>
                     <c:forEach varStatus="loop" var="orderList" items="${requestScope.orderList}">
@@ -45,7 +47,7 @@
                                 <h2> ${loop.count}</h2>
                             </th>
                             <th>
-                                <h2> Name</h2>
+                                <h2> ${orderList.bookName}</h2>
                             </th>
                             <th>
                                 <h2> ${orderList.orderDate} </h2>
@@ -63,7 +65,7 @@
     </div>
 
 </div>
-<jsp:include page="${pageContext.request.contextPath}jsp/commoncode/footer.jsp" />
+<jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/footer.jsp"/>
 </body>
 
 </html>

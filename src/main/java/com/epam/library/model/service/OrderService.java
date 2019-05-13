@@ -4,7 +4,8 @@ import com.epam.library.entity.Book;
 import com.epam.library.entity.Order;
 import com.epam.library.model.dao.DaoException;
 import com.epam.library.model.dao.OrderDao;
-import com.epam.library.model.service.orderservice.AdministrationOrderDisplay;
+import com.epam.library.model.service.orderservice.adminstration.AdministrationOrderDisplay;
+import com.epam.library.model.service.orderservice.user.UserOrderDisplay;
 import com.epam.library.util.validate.ArgumentValidator;
 
 import java.sql.SQLException;
@@ -71,10 +72,18 @@ public class OrderService implements Service<Order> {
         }
     }
 
+    public Optional<Order> findOrderByBookId(Long bookId) throws ServiceException {
+        try {
+            return orderDao.findOrderByBookId(bookId);
+        } catch (DaoException e) {
+            throw new ServiceException("exception in findOrderByBookId at OrderService class", e);
+        }
+    }
+
     /**
      *
-     * @return list of a special class to use it later to display the detailed order
-     * information for the librarian and admin
+     * @return list of a special object to use it later to display the detailed order
+     * information for the administration and admin
      * @throws ServiceException if something wrong during the process
      */
     public List<AdministrationOrderDisplay> administrationAllOrder() throws ServiceException {
@@ -97,6 +106,7 @@ public class OrderService implements Service<Order> {
 
 
     }
+
     public void confirmUserOrder(Order order, Book book, BookService bookService, TransactionManager transactionManager) throws ServiceException {
         try {
             transactionManager.startTransaction();
@@ -108,11 +118,20 @@ public class OrderService implements Service<Order> {
         } catch (SQLException e) {
             transactionManager.rollbackTransaction();
         }
-
-
-
     }
 
+    /**
+     * @return list of a special class to use it later to display the detailed order
+     * information for the User
+     * @throws ServiceException if something wrong during the process
+     */
+    public List<UserOrderDisplay> userOrders() throws ServiceException {
+        try {
+            return orderDao.userOrders();
+        } catch (DaoException e) {
+            throw new ServiceException("exception in userOrders at OrderService class", e);
+        }
+    }
 
     /**
      * To update the book quantity in the data base

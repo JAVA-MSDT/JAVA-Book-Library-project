@@ -7,4 +7,11 @@ public class DiffConstant {
 
     public final static String DISPLAY = "display";
     public final static String CONFIRM = "confirm";
+
+    public final static String FAIL_INFO_UPDATE = "updateFail";
+    public final static String SUCCESS_INFO_UPDATE = "updateDone";
+    public final static String REMOVE_DONE = "removeDone";
+    public final static String REMOVE_FAIL = "removeFail";
+    public final static String INSERT_SUCCESS = "insertDone";
+
 }

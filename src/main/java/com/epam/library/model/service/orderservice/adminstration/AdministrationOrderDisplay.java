@@ -1,8 +1,9 @@
-package com.epam.library.model.service.orderservice;
+package com.epam.library.model.service.orderservice.adminstration;
 
 import com.epam.library.entity.enumeration.ReadingPlace;
 
 import java.sql.Date;
+import java.util.Objects;
 
 public class AdministrationOrderDisplay {
 
@@ -88,6 +89,40 @@ public class AdministrationOrderDisplay {
 
     public void setBookReturned(boolean bookReturned) {
         this.bookReturned = bookReturned;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (this == o) {
+            return true;
+        }
+        AdministrationOrderDisplay orderDisplay = (AdministrationOrderDisplay) o;
+        return id == orderDisplay.id &&
+                bookReturned == orderDisplay.bookReturned &&
+                Objects.equals(bookName, orderDisplay.bookName) &&
+                Objects.equals(userName, orderDisplay.userName) &&
+                Objects.equals(userEmail, orderDisplay.userEmail) &&
+                Objects.equals(orderDate, orderDisplay.orderDate) &&
+                Objects.equals(returningDate, orderDisplay.returningDate) &&
+                readingPlace == orderDisplay.readingPlace;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (int) (id ^ (id >>> 32));
+        result = prime * result + ((bookName != null) ? bookName.hashCode() : 0);
+        result = prime * result + ((userName != null) ? userName.hashCode() : 0);
+        result = prime * result + ((userEmail != null) ? userEmail.hashCode() : 0);
+        result = prime * result + ((orderDate != null) ? orderDate.hashCode() : 0);
+        result = prime * result + ((returningDate != null) ? returningDate.hashCode() : 0);
+        result = prime * result + ((readingPlace != null) ? readingPlace.hashCode() : 0);
+        result = prime * result + ((bookReturned) ? 1231 : 1237);
+        return result;
     }
 
     @Override

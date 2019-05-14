@@ -79,6 +79,7 @@
                                         <div class="book-name">
                                             <h3>${bookList.name}</h3>
                                         </div>
+                                        <hr>
                                         <div class="book-row">
                                             <div class="book-available"><c:if test="${bookList.quantity > 0}">
                                                 <p><fmt:message key="label.available"/></p>

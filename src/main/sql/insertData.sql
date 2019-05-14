@@ -1,5 +1,8 @@
 INSERT INTO user_table(id, name, last_name, email, login, password, role, blocked)
-VALUES('1', 'Ahmed', 'Samy', 'serenitydiver@hotmail.com', 'JAVAMSDT', MD5('java'), 'ADMIN',false);
+VALUES('1', 'Ahmed', 'Samy', 'serenitydiver@hotmail.com', 'admin', MD5('admin'), 'ADMIN',false);
+
+INSERT INTO user_table(id, name, last_name, email, login, password, role, blocked)
+VALUES('2','Anastasia', 'Kruglova', 'anastaia@kruglova.com', 'admin1', MD5('admin1'), 'ADMIN',false);
 
 INSERT INTO user_table(name, last_name, email, login, password, role, blocked)
 VALUES('Alaa', 'Gamal', 'alaa@mail.com', 'alaa', MD5('gamal'), 'LIBRARIAN',0);

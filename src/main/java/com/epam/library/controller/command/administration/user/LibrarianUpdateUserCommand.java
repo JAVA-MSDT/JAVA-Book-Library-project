@@ -4,7 +4,6 @@ import com.epam.library.controller.builder.UserBuilderFromRequest;
 import com.epam.library.controller.command.Command;
 import com.epam.library.controller.command.PageLocation;
 import com.epam.library.entity.User;
-import com.epam.library.entity.enumeration.Role;
 import com.epam.library.model.service.ServiceException;
 import com.epam.library.model.service.UserService;
 import com.epam.library.util.constant.DiffConstant;
@@ -12,6 +11,7 @@ import com.epam.library.util.constant.UserConstant;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 public class LibrarianUpdateUserCommand implements Command {
@@ -34,23 +34,31 @@ public class LibrarianUpdateUserCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String page = null;
+        HttpSession session = request.getSession();
+
         String userId = request.getParameter(UserConstant.ID);
 
         if (userId != null && !userId.isEmpty()) {
             Optional<User> optionalUser = userService.getById(Long.valueOf(userId));
             if (optionalUser.isPresent()) {
-                Role role = optionalUser.get().getRole();
-                User updateUser = builderFromRequest.buildUserToLibrarianUpdate(request, role);
+                User user = optionalUser.get();
+                User updateUser = builderFromRequest.buildUserForUpdate(request, user);
                 userService.update(updateUser);
                 request.setAttribute(DiffConstant.SUCCESS_INFO_UPDATE, DiffConstant.READ_FROM_PROPERTIES);
 
                 page = PageLocation.ADMINISTRATION_EDIT_USER;
             }
         } else {
-            User user = builderFromRequest.buildToAddUser(request);
-            userService.save(user);
-            request.setAttribute(DiffConstant.INSERT_SUCCESS, DiffConstant.READ_FROM_PROPERTIES);
-            page = PageLocation.ADMINISTRATION_EDIT_USER;
+            if (session.getAttribute(DiffConstant.ITEM_INSERTED) == null) { // to prevent double submit
+                User user = builderFromRequest.buildUserForInserting(request);
+                userService.save(user);
+                request.setAttribute(DiffConstant.INSERT_SUCCESS, DiffConstant.READ_FROM_PROPERTIES);
+                session.setAttribute(DiffConstant.ITEM_INSERTED, DiffConstant.INSERTED);
+                page = PageLocation.ADMINISTRATION_EDIT_USER;
+            }else {
+                request.setAttribute(DiffConstant.DOUBLE_SUBMIT_ATTEMPT, DiffConstant.READ_FROM_PROPERTIES);
+                page = PageLocation.ADMINISTRATION_EDIT_USER;
+            }
         }
         return page;
     }

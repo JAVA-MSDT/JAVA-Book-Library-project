@@ -84,17 +84,6 @@ public class UserService implements Service<User> {
         }
     }
 
-    /**
-     * @return list of user by the role Reader
-     * @throws ServiceException if something wrong happens while executing the query
-     */
-    public List<User> findAllWhereRoleReader() throws ServiceException {
-        try {
-            return userDao.findAllWhereRoleReader();
-        } catch (DaoException e) {
-            throw new ServiceException("Dao Exception in findAllWhereRoleReader method in UserService class", e);
-        }
-    }
 
     public Optional<User> findByLogin(String login) throws ServiceException {
         try {
@@ -112,15 +101,19 @@ public class UserService implements Service<User> {
         }
     }
 
-    public void updateRole(Long id, String role) throws ServiceException {
+
+    // Librarian Query
+    /**
+     * @return list of user by the role Reader
+     * @throws ServiceException if something wrong happens while executing the query
+     */
+    public List<User> findAllWhereRoleReader() throws ServiceException {
         try {
-            userDao.updateRole(id, role);
+            return userDao.findAllWhereRoleReader();
         } catch (DaoException e) {
-            throw new ServiceException("Dao Exception in updateRole method in UserService class", e);
+            throw new ServiceException("Dao Exception in findAllWhereRoleReader method in UserService class", e);
         }
     }
-
-    // User Sorting
     public List<User> sortUsersByName() throws ServiceException {
         try {
             return userDao.sortUsersByName();
@@ -134,6 +127,32 @@ public class UserService implements Service<User> {
             return userDao.sortUsersByEmail();
         } catch (DaoException e) {
             throw new ServiceException("Dao Exception in sortUsersByEmail method in UserService class", e);
+        }
+    }
+
+    // Admin Query
+
+    public void updateRole(Long id, String role) throws ServiceException {
+        try {
+            userDao.updateRole(id, role);
+        } catch (DaoException e) {
+            throw new ServiceException("Dao Exception in updateRole method in UserService class", e);
+        }
+    }
+
+    public List<User> adminSortUsersByName() throws ServiceException {
+        try {
+            return userDao.adminSortUsersByName();
+        } catch (DaoException e) {
+            throw new ServiceException("Dao Exception in adminSortUsersByName method in UserService class", e);
+        }
+    }
+
+    public List<User> adminSortUsersByEmail() throws ServiceException {
+        try {
+            return userDao.adminSortUsersByEmail();
+        } catch (DaoException e) {
+            throw new ServiceException("Dao Exception in adminSortUsersByEmail method in UserService class", e);
         }
     }
 }

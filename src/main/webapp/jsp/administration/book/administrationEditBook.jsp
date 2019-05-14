@@ -20,15 +20,7 @@
 <div class="profileContainer">
     <div class="basicInfo">
 
-        <c:choose>
-            <c:when test="${requestScope.editBook.id eq null}">
-                <h1><fmt:message key="label.add.book"/></h1>
-            </c:when>
-            <c:otherwise>
-                <h1><fmt:message key="label.edit.book"/></h1>
-            </c:otherwise>
-        </c:choose>
-        <hr>
+        <h1> <fmt:message key="label.add.edit.book"/> </h1>
 
         <%-- in case of updating an existing book or inserting a new book one of these messages will be displaye--%>
         <c:choose>
@@ -42,11 +34,17 @@
             </c:when>
 </c:choose>
 
+        <%-- If there is any attempt for a doble submit or page refreshing this message will be displayed--%>
+        <c:if test="${not empty requestScope.doubleSubmit}">
+            <h2 class="permission" style="color: brown; margin: 20px auto"><fmt:message
+                    key="message.item.already.exist"/></h2> <br>
+        </c:if>
         <%-- Book Form for adding or editting --%>
         <div class="container">
             <div class="editContainerForm">
                 <form id="librarianBookForm" name="administration-update-book" action="controller" method="post">
                     <input type="hidden" name="command" value="administration-update-book">
+                    <input type="hidden" name="insert" value="${sessionScope.inserted}">
                     <input type="hidden" name="id"
                            value="${not empty requestScope.editBook.id ? requestScope.editBook.id : ''}">
                     <div class="row">

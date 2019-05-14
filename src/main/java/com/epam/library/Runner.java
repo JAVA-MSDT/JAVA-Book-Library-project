@@ -11,6 +11,7 @@ import com.epam.library.model.dao.query.OrderQuery;
 import com.epam.library.model.db.ConnectionPool;
 import com.epam.library.model.service.*;
 import com.epam.library.model.service.orderservice.user.UserOrderDisplay;
+import com.epam.library.util.PropertiesExtractor;
 
 import java.io.*;
 import java.sql.*;
@@ -24,19 +25,20 @@ public class Runner {
         String CREATE_SQL_LOCATION = "src/main/sql/createTables.sql";
         String INSERT_INTO_TABLE = "src/main/sql/insertData.sql";
         try {
-            // Class.forName(DBInfo.DB_DRIVER);
+            String driver = PropertiesExtractor.getValueFromProperties("db.driver", "dataBase");
+             Class.forName(driver);
             Connection connection = ConnectionPool.getInstance().getConnection();
             Statement statement = connection.createStatement();
-            //  statement.executeUpdate("DROP DATABASE " + "library");
-            //   statement.executeUpdate("CREATE DATABASE " + "library");
+             // statement.executeUpdate("DROP DATABASE " + "library");
+              // statement.executeUpdate("CREATE DATABASE " + "library");
             System.out.println("Creating .....");
             statement.executeUpdate("USE " + "library");
             System.out.println("database using....");
 
-            //   updateData(CREATE_SQL_LOCATION, statement);
+             //  updateData(CREATE_SQL_LOCATION, statement);
             System.out.println("Creating tables Done Successfully!");
 
-            //   updateData(INSERT_INTO_TABLE, statement);
+             //  updateData(INSERT_INTO_TABLE, statement);
             System.out.println("Data Inserted Successfully..!");
 
             System.out.println("==================================");
@@ -91,6 +93,8 @@ public class Runner {
             e.getMessage();
         } catch (DaoException e) {
             e.getLocalizedMessage();
+        } catch (ClassNotFoundException e) {
+            e.getCause();
         }
     }
 

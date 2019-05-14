@@ -10,21 +10,20 @@ public class UserBuilderFromRequest {
 
     /**
      * @param request to extract from it the user data
-     * @param role    to get the use Role
+     * @param user    to extract the user Role and password
      * @return new user after coping the proper data from the request and the user object.
      */
-    public User buildUserToLibrarianUpdate(HttpServletRequest request, Role role) {
+    public User buildUserForUpdate(HttpServletRequest request, User user) {
         String id = request.getParameter(UserConstant.ID);
+        String name = request.getParameter(UserConstant.NAME);
+        String lastName = request.getParameter(UserConstant.LAST_NAME);
+        String email = request.getParameter(UserConstant.EMAIL);
+        String login = request.getParameter(UserConstant.LOGIN);
+        String password = request.getParameter(UserConstant.PASSWORD);
+        Role role = user.getRole();
         String blocked = request.getParameter(UserConstant.BLOCKED);
-        boolean blockStatus = getBooleanValue(blocked);
 
-        User user1 = buildToAddUser(request);
-
-        user1.setId(Long.valueOf(id));
-        user1.setBlocked(blockStatus);
-        user1.setRole(role);
-
-        return user1;
+        return new User(Long.valueOf(id), name, lastName, email, login, password, role, Boolean.valueOf(blocked.trim()));
     }
 
     /**
@@ -32,7 +31,7 @@ public class UserBuilderFromRequest {
      * @return the needed fields which has no default value in the sql table to use it
      * for saving user in the database
      */
-    public User buildToAddUser(HttpServletRequest request) {
+    public User buildUserForInserting(HttpServletRequest request) {
         String name = request.getParameter(UserConstant.NAME);
         String lastName = request.getParameter(UserConstant.LAST_NAME);
         String email = request.getParameter(UserConstant.EMAIL);
@@ -41,11 +40,4 @@ public class UserBuilderFromRequest {
         return new User(name, lastName, email, login, password);
     }
 
-    /**
-     * @param booleanHolder string with a value true or false
-     * @return boolean value depends on the value of the booleanHolder string
-     */
-    private boolean getBooleanValue(String booleanHolder) {
-        return booleanHolder.equalsIgnoreCase("true");
-    }
 }

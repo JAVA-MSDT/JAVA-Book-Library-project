@@ -11,9 +11,9 @@ import com.epam.library.util.constant.DiffConstant;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class LibrarianUpdateBookCommand implements Command {
-
     private BookService bookService;
     private BookBuilderFromRequest builderFromRequest = new BookBuilderFromRequest();
 
@@ -33,17 +33,27 @@ public class LibrarianUpdateBookCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String page;
+        HttpSession session = request.getSession();
         String bookId = request.getParameter(BookConstant.BOOK_ID);
         if (bookId != null && !bookId.isEmpty()) {
+
             Book book = builderFromRequest.buildBookToUpdate(request);
             bookService.update(book);
             request.setAttribute(DiffConstant.SUCCESS_INFO_UPDATE, DiffConstant.READ_FROM_PROPERTIES);
             page = PageLocation.ADMINISTRATION_EDIT_BOOK;
+
         } else {
-            Book book = builderFromRequest.buildBookToAdd(request);
-            bookService.save(book);
-            request.setAttribute(DiffConstant.INSERT_SUCCESS, DiffConstant.READ_FROM_PROPERTIES);
-            page = PageLocation.ADMINISTRATION_EDIT_BOOK;
+
+            if (session.getAttribute(DiffConstant.ITEM_INSERTED) == null) { // to prevent double submit
+                Book book = builderFromRequest.buildBookToAdd(request);
+                bookService.save(book);
+                request.setAttribute(DiffConstant.INSERT_SUCCESS, DiffConstant.READ_FROM_PROPERTIES);
+                session.setAttribute(DiffConstant.ITEM_INSERTED, DiffConstant.INSERTED);
+                page = PageLocation.ADMINISTRATION_EDIT_BOOK;
+            } else {
+                request.setAttribute(DiffConstant.DOUBLE_SUBMIT_ATTEMPT, DiffConstant.READ_FROM_PROPERTIES);
+                page = PageLocation.ADMINISTRATION_EDIT_BOOK;
+            }
         }
         return page;
     }

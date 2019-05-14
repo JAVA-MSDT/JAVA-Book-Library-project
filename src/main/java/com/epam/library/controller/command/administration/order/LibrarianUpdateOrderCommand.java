@@ -13,6 +13,7 @@ import com.epam.library.util.constant.OrderConstant;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class LibrarianUpdateOrderCommand implements Command {
     private final static String TRUE = "true";
@@ -41,7 +42,7 @@ public class LibrarianUpdateOrderCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String page;
-
+        HttpSession session = request.getSession();
         String orderId = request.getParameter(OrderConstant.ORDER_ID);
         String bookReturned = request.getParameter(OrderConstant.BOOK_RETURNED);
         String bookId = request.getParameter(OrderConstant.BOOK_ID);
@@ -59,10 +60,16 @@ public class LibrarianUpdateOrderCommand implements Command {
             page = PageLocation.ADMINISTRATION_ORDER_LIST;
         } else {
 
-            Order order = builderFromRequest.buildToAdd(request);
-            orderService.save(order);
-            request.setAttribute(DiffConstant.INSERT_SUCCESS, DiffConstant.READ_FROM_PROPERTIES);
-            page = PageLocation.ADMINISTRATION_EDIT_ORDER;
+            if (session.getAttribute(DiffConstant.ITEM_INSERTED) == null) { // to prevent double submit
+                Order order = builderFromRequest.buildToAdd(request);
+                orderService.save(order);
+                request.setAttribute(DiffConstant.INSERT_SUCCESS, DiffConstant.READ_FROM_PROPERTIES);
+                session.setAttribute(DiffConstant.ITEM_INSERTED, DiffConstant.INSERTED);
+                page = PageLocation.ADMINISTRATION_EDIT_ORDER;
+            }else {
+                request.setAttribute(DiffConstant.DOUBLE_SUBMIT_ATTEMPT, DiffConstant.READ_FROM_PROPERTIES);
+                page = PageLocation.ADMINISTRATION_EDIT_ORDER;
+            }
         }
         return page;
     }

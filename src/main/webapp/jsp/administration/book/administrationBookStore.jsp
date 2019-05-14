@@ -74,6 +74,18 @@
 
         </c:choose>
 
+        <%-- in case of updating an existing book or inserting a new book one of these messages will be displaye--%>
+        <c:choose>
+            <c:when test="${not empty requestScope.updateDone}">
+                <h2 class="permission" style="color: green; margin: 20px auto"><fmt:message
+                        key="message.update.done"/></h2> <br>
+            </c:when>
+            <c:when test="${not empty requestScope.insertDone}">
+                <h2 class="permission" style="color: green; margin: 20px auto"><fmt:message
+                        key="message.insert.done"/></h2> <br>
+            </c:when>
+        </c:choose>
+
         <%-- in case of search for a book and it is not exist the below message will be displayed
         instead of book list --%>
         <c:choose>

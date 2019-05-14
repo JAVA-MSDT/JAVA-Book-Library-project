@@ -1,7 +1,5 @@
 package com.epam.library.model.service;
 
-import com.epam.library.model.db.ConnectionPool;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -12,14 +10,6 @@ public class TransactionManager {
 
     public TransactionManager(Connection connection) {
         this.connection = connection;
-    }
-
-    public TransactionManager() {
-        connection = ConnectionPool.getInstance().getConnection();
-    }
-
-    public Connection getConnection() {
-        return ConnectionPool.getInstance().getConnection();
     }
 
 
@@ -43,11 +33,8 @@ public class TransactionManager {
      * will be triggered if something wrong happen with committing the change to the database
      */
     public void rollbackTransaction() {
-        System.out.println("Before rollback try");
         try {
-            System.out.println("Before rollback");
             connection.rollback();
-            System.out.println("After rollback");
         } catch (SQLException e) {
             e.printStackTrace();
         }

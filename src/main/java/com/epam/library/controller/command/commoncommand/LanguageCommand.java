@@ -17,8 +17,6 @@ public class LanguageCommand implements Command {
         HttpSession session = request.getSession();
         String local = request.getParameter(LANGUAGE_PARAMETER);
         session.setAttribute(LANGUAGE_ATTRIBUTE, local);
-        System.out.println("Session is: " + session.getAttribute(LANGUAGE_ATTRIBUTE));
-        System.out.println("Local is: " + local);
         return PageLocation.MAIN_PAGE;
     }
 }

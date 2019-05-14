@@ -30,13 +30,12 @@ public class LoginCommand implements Command {
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             session.setAttribute(UserConstant.USER_ATTRIBUTE, user);
-            request.setAttribute(UserConstant.USER_ATTRIBUTE, user);
-
             if (!user.isBlocked()) {
                 page = PageLocation.PROFILE;
             }else {
-                page = PageLocation.LOGIN_PAGE;
+                System.out.println("User Blocked: " + user.isBlocked());
                 request.setAttribute(UserConstant.BLOCK_MESSAGE, DiffConstant.READ_FROM_PROPERTIES);
+                page = PageLocation.LOGIN_PAGE;
             }
         } else {
             request.setAttribute(UserConstant.INVALID_LOGIN, DiffConstant.READ_FROM_PROPERTIES);

@@ -11,6 +11,7 @@ import com.epam.library.util.constant.UserConstant;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 public class LibrarianEditUserCommand implements Command {
@@ -30,6 +31,8 @@ public class LibrarianEditUserCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String page;
+        HttpSession session = request.getSession();
+        session.removeAttribute(DiffConstant.ITEM_INSERTED); // to remove the lock after double submit attempt
         String userId = request.getParameter(UserConstant.ID);
         if(userId != null){
             Optional<User> optionalUser = userService.getById(Long.valueOf(userId));

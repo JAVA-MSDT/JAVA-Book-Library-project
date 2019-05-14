@@ -21,14 +21,7 @@
 <div class="profileContainer">
     <div class="basicInfo">
 
-        <c:choose>
-            <c:when test="${requestScope.editOrder.orderId eq null}">
-                <h1><fmt:message key="label.add.order"/> </h1>
-            </c:when>
-            <c:otherwise>
-                <h1><fmt:message key="label.edit.order"/></h1>
-            </c:otherwise>
-        </c:choose>
+        <h1> <fmt:message key="label.add.edit.order"/> </h1>
         <hr>
 
         <%-- in case of updating an existing order or inserting a new order one of these messages will be displaye--%>
@@ -44,12 +37,19 @@
             </c:when>
         </c:choose>
 
+        <%-- If there is any attempt for a doble submit or page refreshing this message will be displayed--%>
+        <c:if test="${not empty requestScope.doubleSubmit}">
+            <h2 class="permission" style="color: brown; margin: 20px auto"><fmt:message
+                    key="message.item.already.exist"/></h2> <br>
+        </c:if>
+
         <%-- Order Form for adding or editting --%>
 
         <div class="container">
             <div class="editContainerForm">
                 <form id="librarianOrderForm" name="administration-update-order" action="controller" method="post">
                     <input type="hidden" name="command" value="administration-update-order">
+                    <input type="hidden" name="insert" value="${sessionScope.inserted}">
                     <input type="hidden" name="id" value="${requestScope.editOrder.orderId}">
 
                     <div class="row">

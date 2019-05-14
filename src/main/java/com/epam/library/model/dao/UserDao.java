@@ -78,8 +78,8 @@ public class UserDao extends AbstractDao<User> {
     public Optional<User> findByLoginAndPassword(String login, String password) throws DaoException {
         ArgumentValidator.checkForNullOrEmptyString(login, "Not allow for a null or empty login in findByLoginAndPassword at UserDao class");
         ArgumentValidator.checkForNullOrEmptyString(login, "Not allow for a null or empty password in findByLoginAndPassword at UserDao class");
-
         String encryptedPassword = MD5Encrypt.encrypt(password);
+        System.out.println("Password is:  " + encryptedPassword);
         return executeSingleResponseQuery(UserQuery.SELECT_USER_BY_LOGIN_PASSWORD, new UserBuilder(), login, encryptedPassword);
     }
 
@@ -94,6 +94,8 @@ public class UserDao extends AbstractDao<User> {
         return executeSingleResponseQuery(UserQuery.SELECT_USER_BY_EMAIL, new UserBuilder(), email);
     }
 
+
+    // Librarian Query
     /**
      * @return list of user by the role Reader
      * @throws DaoException if something wrong happens while executing the query
@@ -101,18 +103,24 @@ public class UserDao extends AbstractDao<User> {
     public List<User> findAllWhereRoleReader() throws DaoException {
         return executeQuery(UserQuery.SELECT_USER_BY_READER_ROLE, new UserBuilder());
     }
-
-    public void updateRole(Long id, String role) throws DaoException {
-
-        executeUpdate(UserQuery.UPDATE_USER_ROLE, role, String.valueOf(id));
-    }
-
-    // User Sorting
     public List<User> sortUsersByName() throws DaoException {
         return executeQuery(UserQuery.SELECT_ALL_USERS_SORTING_BY_NAME, new UserBuilder());
     }
 
     public List<User> sortUsersByEmail() throws DaoException {
         return executeQuery(UserQuery.SELECT_ALL_USERS_SORTING_BY_EMAIL, new UserBuilder());
+    }
+
+    // Admin Query
+    public List<User> adminSortUsersByName() throws DaoException {
+        return executeQuery(UserQuery.SELECT_ALL_SORTING_BY_NAME_FOR_ADMIN, new UserBuilder());
+    }
+
+    public List<User> adminSortUsersByEmail() throws DaoException {
+        return executeQuery(UserQuery.SELECT_ALL_SORTING_BY_EMAIL_FOR_ADMIN, new UserBuilder());
+    }
+
+    public void updateRole(Long id, String role) throws DaoException {
+        executeUpdate(UserQuery.UPDATE_USER_ROLE, role, String.valueOf(id));
     }
 }

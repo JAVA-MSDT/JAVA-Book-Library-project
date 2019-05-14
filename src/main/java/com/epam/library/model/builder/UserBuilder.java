@@ -33,7 +33,6 @@ public class UserBuilder implements Builder<User> {
         Role role = EnumService.getRole(resultSet.getString(UserConstant.ROLE));
         boolean blocked = resultSet.getBoolean(UserConstant.BLOCKED);
 
-
         return new User(id, name, lastName, email, login, password, role, blocked);
     }
 

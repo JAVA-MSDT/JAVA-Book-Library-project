@@ -30,6 +30,7 @@ public class UserQuery {
     // Admin Query
     public final static String SELECT_ALL_USERS = "SELECT * FROM user_table";
     public final static String SELECT_ALL_SORTING_BY_NAME_FOR_ADMIN = "SELECT * FROM user_table ORDER BY name ASC";
+    public final static String SELECT_ALL_SORTING_BY_EMAIL_FOR_ADMIN = "SELECT * FROM user_table ORDER BY email ASC";
 
 
     // Librarian Query

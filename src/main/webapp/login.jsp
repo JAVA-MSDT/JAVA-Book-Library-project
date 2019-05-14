@@ -34,7 +34,7 @@
         </div>
 
         <form name="LoginForm" action="controller" method="POST">
-            <input type="hidden" name="command" value="Login"/>
+            <input type="hidden" name="command" value="login"/>
             <input type="text" placeholder=
             <fmt:message key="label.login"/> name="login" pattern="[a-zA-z0-9]+"/>
             <input type="password" placeholder=

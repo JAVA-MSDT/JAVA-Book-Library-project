@@ -4,38 +4,41 @@
         http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
-  <display-name>Archetype Created Web Application</display-name>
+    <display-name>Archetype Created Web Application</display-name>
+    <icon>
+        <large-icon>/img/library.jpg</large-icon>
+    </icon>
 
-  <welcome-file-list>
-    <welcome-file>/index.jsp</welcome-file>
-  </welcome-file-list>
+    <welcome-file-list>
+        <welcome-file>/index.jsp</welcome-file>
+    </welcome-file-list>
 
-<!--  <error-page>
-    <error-code>404</error-code>
-    <location>/jsp/errorpage/error.jsp</location>
-  </error-page>
-  <error-page>
-    <exception-type>java.lang.RuntimeException</exception-type>
-    <location>/jsp/errorpage/error.jsp</location>
-  </error-page>
-  <error-page>
-    <error-code>500</error-code>
-    <location>/jsp/errorpage/error.jsp</location>
-  </error-page>-->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/jsp/errorpage/error.jsp</location>
+    </error-page>
+    <error-page>
+        <exception-type>java.lang.RuntimeException</exception-type>
+        <location>/jsp/errorpage/error.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/jsp/errorpage/error.jsp</location>
+    </error-page>
 
-  <error-page>
-    <exception-type>java.lang.RuntimeException</exception-type>
-    <location>/jsp/errorpage/error.jsp</location>
-  </error-page>
+    <error-page>
+        <exception-type>java.lang.RuntimeException</exception-type>
+        <location>/jsp/errorpage/error.jsp</location>
+    </error-page>
 
 
-  <jsp-config>
-    <jsp-property-group>
-      <url-pattern>*.jsp</url-pattern>
-      <el-ignored>false</el-ignored>
-      <scripting-invalid>false</scripting-invalid>
-    </jsp-property-group>
-  </jsp-config>
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <el-ignored>false</el-ignored>
+            <scripting-invalid>false</scripting-invalid>
+        </jsp-property-group>
+    </jsp-config>
 
 
 </web-app>

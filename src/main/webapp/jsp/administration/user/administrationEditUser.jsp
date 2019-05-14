@@ -22,15 +22,7 @@
 <div class="profileContainer">
     <div class="basicInfo">
 
-        <c:choose>
-            <c:when test="${requestScope.editUser.id eq null}">
-                <h1><fmt:message key="label.add.reader"/> </h1>
-            </c:when>
-            <c:otherwise>
-                <h1><fmt:message key="label.edit.reader"/></h1>
-            </c:otherwise>
-        </c:choose>
-        <hr>
+        <h1> <fmt:message key="label.add.edit.user"/> </h1>
 
         <%-- in case of updating an existing User or inserting a new User one of these messages will be displaye--%>
 
@@ -45,12 +37,19 @@
             </c:when>
         </c:choose>
 
+        <%-- If there is any attempt for a doble submit or page refreshing this message will be displayed--%>
+        <c:if test="${not empty requestScope.doubleSubmit}">
+            <h2 class="permission" style="color: brown; margin: 20px auto"><fmt:message
+                    key="message.item.already.exist"/></h2> <br>
+        </c:if>
+
         <%-- User Form for adding or editting --%>
 
         <div class="container">
             <div class="editContainerForm">
                 <form id="librarianReaderForm" name="administration-update-user" action="controller" method="post">
                     <input type="hidden" name="command" value="administration-update-user">
+                    <input type="hidden" name="insert" value="${sessionScope.inserted}">
                     <input type="hidden" name="id" value="${requestScope.editUser.id}">
                     <div class="row">
                         <div class="labelCol">
@@ -93,6 +92,7 @@
                                    pattern="[a-zA-z0-9]+" placeholder="<fmt:message key="label.login"/>" required>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="labelCol">
                             <h3 class="label"><fmt:message key="label.password"/></h3>
@@ -104,6 +104,8 @@
                                    placeholder="<fmt:message key="label.role.password.disc"/>" required>
                         </div>
                     </div>
+                    <c:if test="${empty requestScope.editUser.password}">
+                    </c:if>
                     <div class="row">
                         <div class="labelCol">
                             <h3 class="label"><fmt:message key="label.reader.blocked"/></h3>
@@ -112,7 +114,7 @@
                             <select name="blocked">
                                 <option value="${requestScope.editUser.blocked eq 'false' ? 'FALSE' : 'FALSE'}">
                                     <fmt:message key="label.false"/></option>
-                                <option value="${requestScope.editUser.blocked eq 'true' ? 'TRUE' : 'TRUE'}">
+                                <option value="${requestScope.editUser.blocked eq 'true' ? 'INSERTED' : 'INSERTED'}">
                                     <fmt:message key="label.true"/></option>
                             </select>
                         </div>

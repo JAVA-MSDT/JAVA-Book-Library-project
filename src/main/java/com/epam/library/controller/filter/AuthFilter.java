@@ -3,6 +3,7 @@ package com.epam.library.controller.filter;
 import com.epam.library.controller.command.PageLocation;
 import com.epam.library.entity.User;
 import com.epam.library.entity.enumeration.Role;
+import com.epam.library.util.constant.CommandName;
 import com.epam.library.util.constant.UserConstant;
 
 import javax.servlet.*;
@@ -34,7 +35,7 @@ public class AuthFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute(UserConstant.USER_ATTRIBUTE);
-        String command = request.getParameter("command");
+        String command = request.getParameter(CommandName.COMMAND_NAME);
 
         if (!commonCommand(command)) {
             if (user.getRole() == Role.LIBRARIAN && administrationCommand(command)) {
@@ -42,10 +43,8 @@ public class AuthFilter implements Filter {
             } else if (user.getRole() == Role.ADMIN && administrationCommand(command)) {
                 filterChain.doFilter(servletRequest, servletResponse);
             }else if (user.getRole() == Role.READER && userCommand(command)) {
-
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
-                System.out.println("Filter Error");
                 response.sendRedirect(PageLocation.LOGIN_PAGE);
 
             }
@@ -66,43 +65,43 @@ public class AuthFilter implements Filter {
      */
     private boolean administrationCommand(String command) {
         List<String> commandList = new ArrayList<>();
-        commandList.add("profile");
+        commandList.add(CommandName.PROFILE);
 
-        commandList.add("administration-book-store");
-        commandList.add("administration-edit-book");
-        commandList.add("administration-update-book");
+        commandList.add(CommandName.ADMINISTRATION_BOOK_STORE);
+        commandList.add(CommandName.ADMINISTRATION_EDIT_BOOK);
+        commandList.add(CommandName.ADMINISTRATION_UPDATE_BOOK);
 
-        commandList.add("administration-order-list");
-        commandList.add("administration-edit-order");
-        commandList.add("administration-update-order");
-        commandList.add("administration-sort-order");
-        commandList.add("administration-search-order");
+        commandList.add(CommandName.ADMINISTRATION_ORDER_LIST);
+        commandList.add(CommandName.ADMINISTRATION_EDIT_ORDER);
+        commandList.add(CommandName.ADMINISTRATION_UPDATE_ORDER);
+        commandList.add(CommandName.ADMINISTRATION_SORT_ORDER);
+        commandList.add(CommandName.ADMINISTRATION_SEARCH_ORDER);
 
-        commandList.add("administration-display-user");
-        commandList.add("administration-edit-user");
-        commandList.add("administration-update-user");
-        commandList.add("administration-search-user");
-        commandList.add("administration-sort-user");
+        commandList.add(CommandName.ADMINISTRATION_DISPLAY_USER);
+        commandList.add(CommandName.ADMINISTRATION_EDIT_USER);
+        commandList.add(CommandName.ADMINISTRATION_UPDATE_USER);
+        commandList.add(CommandName.ADMINISTRATION_SEARCH_USER);
+        commandList.add(CommandName.ADMINISTRATION_SORT_USER);
+
         // Admin Only
-
-        commandList.add("admin-remove-book");
-        commandList.add("admin-change-role");
-        commandList.add("admin-remove-user");
-        commandList.add("admin-update-role");
+        commandList.add(CommandName.ADMIN_REMOVE_BOOK);
+        commandList.add(CommandName.ADMIN_REMOVE_USER);
+        commandList.add(CommandName.ADMIN_CHANGE_ROLE);
+        commandList.add(CommandName.ADMIN_UPDATE_ROLE);
 
         return commandList.contains(command);
     }
 
     /**
-     * @param command to be checked if the user authorised to access it or not
+     * @param command to be checked if the user authorised to access on of this command or not
      * @return true if the user authorised or false if it is not authorised
      */
     private boolean userCommand(String command) {
         List<String> commandList = new ArrayList<>();
-        commandList.add("profile");
-        commandList.add("user-book");
-        commandList.add("confirm-order");
-        commandList.add("user-order");
+        commandList.add(CommandName.PROFILE);
+        commandList.add(CommandName.DISPLAY_BOOK);
+        commandList.add(CommandName.CONFIRM_ORDER);
+        commandList.add(CommandName.USER_ORDER);
         return commandList.contains(command);
     }
 
@@ -112,14 +111,14 @@ public class AuthFilter implements Filter {
      */
     private boolean commonCommand(String command) {
         List<String> commandList = new ArrayList<>();
-        commandList.add("Login");
-        commandList.add("logout");
-        commandList.add("display-book");
-        commandList.add("view-book");
-        commandList.add("order-book");
-        commandList.add("change-language");
-        commandList.add("search-book");
-        commandList.add("sort-book");
+        commandList.add(CommandName.LOGIN);
+        commandList.add(CommandName.LOGOUT);
+        commandList.add(CommandName.CHANGE_LANGUAGE);
+        commandList.add(CommandName.DISPLAY_BOOK);
+        commandList.add(CommandName.VIEW_BOOK);
+        commandList.add(CommandName.ORDER_BOOK);
+        commandList.add(CommandName.SEARCH_BOOK);
+        commandList.add(CommandName.SORT_BOOK);
         return commandList.contains(command);
     }
 }

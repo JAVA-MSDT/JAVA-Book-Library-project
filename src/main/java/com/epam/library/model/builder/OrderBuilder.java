@@ -3,7 +3,7 @@ package com.epam.library.model.builder;
 import com.epam.library.entity.Order;
 import com.epam.library.entity.enumeration.ReadingPlace;
 import com.epam.library.util.EnumService;
-import com.epam.library.util.constant.OrderConstant;
+import com.epam.library.util.constant.entityconstant.OrderConstant;
 import com.epam.library.util.validate.ArgumentValidator;
 
 import java.sql.Date;

@@ -1,4 +1,4 @@
-package com.epam.library.model.dao.query;
+package com.epam.library.util.constant.query;
 
 public class BookQuery {
     public final static String INSERT_BOOK = "INSERT INTO book(name, quantity) VALUES (?, ?)";

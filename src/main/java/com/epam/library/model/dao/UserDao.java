@@ -2,7 +2,7 @@ package com.epam.library.model.dao;
 
 import com.epam.library.entity.User;
 import com.epam.library.model.builder.UserBuilder;
-import com.epam.library.model.dao.query.UserQuery;
+import com.epam.library.util.constant.query.UserQuery;
 import com.epam.library.util.MD5Encrypt;
 import com.epam.library.util.validate.ArgumentValidator;
 

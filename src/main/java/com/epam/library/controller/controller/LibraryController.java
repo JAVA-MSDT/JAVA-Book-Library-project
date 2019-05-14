@@ -2,7 +2,7 @@ package com.epam.library.controller.controller;
 
 import com.epam.library.controller.command.Command;
 import com.epam.library.controller.command.CommandFactory;
-import com.epam.library.controller.command.PageLocation;
+import com.epam.library.util.constant.PageLocation;
 import com.epam.library.model.db.ConnectionPool;
 import com.epam.library.model.service.ServiceException;
 

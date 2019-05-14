@@ -4,7 +4,9 @@ import com.epam.library.entity.User;
 import com.epam.library.model.service.ServiceException;
 import com.epam.library.model.service.UserService;
 import com.epam.library.util.constant.DiffConstant;
-import com.epam.library.util.constant.UserConstant;
+import com.epam.library.util.constant.PageLocation;
+import com.epam.library.util.constant.entityconstant.BookConstant;
+import com.epam.library.util.constant.entityconstant.UserConstant;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,7 +27,6 @@ public class LoginCommand implements Command {
         HttpSession session = request.getSession();
         String login = request.getParameter(UserConstant.LOGIN);
         String password = request.getParameter(UserConstant.PASSWORD);
-
         Optional<User> optionalUser = userService.findByLoginPassword(login, password);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
@@ -33,7 +34,6 @@ public class LoginCommand implements Command {
             if (!user.isBlocked()) {
                 page = PageLocation.PROFILE;
             }else {
-                System.out.println("User Blocked: " + user.isBlocked());
                 request.setAttribute(UserConstant.BLOCK_MESSAGE, DiffConstant.READ_FROM_PROPERTIES);
                 page = PageLocation.LOGIN_PAGE;
             }

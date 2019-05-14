@@ -1,10 +1,10 @@
 package com.epam.library.controller.filter;
 
-import com.epam.library.controller.command.PageLocation;
+import com.epam.library.util.constant.PageLocation;
 import com.epam.library.entity.User;
 import com.epam.library.entity.enumeration.Role;
 import com.epam.library.util.constant.CommandName;
-import com.epam.library.util.constant.UserConstant;
+import com.epam.library.util.constant.entityconstant.UserConstant;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;

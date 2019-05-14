@@ -1,4 +1,4 @@
-package com.epam.library.controller.command;
+package com.epam.library.util.constant;
 
 public class PageLocation {
 

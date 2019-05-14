@@ -3,7 +3,7 @@ package com.epam.library.model.builder;
 import com.epam.library.entity.User;
 import com.epam.library.entity.enumeration.Role;
 import com.epam.library.util.EnumService;
-import com.epam.library.util.constant.UserConstant;
+import com.epam.library.util.constant.entityconstant.UserConstant;
 import com.epam.library.util.validate.ArgumentValidator;
 
 import java.sql.ResultSet;

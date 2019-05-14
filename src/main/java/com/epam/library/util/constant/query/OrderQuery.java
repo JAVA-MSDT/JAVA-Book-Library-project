@@ -1,4 +1,4 @@
-package com.epam.library.model.dao.query;
+package com.epam.library.util.constant.query;
 
 public class OrderQuery {
     public final static String INSERT_ORDER = "INSERT INTO order_book(book_id, user_id, order_date, returning_date, " +

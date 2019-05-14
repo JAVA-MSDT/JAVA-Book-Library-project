@@ -4,7 +4,7 @@ import com.epam.library.entity.Order;
 import com.epam.library.model.builder.AdministrationOrderBuilder;
 import com.epam.library.model.builder.OrderBuilder;
 import com.epam.library.model.builder.UserOrderBuilder;
-import com.epam.library.model.dao.query.OrderQuery;
+import com.epam.library.util.constant.query.OrderQuery;
 import com.epam.library.model.service.orderservice.adminstration.AdministrationOrderDisplay;
 import com.epam.library.model.service.orderservice.user.UserOrderDisplay;
 import com.epam.library.util.validate.ArgumentValidator;

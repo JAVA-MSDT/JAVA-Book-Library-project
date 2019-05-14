@@ -2,7 +2,7 @@ package com.epam.library.controller.builder;
 
 import com.epam.library.entity.Order;
 import com.epam.library.util.EnumService;
-import com.epam.library.util.constant.OrderConstant;
+import com.epam.library.util.constant.entityconstant.OrderConstant;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;

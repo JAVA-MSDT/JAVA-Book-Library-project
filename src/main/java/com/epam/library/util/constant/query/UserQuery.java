@@ -1,4 +1,4 @@
-package com.epam.library.model.dao.query;
+package com.epam.library.util.constant.query;
 
 public class UserQuery {
     public final static String INSERT_USER = "INSERT INTO user_table(name, last_name, email, login, password) VALUES(?,?,?,?,?)";

@@ -2,7 +2,7 @@ package com.epam.library.model.dao;
 
 import com.epam.library.entity.Book;
 import com.epam.library.model.builder.BookBuilder;
-import com.epam.library.model.dao.query.BookQuery;
+import com.epam.library.util.constant.query.BookQuery;
 import com.epam.library.util.validate.ArgumentValidator;
 
 import java.sql.Connection;

@@ -1,7 +1,7 @@
 package com.epam.library.controller.builder;
 
 import com.epam.library.entity.Book;
-import com.epam.library.util.constant.BookConstant;
+import com.epam.library.util.constant.entityconstant.BookConstant;
 
 import javax.servlet.http.HttpServletRequest;
 

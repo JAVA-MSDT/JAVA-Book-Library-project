@@ -1,14 +1,14 @@
 package com.epam.library.controller.command.book;
 
 import com.epam.library.controller.command.Command;
-import com.epam.library.controller.command.PageLocation;
+import com.epam.library.util.constant.PageLocation;
 import com.epam.library.entity.Book;
 import com.epam.library.entity.User;
 import com.epam.library.entity.enumeration.Role;
 import com.epam.library.model.service.BookService;
 import com.epam.library.model.service.ServiceException;
-import com.epam.library.util.constant.BookConstant;
-import com.epam.library.util.constant.UserConstant;
+import com.epam.library.util.constant.entityconstant.BookConstant;
+import com.epam.library.util.constant.entityconstant.UserConstant;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -2,7 +2,7 @@ package com.epam.library.controller.builder;
 
 import com.epam.library.entity.User;
 import com.epam.library.entity.enumeration.Role;
-import com.epam.library.util.constant.UserConstant;
+import com.epam.library.util.constant.entityconstant.UserConstant;
 
 import javax.servlet.http.HttpServletRequest;
 

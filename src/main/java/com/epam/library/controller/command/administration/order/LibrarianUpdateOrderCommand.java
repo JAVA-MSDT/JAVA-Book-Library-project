@@ -2,14 +2,14 @@ package com.epam.library.controller.command.administration.order;
 
 import com.epam.library.controller.builder.OrderBuilderFromRequest;
 import com.epam.library.controller.command.Command;
-import com.epam.library.controller.command.PageLocation;
+import com.epam.library.util.constant.PageLocation;
 import com.epam.library.entity.Order;
 import com.epam.library.model.service.BookService;
 import com.epam.library.model.service.OrderService;
 import com.epam.library.model.service.ServiceException;
 import com.epam.library.model.service.TransactionManager;
 import com.epam.library.util.constant.DiffConstant;
-import com.epam.library.util.constant.OrderConstant;
+import com.epam.library.util.constant.entityconstant.OrderConstant;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

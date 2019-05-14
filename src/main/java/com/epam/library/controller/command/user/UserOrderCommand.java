@@ -1,15 +1,15 @@
 package com.epam.library.controller.command.user;
 
 import com.epam.library.controller.command.Command;
-import com.epam.library.controller.command.PageLocation;
+import com.epam.library.util.constant.PageLocation;
 import com.epam.library.entity.User;
 import com.epam.library.model.service.OrderService;
 import com.epam.library.model.service.ServiceException;
 import com.epam.library.model.service.orderservice.user.UserOrderDisplay;
 import com.epam.library.model.service.orderservice.user.search.FindOrderByUserId;
 import com.epam.library.model.service.orderservice.user.search.FindOrderIndex;
-import com.epam.library.util.constant.OrderConstant;
-import com.epam.library.util.constant.UserConstant;
+import com.epam.library.util.constant.entityconstant.OrderConstant;
+import com.epam.library.util.constant.entityconstant.UserConstant;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

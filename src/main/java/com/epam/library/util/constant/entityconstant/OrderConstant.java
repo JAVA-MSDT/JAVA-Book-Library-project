@@ -1,4 +1,4 @@
-package com.epam.library.util.constant;
+package com.epam.library.util.constant.entityconstant;
 
 
 public class OrderConstant {

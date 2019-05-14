@@ -1,7 +1,7 @@
 package com.epam.library.controller.command.commoncommand;
 
 import com.epam.library.controller.command.Command;
-import com.epam.library.controller.command.PageLocation;
+import com.epam.library.util.constant.PageLocation;
 import com.epam.library.model.service.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;

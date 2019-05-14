@@ -1,6 +1,7 @@
 package com.epam.library.controller.command;
 
-import com.epam.library.util.constant.UserConstant;
+import com.epam.library.util.constant.PageLocation;
+import com.epam.library.util.constant.entityconstant.UserConstant;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

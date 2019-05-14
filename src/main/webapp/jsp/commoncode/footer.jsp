@@ -34,6 +34,7 @@
             </div>
             <div class="copyright">
                 <p>&#64; Copyright: Epam System Belarus 2019</p>
+                <p> <fmt:message key="message.dev.des.by"/> <a href="https://github.com/JAVA-MSDT">Ahmed Samy</a></p>
             </div>
         </footer>
     </c:when>
@@ -44,6 +45,7 @@
             <p><fmt:message key="message.for.help"/> <a href="#"><fmt:message key="label.contact.us"/> </a></p>
             <p>
             <p>&#64; Copyright: Epam System Belarus 2019</p>
+            <p> <fmt:message key="message.dev.des.by"/> <a href="https://github.com/JAVA-MSDT">Ahmed Samy</a></p>
         </footer>
     </c:otherwise>
 </c:choose>

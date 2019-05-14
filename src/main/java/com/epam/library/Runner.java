@@ -7,7 +7,7 @@ import com.epam.library.entity.User;
 import com.epam.library.model.builder.UserBuilder;
 import com.epam.library.model.dao.DaoException;
 import com.epam.library.model.dao.OrderDao;
-import com.epam.library.model.dao.query.OrderQuery;
+import com.epam.library.util.constant.query.OrderQuery;
 import com.epam.library.model.db.ConnectionPool;
 import com.epam.library.model.service.*;
 import com.epam.library.model.service.orderservice.user.UserOrderDisplay;

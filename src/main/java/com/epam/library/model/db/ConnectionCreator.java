@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DBConnector {
+public class ConnectionCreator {
     private final static String DB_PROPERTIES_URI = "dataBase";
     private final static String DRIVER = "db.driver";
     private final static String NAME = "db.name";
@@ -14,18 +14,26 @@ public class DBConnector {
     private final static String LOGIN = "db.login";
     private final static String PASSWORD = "db.password";
 
+    private String dbName ;
+    private String dbURI ;
+    private String dbLogin;
+    private String dbPassword ;
 
-    public static Connection getConnection() throws SQLException {
+    // package-private
+    ConnectionCreator() {
+        dbName = PropertiesExtractor.getValueFromProperties(NAME, DB_PROPERTIES_URI);
+        dbURI = PropertiesExtractor.getValueFromProperties(URI, DB_PROPERTIES_URI);
+        dbLogin = PropertiesExtractor.getValueFromProperties(LOGIN, DB_PROPERTIES_URI);
+        dbPassword = PropertiesExtractor.getValueFromProperties(PASSWORD, DB_PROPERTIES_URI);
+    }
+
+    public Connection create() throws SQLException {
         String driver = PropertiesExtractor.getValueFromProperties(DRIVER, DB_PROPERTIES_URI);
         try {
             Class.forName(driver);
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            throw new IllegalStateException(e);
         }
-        String dbName = PropertiesExtractor.getValueFromProperties(NAME, DB_PROPERTIES_URI);
-        String dbURI = PropertiesExtractor.getValueFromProperties(URI, DB_PROPERTIES_URI);
-        String dbLogin = PropertiesExtractor.getValueFromProperties(LOGIN, DB_PROPERTIES_URI);
-        String dbPassword = PropertiesExtractor.getValueFromProperties(PASSWORD, DB_PROPERTIES_URI);
         return DriverManager.getConnection(dbURI + dbName, dbLogin, dbPassword);
 
     }

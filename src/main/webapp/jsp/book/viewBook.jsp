@@ -13,6 +13,7 @@
 </head>
 <body>
 <jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/navigation.jsp"/>
+<jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/scrollTop.jsp"/>
 
 <div class="main-container">
     <div class="tiny-header">

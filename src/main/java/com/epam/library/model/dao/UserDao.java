@@ -60,11 +60,10 @@ public class UserDao extends AbstractDao<User> {
         ArgumentValidator.checkForNull(item, "User item in update method at UserDao class can not be null");
 
         String blockStatues = item.isBlocked() ? "1" : "0";
-        String encryptedPassword = MD5Encrypt.encrypt(item.getPassword());
-        String[] userInfo = {item.getName(), item.getLastName(), item.getEmail(), item.getLogin(), encryptedPassword,
+        String[] userInfo = {item.getName(), item.getLastName(), item.getEmail(), item.getLogin(),
                 item.getRole().name(), blockStatues, String.valueOf(item.getId())};
 
-        executeUpdate(UserQuery.UPDATE_USER_DATA, userInfo);
+        executeUpdate(UserQuery.UPDATE_USER, userInfo);
 
     }
 
@@ -79,7 +78,6 @@ public class UserDao extends AbstractDao<User> {
         ArgumentValidator.checkForNullOrEmptyString(login, "Not allow for a null or empty login in findByLoginAndPassword at UserDao class");
         ArgumentValidator.checkForNullOrEmptyString(login, "Not allow for a null or empty password in findByLoginAndPassword at UserDao class");
         String encryptedPassword = MD5Encrypt.encrypt(password);
-        System.out.println("Password is:  " + encryptedPassword);
         return executeSingleResponseQuery(UserQuery.SELECT_USER_BY_LOGIN_PASSWORD, new UserBuilder(), login, encryptedPassword);
     }
 

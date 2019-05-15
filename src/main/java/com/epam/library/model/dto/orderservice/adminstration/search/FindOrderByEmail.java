@@ -1,6 +1,6 @@
-package com.epam.library.model.service.orderservice.adminstration.search;
+package com.epam.library.model.dto.orderservice.adminstration.search;
 
-import com.epam.library.model.service.orderservice.adminstration.AdministrationOrderDisplay;
+import com.epam.library.model.dto.orderservice.adminstration.AdministrationOrderDisplay;
 
 
 public class FindOrderByEmail implements FindOrderIndex {

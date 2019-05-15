@@ -13,7 +13,7 @@
     <meta name="author" content="Ahmed Samy">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/accountBodyStyle.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/table.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/tableStyle.css">
 
 </head>
 
@@ -130,14 +130,30 @@
                     </tr>
                     <c:forEach varStatus="loop" var="row" items="${requestScope.orderList}">
                         <tr>
-                            <td><h4>${loop.count}</h4></td>
-                            <td><h4>${row.userName}</h4></td>
-                            <td><h4>${row.userEmail}</h4></td>
-                            <td><h4>${row.bookName}</h4></td>
-                            <td><h4>${row.orderDate}</h4></td>
-                            <td><h4>${row.returningDate}</h4></td>
-                            <td><h4>${row.readingPlace}</h4></td>
-                            <td><h4>${row.bookReturned}</h4></td>
+                            <td>${loop.count}</td>
+                            <td>${row.userName}</td>
+                            <td>${row.userEmail}</td>
+                            <td>${row.bookName}</td>
+                            <td>${row.orderDate}</td>
+                            <td>${row.returningDate}</td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${row.readingPlace eq 'HOME'}">
+                                        <fmt:message key="label.order.home"/>
+                                    </c:when>
+                                    <c:when test="${row.readingPlace eq 'HALL'}">
+                                        <fmt:message key="label.order.hall"/>
+                                    </c:when>
+                                </c:choose>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${row.bookReturned eq false}">
+                                        <fmt:message key="label.false"/>
+                                    </c:when>
+                                    <c:when test="${row.bookReturned eq true}">
+                                        <fmt:message key="label.true"/>
+                                    </c:when>
+                                </c:choose>
                             <td>
                                 <form name="administration-edit-order" action="controller" method="post">
                                     <input type="hidden" name="command" value="administration-edit-order">

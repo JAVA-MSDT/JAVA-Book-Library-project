@@ -41,8 +41,8 @@ public class LibrarianUpdateUserCommand implements Command {
         if (userId != null && !userId.isEmpty()) {
             Optional<User> optionalUser = userService.getById(Long.valueOf(userId));
             if (optionalUser.isPresent()) {
-                User user = optionalUser.get();
-                User updateUser = builderFromRequest.buildUserForUpdate(request, user);
+
+                User updateUser = builderFromRequest.buildUserForUpdate(request);
                 userService.update(updateUser);
                 request.setAttribute(DiffConstant.SUCCESS_INFO_UPDATE, DiffConstant.READ_FROM_PROPERTIES);
 

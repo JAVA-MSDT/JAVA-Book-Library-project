@@ -1,4 +1,4 @@
-package com.epam.library.model.service.orderservice.adminstration;
+package com.epam.library.model.dto.orderservice.adminstration;
 
 import com.epam.library.entity.enumeration.ReadingPlace;
 

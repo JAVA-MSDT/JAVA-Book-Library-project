@@ -34,10 +34,15 @@ public class ConnectionPool {
     private void init() {
         logger.log(Level.INFO, "Connecting to DataBase......");
         connectionQueue = new LinkedBlockingQueue<>(POOL_SIZE);
+        ConnectionCreator creator = new ConnectionCreator();
         try {
-            connectionQueue.offer(DBConnector.getConnection());
+            connectionQueue.offer(creator.create());
         } catch (SQLException e) {
-            logger.warn("Can't get Connection.....", e);
+            logger.error("Can't get Connection.....", e);
+        }
+
+        if (connectionQueue.isEmpty()) {
+            throw new IllegalStateException("No connection created");
         }
     }
 
@@ -69,7 +74,7 @@ public class ConnectionPool {
         try {
             connection = connectionQueue.take();
         } catch (InterruptedException e) {
-            throw new RuntimeException("Can't get the connection from the connectionQueue at ConnectionPool Class", e);
+            throw new IllegalStateException("Can't get the connection from the connectionQueue at ConnectionPool Class", e);
 
         }
         return connection;

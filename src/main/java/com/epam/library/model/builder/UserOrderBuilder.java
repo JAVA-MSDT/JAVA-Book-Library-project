@@ -1,7 +1,7 @@
 package com.epam.library.model.builder;
 
 import com.epam.library.entity.enumeration.ReadingPlace;
-import com.epam.library.model.service.orderservice.user.UserOrderDisplay;
+import com.epam.library.model.dto.orderservice.user.UserOrderDisplay;
 import com.epam.library.util.EnumService;
 import com.epam.library.util.constant.entityconstant.OrderConstant;
 

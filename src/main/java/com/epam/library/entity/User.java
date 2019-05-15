@@ -60,6 +60,16 @@ public class User {
 
     }
 
+    public User(long id, String name, String lastName, String email, String login,Role role, boolean blocked) {
+        setId(id);
+        setName(name);
+        setLastName(lastName);
+        setEmail(email);
+        setLogin(login);
+        setRole(role);
+        setBlocked(blocked);
+    }
+
     public long getId() {
         return id;
     }

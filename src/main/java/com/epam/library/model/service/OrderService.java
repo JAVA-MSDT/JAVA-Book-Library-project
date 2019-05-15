@@ -4,8 +4,8 @@ import com.epam.library.entity.Book;
 import com.epam.library.entity.Order;
 import com.epam.library.model.dao.DaoException;
 import com.epam.library.model.dao.OrderDao;
-import com.epam.library.model.service.orderservice.adminstration.AdministrationOrderDisplay;
-import com.epam.library.model.service.orderservice.user.UserOrderDisplay;
+import com.epam.library.model.dto.orderservice.adminstration.AdministrationOrderDisplay;
+import com.epam.library.model.dto.orderservice.user.UserOrderDisplay;
 import com.epam.library.util.validate.ArgumentValidator;
 
 import java.sql.SQLException;

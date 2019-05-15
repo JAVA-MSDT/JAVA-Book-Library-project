@@ -4,7 +4,7 @@ import com.epam.library.controller.command.Command;
 import com.epam.library.util.constant.PageLocation;
 import com.epam.library.model.service.OrderService;
 import com.epam.library.model.service.ServiceException;
-import com.epam.library.model.service.orderservice.adminstration.AdministrationOrderDisplay;
+import com.epam.library.model.dto.orderservice.adminstration.AdministrationOrderDisplay;
 import com.epam.library.util.constant.entityconstant.OrderConstant;
 
 import javax.servlet.http.HttpServletRequest;

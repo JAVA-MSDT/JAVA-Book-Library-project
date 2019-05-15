@@ -1,10 +1,8 @@
 package com.epam.library.controller.command;
 
 
-import com.epam.library.controller.command.admin.AdminChangeRoleCommand;
 import com.epam.library.controller.command.admin.AdminRemoveBookCommand;
 import com.epam.library.controller.command.admin.AdminRemoveUserCommand;
-import com.epam.library.controller.command.admin.AdminUpdateRoleCommand;
 import com.epam.library.controller.command.administration.book.LibrarianBookStoreCommand;
 import com.epam.library.controller.command.administration.book.LibrarianEditBookCommand;
 import com.epam.library.controller.command.administration.book.LibrarianUpdateBookCommand;
@@ -88,10 +86,6 @@ public class CommandFactory implements AutoCloseable {
                 return new AdminRemoveBookCommand(serviceFactory.getBookService());
             case CommandName.ADMIN_REMOVE_USER:
                 return new AdminRemoveUserCommand(serviceFactory.getUserService());
-            case CommandName.ADMIN_CHANGE_ROLE:
-                return new AdminChangeRoleCommand(serviceFactory.getUserService());
-            case CommandName.ADMIN_UPDATE_ROLE:
-                return new AdminUpdateRoleCommand(serviceFactory.getUserService());
 
             //User
             case CommandName.DISPLAY_BOOK:

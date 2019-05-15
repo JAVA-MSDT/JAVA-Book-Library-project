@@ -1,6 +1,6 @@
-package com.epam.library.model.service.orderservice.user.search;
+package com.epam.library.model.dto.orderservice.user.search;
 
-import com.epam.library.model.service.orderservice.user.UserOrderDisplay;
+import com.epam.library.model.dto.orderservice.user.UserOrderDisplay;
 
 public class FindOrderByUserId implements FindOrderIndex {
 

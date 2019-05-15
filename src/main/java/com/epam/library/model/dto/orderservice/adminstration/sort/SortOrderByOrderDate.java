@@ -1,6 +1,6 @@
-package com.epam.library.model.service.orderservice.adminstration.sort;
+package com.epam.library.model.dto.orderservice.adminstration.sort;
 
-import com.epam.library.model.service.orderservice.adminstration.AdministrationOrderDisplay;
+import com.epam.library.model.dto.orderservice.adminstration.AdministrationOrderDisplay;
 
 import java.util.Comparator;
 

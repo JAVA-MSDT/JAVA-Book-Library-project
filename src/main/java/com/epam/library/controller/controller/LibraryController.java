@@ -37,7 +37,6 @@ public class LibraryController extends HttpServlet {
             Command action = commandFactory.create(command);
             page = action.execute(request, response);
         } catch (ServiceException e) {
-            e.printStackTrace();
             request.setAttribute("error", e);
             response.sendRedirect(PageLocation.ERROR_PAGE);
         }

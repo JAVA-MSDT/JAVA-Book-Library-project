@@ -5,9 +5,9 @@ import com.epam.library.util.constant.PageLocation;
 import com.epam.library.entity.User;
 import com.epam.library.model.service.OrderService;
 import com.epam.library.model.service.ServiceException;
-import com.epam.library.model.service.orderservice.user.UserOrderDisplay;
-import com.epam.library.model.service.orderservice.user.search.FindOrderByUserId;
-import com.epam.library.model.service.orderservice.user.search.FindOrderIndex;
+import com.epam.library.model.dto.orderservice.user.UserOrderDisplay;
+import com.epam.library.model.dto.orderservice.user.search.FindOrderByUserId;
+import com.epam.library.model.dto.orderservice.user.search.FindOrderIndex;
 import com.epam.library.util.constant.entityconstant.OrderConstant;
 import com.epam.library.util.constant.entityconstant.UserConstant;
 

@@ -22,7 +22,7 @@
 <div class="profileContainer">
     <div class="basicInfo">
 
-        <h1> <fmt:message key="label.add.edit.user"/> </h1>
+        <h1><fmt:message key="label.add.edit.user"/></h1>
 
         <%-- in case of updating an existing User or inserting a new User one of these messages will be displaye--%>
 
@@ -93,19 +93,49 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="labelCol">
-                            <h3 class="label"><fmt:message key="label.password"/></h3>
+                    <c:if test="${empty requestScope.editUser}">
+                        <div class="row">
+                            <div class="labelCol">
+                                <h3 class="label"><fmt:message key="label.password"/></h3>
+                            </div>
+                            <div class="inputCol">
+                                <input type="text" name="password"
+                                       value="${not empty requestScope.editUser.password ? requestScope.editUser.password : ''}"
+                                       pattern="^([a-zA-Z0-9@*#]{4,10})$"
+                                       placeholder="<fmt:message key="label.role.password.disc"/>" required>
+                            </div>
                         </div>
-                        <div class="inputCol">
-                            <input type="text" name="password"
-                                   value="${not empty requestScope.editUser.password ? requestScope.editUser.password : ''}"
-                                   pattern="^([a-zA-Z0-9@*#]{4,10})$"
-                                   placeholder="<fmt:message key="label.role.password.disc"/>" required>
-                        </div>
-                    </div>
-                    <c:if test="${empty requestScope.editUser.password}">
                     </c:if>
+
+
+                    <c:choose>
+                        <c:when test="${sessionScope.user.role eq 'ADMIN'}">
+                            <div class="row">
+                                <div class="labelCol">
+                                    <h3 class="label"><fmt:message key="label.reader.role"/></h3>
+                                </div>
+                                <div class="inputCol">
+                                    <select name="role">
+                                        <option value="${requestScope.editUser.role eq 'ADMIN' ? 'ADMIN' : 'ADMIN'}">
+                                            <fmt:message key="label.role.admin"/></option>
+                                        <option value="${requestScope.editUser.role eq 'LIBRARIAN' ? 'LIBRARIAN' : 'LIBRARIAN'}">
+                                            <fmt:message key="label.role.librarian"/></option>
+                                        <option value="${requestScope.editUser.role eq 'READER' ? 'READER' : 'READER'}">
+                                            <fmt:message key="label.role.reader"/></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </c:when>
+                        <c:when test="${sessionScope.user.role eq 'LIBRARIAN'}">
+                            <div class="row">
+                                <div class="inputCol">
+                                    <input type="hidden" name="role"
+                                           value="${not empty requestScope.editUser.role ? requestScope.editUser.role : ''}">
+                                </div>
+                            </div>
+                        </c:when>
+                    </c:choose>
+
                     <div class="row">
                         <div class="labelCol">
                             <h3 class="label"><fmt:message key="label.reader.blocked"/></h3>
@@ -128,7 +158,7 @@
     </div>
 
 </div>
-<jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/footer.jsp" />
+<jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/footer.jsp"/>
 </body>
 
 </html>

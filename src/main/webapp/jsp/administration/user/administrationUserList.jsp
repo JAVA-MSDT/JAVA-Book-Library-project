@@ -12,7 +12,7 @@
     <meta name="author" content="Ahmed Samy">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/accountBodyStyle.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/table.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/tableStyle.css">
 </head>
 
 <body>
@@ -112,9 +112,6 @@
                                     <h3><fmt:message key="label.login"/></h3>
                                 </th>
                                 <th>
-                                    <h3><fmt:message key="label.password"/></h3>
-                                </th>
-                                <th>
                                     <h3><fmt:message key="label.reader.blocked"/></h3>
                                 </th>
 
@@ -130,9 +127,6 @@
 
                                 <c:if test="${sessionScope.user.role eq 'ADMIN'}">
                                     <th>
-                                        <h3><fmt:message key="button.change.role"/></h3>
-                                    </th>
-                                    <th>
                                         <h3><fmt:message key="button.remove"/></h3>
                                     </th>
                                 </c:if>
@@ -146,10 +140,31 @@
                                     <td>${userList.lastName}</td>
                                     <td>${userList.email}</td>
                                     <td>${userList.login}</td>
-                                    <td>${userList.password}</td>
-                                    <td>${userList.blocked}</td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${userList.blocked eq false}">
+                                                <fmt:message key="label.false"/>
+                                            </c:when>
+                                            <c:when test="${userList.blocked eq true}">
+                                                <fmt:message key="label.true"/>
+                                            </c:when>
+                                        </c:choose>
+
+                                    </td>
                                     <c:if test="${sessionScope.user.role eq 'ADMIN'}">
-                                        <td>${userList.role}</td>
+                                        <td>
+                                        <c:choose>
+                                            <c:when test="${userList.role eq 'ADMIN'}">
+                                                <fmt:message key="label.role.admin"/>
+                                            </c:when>
+                                            <c:when test="${userList.role eq 'LIBRARIAN'}">
+                                                <fmt:message key="label.role.librarian"/>
+                                            </c:when>
+                                            <c:when test="${userList.role eq 'READER'}">
+                                                <fmt:message key="label.role.reader"/>
+                                            </c:when>
+                                        </c:choose>
+                                        </td>
                                     </c:if>
                                     <td>
                                         <form name="administration-edit-user" action="controller" method="post">
@@ -162,15 +177,6 @@
 
                                     <c:if test="${sessionScope.user.role eq 'ADMIN'}">
                                         <td>
-                                            <form name="admin-change-role" action="controller" method="post">
-                                                <input type="hidden" name="command" value="admin-change-role">
-                                                <input class="edit" type="submit" name="edit"
-                                                       value="<fmt:message key="button.change.role"/> "/>
-                                                <input type="hidden" name="id" value="<c:out value="${userList.id}"/>"/>
-                                            </form>
-                                        </td>
-
-                                        <td>
                                             <form name="admin-remove-user" action="controller" method="post">
                                                 <input type="hidden" name="command" value="admin-remove-user">
                                                 <input class="edit" type="submit" name="edit"
@@ -178,7 +184,6 @@
                                                 <input type="hidden" name="id" value="<c:out value="${userList.id}"/>"/>
                                             </form>
                                         </td>
-
                                     </c:if>
 
                                 </tr>

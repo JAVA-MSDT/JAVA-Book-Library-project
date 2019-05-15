@@ -6,6 +6,9 @@ public class UserQuery {
     public final static String UPDATE_USER_DATA = "UPDATE user_table SET name = ?, last_name = ?, email = ?, " +
             " login = ?, password = ?, role = ?, blocked = ? WHERE id = ?";
 
+    public final static String UPDATE_USER = "UPDATE user_table SET name = ?, last_name = ?, email = ?, " +
+            " login = ?, role = ?, blocked = ? WHERE id = ?";
+
     public final static String UPDATE_USER_NAME = "UPDATE user_table SET name = ? WHERE id = ?";
     public final static String UPDATE_USER_LAST_NAME = "UPDATE user_table SET last_name = ? WHERE id = ?";
     public final static String UPDATE_USER_EMAIL = "UPDATE user_table SET email = ? WHERE id = ?";

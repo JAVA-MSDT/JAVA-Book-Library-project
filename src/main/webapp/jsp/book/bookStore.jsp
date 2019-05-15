@@ -24,6 +24,7 @@
 <body>
 <%-- Special page for a non registered users or for regesterd users--%>
 <jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/navigation.jsp"/>
+<jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/scrollTop.jsp"/>
 
 <div class="profileContainer" style="width: 90%">
     <div class="basicInfo">

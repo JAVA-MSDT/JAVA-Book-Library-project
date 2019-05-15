@@ -2,6 +2,7 @@ package com.epam.library.controller.builder;
 
 import com.epam.library.entity.User;
 import com.epam.library.entity.enumeration.Role;
+import com.epam.library.util.EnumService;
 import com.epam.library.util.constant.entityconstant.UserConstant;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,20 +11,18 @@ public class UserBuilderFromRequest {
 
     /**
      * @param request to extract from it the user data
-     * @param user    to extract the user Role and password
      * @return new user after coping the proper data from the request and the user object.
      */
-    public User buildUserForUpdate(HttpServletRequest request, User user) {
+    public User buildUserForUpdate(HttpServletRequest request) {
         String id = request.getParameter(UserConstant.ID);
         String name = request.getParameter(UserConstant.NAME);
         String lastName = request.getParameter(UserConstant.LAST_NAME);
         String email = request.getParameter(UserConstant.EMAIL);
         String login = request.getParameter(UserConstant.LOGIN);
-        String password = request.getParameter(UserConstant.PASSWORD);
-        Role role = user.getRole();
+        Role role = EnumService.getRole(request.getParameter(UserConstant.ROLE));
         String blocked = request.getParameter(UserConstant.BLOCKED);
 
-        return new User(Long.valueOf(id), name, lastName, email, login, password, role, Boolean.valueOf(blocked.trim()));
+        return new User(Long.valueOf(id), name, lastName, email, login, role, Boolean.valueOf(blocked.trim()));
     }
 
     /**

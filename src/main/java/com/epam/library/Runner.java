@@ -10,7 +10,7 @@ import com.epam.library.model.dao.OrderDao;
 import com.epam.library.util.constant.query.OrderQuery;
 import com.epam.library.model.db.ConnectionPool;
 import com.epam.library.model.service.*;
-import com.epam.library.model.service.orderservice.user.UserOrderDisplay;
+import com.epam.library.model.dto.orderservice.user.UserOrderDisplay;
 import com.epam.library.util.PropertiesExtractor;
 
 import java.io.*;

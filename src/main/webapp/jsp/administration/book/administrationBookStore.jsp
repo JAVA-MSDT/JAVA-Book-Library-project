@@ -141,7 +141,7 @@
                                 <td>
                                     <form name="admin-remove-book" action="controller" method="post">
                                         <input type="hidden" name="command" value="admin-remove-book">
-                                        <input class="edit" type="submit" name="edit"
+                                        <input class="edit" onclick="return removeBook()" type="submit" name="edit"
                                                value="<fmt:message key="button.remove"/> "/>
                                         <input type="hidden" name="id" value="<c:out value="${bookList.id}"/>"/>
                                     </form>
@@ -158,6 +158,12 @@
 
 </div>
 <jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/footer.jsp"/>
+<script>
+    function removeBook(){
+        const answer = "Are sure that you want to delete that Book?";
+        return confirm(answer);
+    }
+</script>
 </body>
 
 </html>

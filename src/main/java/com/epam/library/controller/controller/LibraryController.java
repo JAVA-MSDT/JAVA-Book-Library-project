@@ -5,6 +5,8 @@ import com.epam.library.controller.command.CommandFactory;
 import com.epam.library.util.constant.PageLocation;
 import com.epam.library.model.db.ConnectionPool;
 import com.epam.library.model.service.ServiceException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,6 +19,7 @@ import java.io.IOException;
 @WebServlet("/controller")
 public class LibraryController extends HttpServlet {
     private final static String COMMAND_NAME = "command";
+    private final static Logger logger = LogManager.getLogger();
 
     @Override
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
@@ -37,6 +40,7 @@ public class LibraryController extends HttpServlet {
             Command action = commandFactory.create(command);
             page = action.execute(request, response);
         } catch (ServiceException e) {
+            logger.error("Exception in Library Controller", e);
             request.setAttribute("error", e);
             response.sendRedirect(PageLocation.ERROR_PAGE);
         }

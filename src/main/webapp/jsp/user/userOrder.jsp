@@ -50,10 +50,14 @@
                                 <h2> ${orderList.bookName}</h2>
                             </th>
                             <th>
-                                <h2> ${orderList.orderDate} </h2>
+                                <h2>
+                                    <fmt:formatDate value="${orderList.orderDate}" type="date"/>
+                                </h2>
                             </th>
                             <th>
-                                <h2> ${orderList.returningDate} </h2>
+                                <h2>
+                                    <fmt:formatDate value="${orderList.returningDate}" type="date"/>
+                                </h2>
                             </th>
                         </tr>
                     </c:forEach>

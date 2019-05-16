@@ -10,8 +10,7 @@
 <fmt:setBundle basename="locale"/>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/navigation.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/siteHeader.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/libraryHeader.css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css"/>
 
 <div class="top-nav" id="top-nav-id">
 
@@ -79,23 +78,29 @@
     <%-- if the user is not in the system the main page header will be as below--%>
     <c:when test="${sessionScope.user == null}">
         <header>
-            <img src="../../img/book.jpg" class="headerImage" alt="header image">
+            <img src="${pageContext.request.contextPath}/img/book.jpg" class="headerImage" alt="header image">
         </header>
     </c:when>
     <%-- otherwise if the user  in the system the main page header will be as his own page header--%>
     <c:otherwise>
-        <header class="infoHeader">
+        <header>
+            <img src="${pageContext.request.contextPath}/img/green.jpg" class="headerImage" alt="header image">
             <div class="avContainer">
-                <img class="avatar" src="../../img/profImage.jpg">
+                <div class="profile-img">
+                <img class="avatar" src="${pageContext.request.contextPath}/img/profImage.jpg">
                 <div class="overlay">
                     <a href="controller?command=administration-edit-user">
                         <fmt:message key="button.edit"/>
                     </a>
                 </div>
             </div>
+                <div class="user-name">
+                    <h2 class="name">${sessionScope.user.name}</h2>
+                    <h2 class="name"> ${sessionScope.user.lastName}</h2>
+                </div>
+            </div>
 
-            <h2>${sessionScope.user.name}</h2>
-            <h2> ${sessionScope.user.lastName}</h2>
+
         </header>
     </c:otherwise>
 </c:choose>

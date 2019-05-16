@@ -134,8 +134,12 @@
                             <td>${row.userName}</td>
                             <td>${row.userEmail}</td>
                             <td>${row.bookName}</td>
-                            <td>${row.orderDate}</td>
-                            <td>${row.returningDate}</td>
+                            <td>
+                                <fmt:formatDate value="${row.orderDate}" type="date"/>
+                            </td>
+                            <td>
+                                <fmt:formatDate value="${row.returningDate}" type="date"/>
+                            </td>
                             <td>
                                 <c:choose>
                                     <c:when test="${row.readingPlace eq 'HOME'}">
@@ -160,6 +164,8 @@
                                     <input class="edit" type="submit" name="edit"
                                            value="<fmt:message key="button.edit"/>"/>
                                     <input type="hidden" name="id" value="<c:out value="${row.id}"/>"/>
+                                    <input type="hidden" name="bookName" value="<c:out value="${row.bookName}"/>"/>
+                                    <input type="hidden" name="userName" value="<c:out value="${row.userName}"/>"/>
                                 </form>
                             </td>
                         </tr>

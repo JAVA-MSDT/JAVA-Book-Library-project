@@ -13,7 +13,7 @@
     <meta name="description" content="Epam Library">
     <meta name="author" content="Ahmed Samy">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/indexPage.css">
 </head>
 
 <body>

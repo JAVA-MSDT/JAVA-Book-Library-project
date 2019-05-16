@@ -1,18 +1,40 @@
-.infoHeader {
+
+header {
+    position: relative;
+}
+
+/* The main page header image*/
+.headerImage {
     width: 100%;
-    height: 200px;
-    background-image: url(../img/green.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    margin-top: 46px;
+    height: 250px;
 }
 
 .avContainer {
-    position: relative;
-    width: 200px;
+    position: absolute;
+    width: 500px;
     height: 200px;
     margin-left: 10px;
+    top: 50px;
+
+}
+
+.user-name{
+    width: 50%;
     float: left;
+    background-color: brown;
+    top: 40%;
+    margin-left: 4px;
+    position: relative;
+    padding: 10px 0 10px 16px;
+    border: 2px solid black;
+    border-radius: 20px;
+    opacity: .8;
+}
+.profile-img {
+    width: 45%;
+    float: left;
+    height: 200px;
+    position: relative;
 }
 
 .avatar {
@@ -48,16 +70,17 @@
 
 
 .overlay:hover,
-.avContainer:hover{
+.avContainer:hover {
     opacity: 1;
 
 }
 
-.infoHeader h2 {
-    float: left;
-    margin: 80px 0 0 10px;
-    font-size: 28px;
-    color: black;
-    text-shadow: 0 0 5px white;
+header h2 {
+
+    left: 10px;
+
+    color: white;
+    display: inline-block;
+    text-shadow: 0 0 5px black;
 
 }

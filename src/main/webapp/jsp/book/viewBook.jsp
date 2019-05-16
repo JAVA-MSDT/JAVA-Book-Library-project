@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="now" value="new java.util.Date();"/>
 <fmt:setLocale value="${sessionScope.language}"/>
 <fmt:setBundle basename="locale"/>
 <html>
@@ -111,7 +112,7 @@
                             <h3 class="label"><fmt:message key="label.order.date"/></h3>
                         </div>
                         <div class="inputCol">
-                            <input type="date" name="order_date" placeholder="YYYY-MM-DD"/>
+                            <input type="date" name="order_date" required/>
                         </div>
                     </div>
                     <div class="row">
@@ -120,7 +121,7 @@
 
                         </div>
                         <div class="inputCol">
-                            <input type="date" name="returning_date" placeholder="YYYY-MM-DD"/>
+                            <input type="date" name="returning_date" required/>
                         </div>
                     </div>
                     <div class="row">

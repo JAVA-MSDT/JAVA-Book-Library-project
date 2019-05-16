@@ -116,11 +116,14 @@
                                 </div>
                                 <div class="inputCol">
                                     <select name="role">
-                                        <option value="${requestScope.editUser.role eq 'ADMIN' ? 'ADMIN' : 'ADMIN'}">
+                                        <option value="ADMIN"
+                                                <c:if test="${requestScope.editUser.role eq 'ADMIN'}"> selected = selected </c:if>>
                                             <fmt:message key="label.role.admin"/></option>
-                                        <option value="${requestScope.editUser.role eq 'LIBRARIAN' ? 'LIBRARIAN' : 'LIBRARIAN'}">
+                                        <option value="LIBRARIAN"
+                                        <c:if test="${requestScope.editUser.role eq 'LIBRARIAN'}"> selected = selected </c:if>>
                                             <fmt:message key="label.role.librarian"/></option>
-                                        <option value="${requestScope.editUser.role eq 'READER' ? 'READER' : 'READER'}">
+                                        <option value="READER"
+                                                <c:if test="${requestScope.editUser.role eq 'READER'}"> selected = selected </c:if>>
                                             <fmt:message key="label.role.reader"/></option>
                                     </select>
                                 </div>
@@ -142,9 +145,11 @@
                         </div>
                         <div class="inputCol">
                             <select name="blocked">
-                                <option value="${requestScope.editUser.blocked eq 'false' ? 'FALSE' : 'FALSE'}">
+                                <option value="false"
+                                        <c:if test="${requestScope.editUser.blocked eq 'false'}"> selected = selected </c:if>>
                                     <fmt:message key="label.false"/></option>
-                                <option value="${requestScope.editUser.blocked eq 'true' ? 'INSERTED' : 'INSERTED'}">
+                                <option value="true"
+                                        <c:if test="${requestScope.editUser.blocked eq 'true'}"> selected = selected </c:if>>
                                     <fmt:message key="label.true"/></option>
                             </select>
                         </div>

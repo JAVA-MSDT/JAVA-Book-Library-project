@@ -57,9 +57,25 @@
                             <h3 class="label"><fmt:message key="label.order.book.id"/></h3>
                         </div>
                         <div class="inputCol">
-                            <input type="text" name="book_id"
-                                   value="${not empty requestScope.editOrder.bookId ? requestScope.editOrder.bookId : ''}"
-                                   pattern="[0-9]+" placeholder="<fmt:message key="label.order.book.id"/>" required>
+                          <c:choose>
+                              <c:when test="${empty requestScope.editOrder.bookId}">
+                                  <select name = "book_id">
+                                      <c:forEach var="book" items="${requestScope.bookList}">
+                                          <option value="${book.id}"> ${book.name} </option>
+                                      </c:forEach>
+                                  </select>
+                              </c:when>
+                              <c:otherwise>
+                                  <select name = "book_id">
+                                      <c:forEach var="book" items="${requestScope.bookList}">
+                                          <option value="${book.id}"
+                                                  <c:if test="${requestScope.editOrder.bookId eq book.id}"> selected = selected </c:if>>
+                                                  ${book.name}
+                                          </option>
+                                      </c:forEach>
+                                  </select>
+                              </c:otherwise>
+                          </c:choose>
                         </div>
                     </div>
                     <div class="row">
@@ -67,9 +83,26 @@
                             <h3 class="label"><fmt:message key="label.order.reader"/></h3>
                         </div>
                         <div class="inputCol">
-                            <input type="text" name="user_id"
-                                   value="${not empty requestScope.editOrder.userId ? requestScope.editOrder.userId : ''}"
-                                   pattern="[0-9]+" placeholder="<fmt:message key="label.order.reader"/>" required>
+
+                            <c:choose>
+                                <c:when test="${empty requestScope.editOrder.userId}">
+                                    <select name = "user_id">
+                                        <c:forEach var="user" items="${requestScope.userList}">
+                                            <option value="${user.id}"> ${user.email} </option>
+                                        </c:forEach>
+                                    </select>
+                                </c:when>
+                                <c:otherwise>
+                                    <select name = "user_id">
+                                        <c:forEach var="user" items="${requestScope.userList}">
+                                            <option value="${user.id}"
+                                                    <c:if test="${requestScope.editOrder.userId eq user.id}"> selected = selected </c:if> >
+                                                    ${user.email}
+                                            </option>
+                                        </c:forEach>
+                                    </select>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                     <div class="row">
@@ -99,10 +132,12 @@
                         </div>
                         <div class="inputCol">
                             <select id="librarianReadingPlace" name="reading_place">
-                                <option value=" ${requestScope.editOrder.readingPlace eq 'HOME' ? 'HOME' : 'HOME'}">
+                                <option value="HOME"
+                                        <c:if test="${requestScope.editOrder.readingPlace eq  'HOME' }"> selected = "selected" </c:if>>
                                     <fmt:message key="label.order.home"/>
                                 </option>
-                                <option value="${requestScope.editOrder.readingPlace eq 'HALL' ? 'HALL' : 'HALL'}">
+                                <option value="HALL"
+                                        <c:if test="${requestScope.editOrder.readingPlace eq  'HALL' }"> selected = "selected" </c:if>>
                                     <fmt:message key="label.order.hall"/>
                                 </option>
                             </select>
@@ -113,18 +148,20 @@
                             <h3 class="label"><fmt:message key="label.order.returned"/></h3>
                         </div>
                         <div class="inputCol">
-                            <select id="book-return" name="book_returned">
-                                <option value=" ${requestScope.editOrder.bookReturned eq  'false' ? 'false' : 'false'}">
+                            <select id="book-returned" name="book_returned">
+                                <option value=" ${requestScope.editOrder.bookReturned eq  'false' ? 'false' : 'false'}"
+                                <c:if test="${requestScope.editOrder.bookReturned eq  'false' }"> selected = "selected" </c:if>>
                                     <fmt:message key="label.false"/>
                                 </option>
-                                <option value="${requestScope.editOrder.bookReturned eq 'true' ? 'true' : 'true'}">
+                                <option value="${requestScope.editOrder.bookReturned eq 'true' ? 'true' : 'true'}"
+                                        <c:if test="${requestScope.editOrder.bookReturned eq  'true' }"> selected = "selected" </c:if>>
                                     <fmt:message key="label.true"/>
                                 </option>
                             </select>
                         </div>
                     </div>
                     <div class="row">
-                        <input type="submit" value="<fmt:message key="label.update"/> ">
+                        <input type="submit" onclick="removeOrder()" value="<fmt:message key="label.update"/> ">
                     </div>
                 </form>
             </div>
@@ -133,6 +170,15 @@
 
 </div>
 <jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/footer.jsp" />
+<script>
+    function removeOrder() {
+        const message = "If book returned the order will be deleted, are you sure that book is returned?";
+        const book = document.getElementById("book-returned");
+        if(book){
+            return (confirm(message));
+        }
+    }
+</script>
 </body>
 
 </html>

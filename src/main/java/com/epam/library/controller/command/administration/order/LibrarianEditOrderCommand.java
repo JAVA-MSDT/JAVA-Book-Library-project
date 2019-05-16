@@ -1,26 +1,40 @@
 package com.epam.library.controller.command.administration.order;
 
 import com.epam.library.controller.command.Command;
-import com.epam.library.util.constant.PageLocation;
+import com.epam.library.entity.Book;
 import com.epam.library.entity.Order;
+import com.epam.library.entity.User;
+import com.epam.library.model.service.BookService;
 import com.epam.library.model.service.OrderService;
 import com.epam.library.model.service.ServiceException;
+import com.epam.library.model.service.UserService;
 import com.epam.library.util.constant.DiffConstant;
+import com.epam.library.util.constant.PageLocation;
+import com.epam.library.util.constant.entityconstant.BookConstant;
 import com.epam.library.util.constant.entityconstant.OrderConstant;
+import com.epam.library.util.constant.entityconstant.UserConstant;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Optional;
 
 public class LibrarianEditOrderCommand implements Command {
 
+    private final static String USER_EMAIL = "userEmail";
+    private final static String BOOK_NAME = "bookName";
+
+
     private OrderService orderService;
+    private BookService bookService;
+    private UserService userService;
 
-    public LibrarianEditOrderCommand(OrderService orderService) {
+    public LibrarianEditOrderCommand(OrderService orderService, BookService bookService, UserService userService) {
         this.orderService = orderService;
+        this.bookService = bookService;
+        this.userService = userService;
     }
-
 
     /**
      * @param request  from the jsp
@@ -34,17 +48,24 @@ public class LibrarianEditOrderCommand implements Command {
         HttpSession session = request.getSession();
         session.removeAttribute(DiffConstant.ITEM_INSERTED); // to remove the lock after double submit attempt
         String orderId = request.getParameter(OrderConstant.ORDER_ID);
-        if(orderId != null){
+
+        List<Book> bookList = bookService.getAll();
+        List<User> userList = userService.getAll();
+        if (orderId != null) {
             Optional<Order> optionalOrder = orderService.getById(Long.valueOf(orderId));
             if (optionalOrder.isPresent()) {
                 Order order = optionalOrder.get();
                 request.setAttribute(OrderConstant.EDIT_ORDER, order);
+                request.setAttribute(BookConstant.BOOK_LIST, bookList);
+                request.setAttribute(UserConstant.USER_LIST, userList);
                 page = PageLocation.ADMINISTRATION_EDIT_ORDER;
             } else {
                 request.setAttribute(OrderConstant.ORDER_NOT_EXIST, DiffConstant.READ_FROM_PROPERTIES);
                 page = PageLocation.ADMINISTRATION_ORDER_LIST;
             }
         } else {
+            request.setAttribute(BookConstant.BOOK_LIST, bookList);
+            request.setAttribute(UserConstant.USER_LIST, userList);
             page = PageLocation.ADMINISTRATION_EDIT_ORDER;
         }
 

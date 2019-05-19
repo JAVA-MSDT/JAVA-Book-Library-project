@@ -1,21 +1,22 @@
 package com.epam.library.controller.command.administration.user;
 
 import com.epam.library.controller.command.Command;
-import com.epam.library.util.constant.PageLocation;
+import com.epam.library.controller.command.CommandResult;
 import com.epam.library.entity.User;
 import com.epam.library.entity.enumeration.Role;
 import com.epam.library.model.service.ServiceException;
 import com.epam.library.model.service.UserService;
+import com.epam.library.util.constant.PageLocation;
 import com.epam.library.util.constant.entityconstant.UserConstant;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-public class LibrarianUserListCommand implements Command {
+public class AdministrationUserListCommand implements Command {
     private UserService userService;
 
-    public LibrarianUserListCommand(UserService userService) {
+    public AdministrationUserListCommand(UserService userService) {
         this.userService = userService;
     }
 
@@ -27,7 +28,7 @@ public class LibrarianUserListCommand implements Command {
      * @throws ServiceException if something wrong during the connection with database
      */
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         User user = (User) request.getSession(false).getAttribute(UserConstant.USER_ATTRIBUTE);
 
         List<User> users = null;
@@ -36,8 +37,8 @@ public class LibrarianUserListCommand implements Command {
         } else if (user.getRole().equals(Role.LIBRARIAN)) {
             users = userService.findAllWhereRoleReader();
         }
-
         request.setAttribute(UserConstant.USER_LIST, users);
-        return PageLocation.ADMINISTRATION_USER_LIST;
+
+        return new CommandResult(PageLocation.ADMINISTRATION_USER_LIST);
     }
 }

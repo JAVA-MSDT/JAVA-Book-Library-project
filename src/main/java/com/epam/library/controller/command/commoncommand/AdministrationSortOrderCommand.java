@@ -1,11 +1,12 @@
 package com.epam.library.controller.command.commoncommand;
 
 import com.epam.library.controller.command.Command;
-import com.epam.library.util.constant.PageLocation;
-import com.epam.library.model.service.OrderService;
-import com.epam.library.model.service.ServiceException;
+import com.epam.library.controller.command.CommandResult;
 import com.epam.library.model.dto.orderservice.adminstration.AdministrationOrderDisplay;
 import com.epam.library.model.dto.orderservice.adminstration.sort.*;
+import com.epam.library.model.service.OrderService;
+import com.epam.library.model.service.ServiceException;
+import com.epam.library.util.constant.PageLocation;
 import com.epam.library.util.constant.entityconstant.OrderConstant;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,12 +29,12 @@ public class AdministrationSortOrderCommand implements Command {
     }
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String sortCriteria = request.getParameter(SORT_CRITERIA);
         List<AdministrationOrderDisplay> orders = orderService.administrationAllOrder();
         sort(sortCriteria, orders);
         request.setAttribute(OrderConstant.ORDER_LIST, orders);
-        return PageLocation.ADMINISTRATION_ORDER_LIST;
+        return new CommandResult(PageLocation.ADMINISTRATION_ORDER_LIST);
     }
 
     private void sort(String criteria, List<AdministrationOrderDisplay> orderDisplayList) {

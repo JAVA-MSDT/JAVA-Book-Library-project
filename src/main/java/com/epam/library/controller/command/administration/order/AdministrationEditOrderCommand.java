@@ -1,6 +1,7 @@
 package com.epam.library.controller.command.administration.order;
 
 import com.epam.library.controller.command.Command;
+import com.epam.library.controller.command.CommandResult;
 import com.epam.library.entity.Book;
 import com.epam.library.entity.Order;
 import com.epam.library.entity.User;
@@ -16,11 +17,10 @@ import com.epam.library.util.constant.entityconstant.UserConstant;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
-public class LibrarianEditOrderCommand implements Command {
+public class AdministrationEditOrderCommand implements Command {
 
     private final static String USER_EMAIL = "userEmail";
     private final static String BOOK_NAME = "bookName";
@@ -30,7 +30,7 @@ public class LibrarianEditOrderCommand implements Command {
     private BookService bookService;
     private UserService userService;
 
-    public LibrarianEditOrderCommand(OrderService orderService, BookService bookService, UserService userService) {
+    public AdministrationEditOrderCommand(OrderService orderService, BookService bookService, UserService userService) {
         this.orderService = orderService;
         this.bookService = bookService;
         this.userService = userService;
@@ -43,10 +43,8 @@ public class LibrarianEditOrderCommand implements Command {
      * @throws ServiceException is something wrong during the connection with database
      */
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String page;
-        HttpSession session = request.getSession();
-        session.removeAttribute(DiffConstant.ITEM_INSERTED); // to remove the lock after double submit attempt
         String orderId = request.getParameter(OrderConstant.ORDER_ID);
 
         List<Book> bookList = bookService.getAll();
@@ -69,7 +67,7 @@ public class LibrarianEditOrderCommand implements Command {
             page = PageLocation.ADMINISTRATION_EDIT_ORDER;
         }
 
-        return page;
+        return new CommandResult(page);
     }
 
 

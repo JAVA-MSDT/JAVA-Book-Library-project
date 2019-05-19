@@ -10,7 +10,7 @@ import java.sql.Date;
 public class OrderBuilderFromRequest {
 
     /**
-     * To help build the order for the update in the LibrarianUpdateOrderCommand class
+     * To help build the order for the update in the AdministrationUpdateOrderCommand class
      *
      * @param request to extract the order info from the form
      * @return order after extracting it's information
@@ -27,7 +27,7 @@ public class OrderBuilderFromRequest {
     }
 
     /**
-     * To help building the order for the update in the LibrarianUpdateOrderCommand class
+     * To help building the order for the update in the AdministrationUpdateOrderCommand class
      *
      * @param request to extract the order info from the form
      * @return order after extracting it's information

@@ -6,18 +6,17 @@
 <fmt:setBundle basename="locale"/>
 <html>
 <head>
-    <title>Error Page</title>
+    <title>Server Page</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/accountBodyStyle.css">
 </head>
 <body>
 <jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/navigation.jsp"/>
+<jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/scrollTop.jsp"/>
 
-<div class="profileContainer" style="height: 200px">
+<div class="profileContainer" style="height: 400px">
 
-    <h1><fmt:message key="message.nullPage"/></h1>
-    <c:if test="${not empty requestScope.error}">
-        <c:out value="${requestScope.error}"/>
-    </c:if>
+
+    <h1> Server side Error</h1>
 </div>
 <jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/footer.jsp"/>
 </body>

@@ -3,10 +3,8 @@ package com.epam.library.util.constant.entityconstant;
 
 public class OrderConstant {
 
-    public final static String ORDER_ATTRIBUTE = "order";
     public final static String ORDER_LIST = "orderList";
     public final static String EDIT_ORDER = "editOrder";
-    public final static String ORDER_DONE = "done";
     public final static String ORDER_NOT_EXIST = "orderNotExist";
 
     public final static String ORDER_ID = "id";

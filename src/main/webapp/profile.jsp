@@ -18,7 +18,8 @@
 
 <body>
 
-<jsp:include page="jsp/commoncode/navigation.jsp"/>
+<jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/navigation.jsp"/>
+<jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/scrollTop.jsp"/>
 
 <div class="profileContainer">
     <div class="basicInfo">
@@ -51,7 +52,6 @@
             </tr>
 
         </table>
-        <p class="editInfo"><a href="#"> <fmt:message key="button.edit"/> </a></p>
     </div>
 
 </div>

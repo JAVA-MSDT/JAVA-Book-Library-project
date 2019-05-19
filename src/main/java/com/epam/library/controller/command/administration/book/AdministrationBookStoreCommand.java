@@ -1,10 +1,11 @@
 package com.epam.library.controller.command.administration.book;
 
 import com.epam.library.controller.command.Command;
-import com.epam.library.util.constant.PageLocation;
+import com.epam.library.controller.command.CommandResult;
 import com.epam.library.entity.Book;
 import com.epam.library.model.service.BookService;
 import com.epam.library.model.service.ServiceException;
+import com.epam.library.util.constant.PageLocation;
 import com.epam.library.util.constant.entityconstant.BookConstant;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,10 +15,10 @@ import java.util.List;
 /**
  * Book Store in jsp page which holds a table with all the books inside the database.
  */
-public class LibrarianBookStoreCommand implements Command {
+public class AdministrationBookStoreCommand implements Command {
     private BookService bookService;
 
-    public LibrarianBookStoreCommand(BookService bookService) {
+    public AdministrationBookStoreCommand(BookService bookService) {
         this.bookService = bookService;
     }
 
@@ -30,11 +31,10 @@ public class LibrarianBookStoreCommand implements Command {
      * @throws ServiceException is something wrong during the connection with database
      */
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         List<Book> books = bookService.getAll();
         request.setAttribute(BookConstant.BOOK_LIST, books);
-        return PageLocation.ADMINISTRATION_BOOK_STORE;
+        return new CommandResult(PageLocation.ADMINISTRATION_BOOK_STORE);
 
     }
 

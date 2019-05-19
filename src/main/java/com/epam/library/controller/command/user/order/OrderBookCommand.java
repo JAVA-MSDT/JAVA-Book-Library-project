@@ -1,13 +1,14 @@
 package com.epam.library.controller.command.user.order;
 
 import com.epam.library.controller.command.Command;
-import com.epam.library.util.constant.PageLocation;
+import com.epam.library.controller.command.CommandResult;
 import com.epam.library.entity.Book;
 import com.epam.library.entity.User;
 import com.epam.library.model.service.BookService;
 import com.epam.library.model.service.ServiceException;
-import com.epam.library.util.constant.entityconstant.BookConstant;
 import com.epam.library.util.constant.DiffConstant;
+import com.epam.library.util.constant.PageLocation;
+import com.epam.library.util.constant.entityconstant.BookConstant;
 import com.epam.library.util.constant.entityconstant.UserConstant;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,7 +32,7 @@ public class OrderBookCommand implements Command {
      * @throws ServiceException if something wrong during the connection with database
      */
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String page = null;
         User user = (User) request.getSession(false).getAttribute(UserConstant.USER_ATTRIBUTE);
         String bookId = request.getParameter(BookConstant.BOOK_ID);
@@ -50,7 +51,7 @@ public class OrderBookCommand implements Command {
             }
         }
 
-        return page;
+        return new CommandResult(page);
     }
 
 

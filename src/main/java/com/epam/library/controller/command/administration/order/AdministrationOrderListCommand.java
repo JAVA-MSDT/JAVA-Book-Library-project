@@ -1,20 +1,21 @@
 package com.epam.library.controller.command.administration.order;
 
 import com.epam.library.controller.command.Command;
-import com.epam.library.util.constant.PageLocation;
+import com.epam.library.controller.command.CommandResult;
+import com.epam.library.model.dto.orderservice.adminstration.AdministrationOrderDisplay;
 import com.epam.library.model.service.OrderService;
 import com.epam.library.model.service.ServiceException;
-import com.epam.library.model.dto.orderservice.adminstration.AdministrationOrderDisplay;
+import com.epam.library.util.constant.PageLocation;
 import com.epam.library.util.constant.entityconstant.OrderConstant;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-public class LibrarianOrderListCommand implements Command {
+public class AdministrationOrderListCommand implements Command {
     private OrderService orderService;
 
-    public LibrarianOrderListCommand(OrderService orderService) {
+    public AdministrationOrderListCommand(OrderService orderService) {
         this.orderService = orderService;
     }
 
@@ -26,11 +27,11 @@ public class LibrarianOrderListCommand implements Command {
      * @throws ServiceException if something wrong during the connection with database
      */
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
 
         List<AdministrationOrderDisplay> orders = orderService.administrationAllOrder();
         request.setAttribute(OrderConstant.ORDER_LIST, orders);
-        return PageLocation.ADMINISTRATION_ORDER_LIST;
+        return new CommandResult(PageLocation.ADMINISTRATION_ORDER_LIST);
 
     }
 }

@@ -2,20 +2,24 @@ package com.epam.library.controller.command.administration.order;
 
 import com.epam.library.controller.builder.OrderBuilderFromRequest;
 import com.epam.library.controller.command.Command;
-import com.epam.library.util.constant.PageLocation;
+import com.epam.library.controller.command.CommandResult;
 import com.epam.library.entity.Order;
 import com.epam.library.model.service.BookService;
 import com.epam.library.model.service.OrderService;
 import com.epam.library.model.service.ServiceException;
 import com.epam.library.model.service.TransactionManager;
-import com.epam.library.util.constant.DiffConstant;
+import com.epam.library.util.constant.Operation;
+import com.epam.library.util.constant.RedirectTo;
 import com.epam.library.util.constant.entityconstant.OrderConstant;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-public class LibrarianUpdateOrderCommand implements Command {
+public class AdministrationUpdateOrderCommand implements Command {
+    private final static Logger logger = LogManager.getLogger();
+
     private final static String TRUE = "true";
     private final static String FALSE = "false";
 
@@ -24,7 +28,7 @@ public class LibrarianUpdateOrderCommand implements Command {
     private TransactionManager transactionManager;
     private OrderBuilderFromRequest builderFromRequest = new OrderBuilderFromRequest();
 
-    public LibrarianUpdateOrderCommand(OrderService orderService, BookService bookService, TransactionManager transactionManager) {
+    public AdministrationUpdateOrderCommand(OrderService orderService, BookService bookService, TransactionManager transactionManager) {
         this.orderService = orderService;
         this.bookService = bookService;
         this.transactionManager = transactionManager;
@@ -37,12 +41,11 @@ public class LibrarianUpdateOrderCommand implements Command {
      * bookReturned is false we will update the existing order,
      * if the bookReturned is true we will update the quantity of the book which returned by 1
      * then removing the order from the list.
-     * @throws ServiceException is something  wrong happens during order update or save
      */
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        String page;
-        HttpSession session = request.getSession();
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
+        CommandResult commandResult = new CommandResult();
+        String operation;
         String orderId = request.getParameter(OrderConstant.ORDER_ID);
         String bookReturned = request.getParameter(OrderConstant.BOOK_RETURNED);
         String bookId = request.getParameter(OrderConstant.BOOK_ID);
@@ -50,28 +53,35 @@ public class LibrarianUpdateOrderCommand implements Command {
         if (orderId != null && bookReturned.trim().equalsIgnoreCase(FALSE) && !orderId.isEmpty()) {
 
             Order order = builderFromRequest.buildToUpdate(request);
-            orderService.update(order);
-            request.setAttribute(DiffConstant.SUCCESS_INFO_UPDATE, DiffConstant.READ_FROM_PROPERTIES);
-            page = PageLocation.ADMINISTRATION_EDIT_ORDER;
+            try {
+                orderService.update(order);
+                operation = Operation.UPDATED;
+            } catch (ServiceException e) {
+                operation = Operation.UPDATE_FAIL;
+                logger.error(e);
+            }
         } else if (orderId != null && bookReturned.trim().equalsIgnoreCase(TRUE) && !orderId.isEmpty()) {
 
-            orderService.administrationOrderRemoval(orderId, bookId, bookService, transactionManager);
-            request.setAttribute(DiffConstant.REMOVE_DONE, DiffConstant.READ_FROM_PROPERTIES);
-            page = PageLocation.ADMINISTRATION_ORDER_LIST;
-        } else {
-
-            if (session.getAttribute(DiffConstant.ITEM_INSERTED) == null) { // to prevent double submit
-                Order order = builderFromRequest.buildToAdd(request);
-                orderService.save(order);
-                request.setAttribute(DiffConstant.INSERT_SUCCESS, DiffConstant.READ_FROM_PROPERTIES);
-                session.setAttribute(DiffConstant.ITEM_INSERTED, DiffConstant.INSERTED);
-                page = PageLocation.ADMINISTRATION_EDIT_ORDER;
-            }else {
-                request.setAttribute(DiffConstant.DOUBLE_SUBMIT_ATTEMPT, DiffConstant.READ_FROM_PROPERTIES);
-                page = PageLocation.ADMINISTRATION_EDIT_ORDER;
+            try {
+                orderService.administrationOrderRemoval(orderId, bookId, bookService, transactionManager);
+                operation = Operation.REMOVED;
+            } catch (ServiceException e) {
+                operation = Operation.REMOVE_FAIL;
+                logger.error(e);
             }
+        } else {
+            Order order = builderFromRequest.buildToAdd(request);
+            try {
+                orderService.save(order);
+                operation = Operation.INSERTED;
+            } catch (ServiceException e) {
+                operation = Operation.INSERT_FAIL;
+                logger.error(e);
+            }
+
         }
-        return page;
+        commandResult.redirect(RedirectTo.ADMINISTRATION_EDIT_ORDER_PAGE + Operation.OPERATION_STATUS + operation);
+        return commandResult;
     }
 
 }

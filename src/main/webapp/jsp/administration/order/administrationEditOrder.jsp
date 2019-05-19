@@ -17,23 +17,43 @@
 
 <body>
 <jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/navigation.jsp"/>
+<jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/scrollTop.jsp"/>
 
 <div class="profileContainer">
     <div class="basicInfo">
 
-        <h1> <fmt:message key="label.add.edit.order"/> </h1>
+        <h1><fmt:message key="label.add.edit.order"/></h1>
         <hr>
 
-        <%-- in case of updating an existing order or inserting a new order one of these messages will be displaye--%>
-
+        <%-- in case of updating an existing book or inserting a new book one of these messages will be displaye--%>
         <c:choose>
-            <c:when test="${not empty requestScope.updateDone}">
+            <%-- Update Info --%>
+            <c:when test="${ param.operationStatus eq 'updated'}">
                 <h2 class="permission" style="color: green; margin: 20px auto"><fmt:message
                         key="message.update.done"/></h2> <br>
             </c:when>
-            <c:when test="${not empty requestScope.insertDone}">
+            <c:when test="${ param.operationStatus eq 'updateFail'}">
+                <h2 class="permission" style="color: green; margin: 20px auto"><fmt:message
+                        key="message.update.not.done"/></h2> <br>
+            </c:when>
+
+            <%-- Insert Info --%>
+            <c:when test="${param.operationStatus eq 'inserted'}">
                 <h2 class="permission" style="color: green; margin: 20px auto"><fmt:message
                         key="message.insert.done"/></h2> <br>
+            </c:when>
+            <c:when test="${param.operationStatus eq 'insertFail'}">
+                <h2 class="permission" style="color: green; margin: 20px auto"><fmt:message
+                        key="message.insert.not.done"/></h2> <br>
+            </c:when>
+            <%-- Removing info--%>
+            <c:when test="${param.operationStatus eq 'removed'}">
+                <h2 class="permission" style="color: green; margin: 10px auto"><fmt:message
+                        key="message.remove.done"/></h2> <br>
+            </c:when>
+            <c:when test="${param.operationStatus eq 'removeFail'}">
+                <h2 class="permission" style="color: brown; margin: 10px auto"><fmt:message
+                        key="message.remove.fail"/></h2> <br>
             </c:when>
         </c:choose>
 
@@ -57,25 +77,25 @@
                             <h3 class="label"><fmt:message key="label.order.book.id"/></h3>
                         </div>
                         <div class="inputCol">
-                          <c:choose>
-                              <c:when test="${empty requestScope.editOrder.bookId}">
-                                  <select name = "book_id">
-                                      <c:forEach var="book" items="${requestScope.bookList}">
-                                          <option value="${book.id}"> ${book.name} </option>
-                                      </c:forEach>
-                                  </select>
-                              </c:when>
-                              <c:otherwise>
-                                  <select name = "book_id">
-                                      <c:forEach var="book" items="${requestScope.bookList}">
-                                          <option value="${book.id}"
-                                                  <c:if test="${requestScope.editOrder.bookId eq book.id}"> selected = selected </c:if>>
-                                                  ${book.name}
-                                          </option>
-                                      </c:forEach>
-                                  </select>
-                              </c:otherwise>
-                          </c:choose>
+                            <c:choose>
+                                <c:when test="${empty requestScope.editOrder.bookId}">
+                                    <select name="book_id">
+                                        <c:forEach var="book" items="${requestScope.bookList}">
+                                            <option value="${book.id}"> ${book.name} </option>
+                                        </c:forEach>
+                                    </select>
+                                </c:when>
+                                <c:otherwise>
+                                    <select name="book_id">
+                                        <c:forEach var="book" items="${requestScope.bookList}">
+                                            <option value="${book.id}"
+                                                    <c:if test="${requestScope.editOrder.bookId eq book.id}"> selected = selected </c:if>>
+                                                    ${book.name}
+                                            </option>
+                                        </c:forEach>
+                                    </select>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                     <div class="row">
@@ -86,14 +106,14 @@
 
                             <c:choose>
                                 <c:when test="${empty requestScope.editOrder.userId}">
-                                    <select name = "user_id">
+                                    <select name="user_id">
                                         <c:forEach var="user" items="${requestScope.userList}">
                                             <option value="${user.id}"> ${user.email} </option>
                                         </c:forEach>
                                     </select>
                                 </c:when>
                                 <c:otherwise>
-                                    <select name = "user_id">
+                                    <select name="user_id">
                                         <c:forEach var="user" items="${requestScope.userList}">
                                             <option value="${user.id}"
                                                     <c:if test="${requestScope.editOrder.userId eq user.id}"> selected = selected </c:if> >
@@ -150,7 +170,7 @@
                         <div class="inputCol">
                             <select id="book-returned" name="book_returned">
                                 <option value=" ${requestScope.editOrder.bookReturned eq  'false' ? 'false' : 'false'}"
-                                <c:if test="${requestScope.editOrder.bookReturned eq  'false' }"> selected = "selected" </c:if>>
+                                        <c:if test="${requestScope.editOrder.bookReturned eq  'false' }"> selected = "selected" </c:if>>
                                     <fmt:message key="label.false"/>
                                 </option>
                                 <option value="${requestScope.editOrder.bookReturned eq 'true' ? 'true' : 'true'}"
@@ -161,7 +181,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <input type="submit" onclick="removeOrder()" value="<fmt:message key="label.update"/> ">
+                        <input type="submit" onclick=" return removeOrder()" value="<fmt:message key="label.update"/> ">
                     </div>
                 </form>
             </div>
@@ -169,12 +189,13 @@
     </div>
 
 </div>
-<jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/footer.jsp" />
+<jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/footer.jsp"/>
 <script>
     function removeOrder() {
+
         const message = "If book returned the order will be deleted, are you sure that book is returned?";
-        const book = document.getElementById("book-returned");
-        if(book){
+        const returned = document.forms["administration-update-order"]["book_returned"].value;
+        if (returned === "true") {
             return (confirm(message));
         }
     }

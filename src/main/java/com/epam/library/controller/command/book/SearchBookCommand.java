@@ -1,14 +1,15 @@
 package com.epam.library.controller.command.book;
 
 import com.epam.library.controller.command.Command;
-import com.epam.library.util.constant.PageLocation;
+import com.epam.library.controller.command.CommandResult;
 import com.epam.library.entity.Book;
 import com.epam.library.entity.User;
 import com.epam.library.entity.enumeration.Role;
 import com.epam.library.model.service.BookService;
 import com.epam.library.model.service.ServiceException;
-import com.epam.library.util.constant.entityconstant.BookConstant;
 import com.epam.library.util.constant.DiffConstant;
+import com.epam.library.util.constant.PageLocation;
+import com.epam.library.util.constant.entityconstant.BookConstant;
 import com.epam.library.util.constant.entityconstant.UserConstant;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +28,7 @@ public class SearchBookCommand implements Command {
     }
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
 
         User user = (User) request.getSession(false).getAttribute(UserConstant.USER_ATTRIBUTE);
 
@@ -42,7 +43,7 @@ public class SearchBookCommand implements Command {
             request.setAttribute(BookConstant.BOOK_NOT_EXIST, DiffConstant.READ_FROM_PROPERTIES);
         }
 
-        return page(user);
+        return commandResult(user);
     }
 
 
@@ -64,7 +65,7 @@ public class SearchBookCommand implements Command {
      * @param user to check it is role and if it is null
      * @return page depends on the user role or if it is null
      */
-    private String page(User user) {
+    private CommandResult commandResult(User user) {
         String page;
         if (user == null) {
             page = PageLocation.BOOK_STORE;
@@ -73,6 +74,6 @@ public class SearchBookCommand implements Command {
         } else {
             page = PageLocation.BOOK_STORE;
         }
-        return page;
+        return new CommandResult(page);
     }
 }

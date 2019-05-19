@@ -3,15 +3,15 @@ package com.epam.library.controller.command;
 
 import com.epam.library.controller.command.admin.AdminRemoveBookCommand;
 import com.epam.library.controller.command.admin.AdminRemoveUserCommand;
-import com.epam.library.controller.command.administration.book.LibrarianBookStoreCommand;
-import com.epam.library.controller.command.administration.book.LibrarianEditBookCommand;
-import com.epam.library.controller.command.administration.book.LibrarianUpdateBookCommand;
-import com.epam.library.controller.command.administration.order.LibrarianEditOrderCommand;
-import com.epam.library.controller.command.administration.order.LibrarianOrderListCommand;
-import com.epam.library.controller.command.administration.order.LibrarianUpdateOrderCommand;
-import com.epam.library.controller.command.administration.user.LibrarianEditUserCommand;
-import com.epam.library.controller.command.administration.user.LibrarianUpdateUserCommand;
-import com.epam.library.controller.command.administration.user.LibrarianUserListCommand;
+import com.epam.library.controller.command.administration.book.AdministrationBookStoreCommand;
+import com.epam.library.controller.command.administration.book.AdministrationEditBookCommand;
+import com.epam.library.controller.command.administration.book.AdministrationUpdateBookCommand;
+import com.epam.library.controller.command.administration.order.AdministrationEditOrderCommand;
+import com.epam.library.controller.command.administration.order.AdministrationOrderListCommand;
+import com.epam.library.controller.command.administration.order.AdministrationUpdateOrderCommand;
+import com.epam.library.controller.command.administration.user.AdministrationEditUserCommand;
+import com.epam.library.controller.command.administration.user.AdministrationUpdateUserCommand;
+import com.epam.library.controller.command.administration.user.AdministrationUserListCommand;
 import com.epam.library.controller.command.book.BookStoreCommand;
 import com.epam.library.controller.command.book.SearchBookCommand;
 import com.epam.library.controller.command.book.SortBookCommand;
@@ -53,29 +53,29 @@ public class CommandFactory implements AutoCloseable {
             // ADMINISTRATION
 
             case CommandName.ADMINISTRATION_BOOK_STORE:
-                return new LibrarianBookStoreCommand(serviceFactory.getBookService());
+                return new AdministrationBookStoreCommand(serviceFactory.getBookService());
             case CommandName.ADMINISTRATION_EDIT_BOOK:
-                return new LibrarianEditBookCommand(serviceFactory.getBookService());
+                return new AdministrationEditBookCommand(serviceFactory.getBookService());
             case CommandName.ADMINISTRATION_UPDATE_BOOK:
-                return new LibrarianUpdateBookCommand(serviceFactory.getBookService());
+                return new AdministrationUpdateBookCommand(serviceFactory.getBookService());
 
             case CommandName.ADMINISTRATION_ORDER_LIST:
-                return new LibrarianOrderListCommand(serviceFactory.getOrderService());
+                return new AdministrationOrderListCommand(serviceFactory.getOrderService());
             case CommandName.ADMINISTRATION_EDIT_ORDER:
-                return new LibrarianEditOrderCommand(serviceFactory.getOrderService(), serviceFactory.getBookService(), serviceFactory.getUserService());
+                return new AdministrationEditOrderCommand(serviceFactory.getOrderService(), serviceFactory.getBookService(), serviceFactory.getUserService());
             case CommandName.ADMINISTRATION_UPDATE_ORDER:
-                return new LibrarianUpdateOrderCommand(serviceFactory.getOrderService(), serviceFactory.getBookService(), transactionManager);
+                return new AdministrationUpdateOrderCommand(serviceFactory.getOrderService(), serviceFactory.getBookService(), transactionManager);
             case CommandName.ADMINISTRATION_SORT_ORDER:
                 return new AdministrationSortOrderCommand(serviceFactory.getOrderService());
             case CommandName.ADMINISTRATION_SEARCH_ORDER:
                 return new AdministrationSearchOrderCommand(serviceFactory.getOrderService());
 
             case CommandName.ADMINISTRATION_DISPLAY_USER:
-                return new LibrarianUserListCommand(serviceFactory.getUserService());
+                return new AdministrationUserListCommand(serviceFactory.getUserService());
             case CommandName.ADMINISTRATION_EDIT_USER:
-                return new LibrarianEditUserCommand(serviceFactory.getUserService());
+                return new AdministrationEditUserCommand(serviceFactory.getUserService());
             case CommandName.ADMINISTRATION_UPDATE_USER:
-                return new LibrarianUpdateUserCommand(serviceFactory.getUserService());
+                return new AdministrationUpdateUserCommand(serviceFactory.getUserService());
             case CommandName.ADMINISTRATION_SEARCH_USER:
                 return new AdministrationSearchUserCommand(serviceFactory.getUserService());
             case CommandName.ADMINISTRATION_SORT_USER:

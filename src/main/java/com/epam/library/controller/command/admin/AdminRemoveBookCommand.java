@@ -1,12 +1,15 @@
 package com.epam.library.controller.command.admin;
 
 import com.epam.library.controller.command.Command;
-import com.epam.library.util.constant.PageLocation;
+import com.epam.library.controller.command.CommandResult;
 import com.epam.library.entity.Book;
 import com.epam.library.model.service.BookService;
 import com.epam.library.model.service.ServiceException;
+import com.epam.library.util.constant.Operation;
+import com.epam.library.util.constant.RedirectTo;
 import com.epam.library.util.constant.entityconstant.BookConstant;
-import com.epam.library.util.constant.DiffConstant;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +17,7 @@ import java.util.List;
 
 
 public class AdminRemoveBookCommand implements Command {
+    private final static Logger logger = LogManager.getLogger();
 
     private BookService bookService;
 
@@ -24,17 +28,20 @@ public class AdminRemoveBookCommand implements Command {
     }
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+        CommandResult commandResult = new CommandResult();
+        String operation;
         String bookId = request.getParameter(BookConstant.BOOK_ID);
         List<Book> books = bookService.getAll();
         try {
             bookService.removeById(Long.valueOf(bookId));
-            request.setAttribute(DiffConstant.REMOVE_DONE, DiffConstant.READ_FROM_PROPERTIES);
+            operation = Operation.REMOVED;
         } catch (ServiceException e) {
-
-            request.setAttribute(DiffConstant.REMOVE_FAIL, DiffConstant.READ_FROM_PROPERTIES);
+            operation = Operation.REMOVE_FAIL;
+            logger.error(e);
         }
         request.setAttribute(BookConstant.BOOK_LIST, books);
-        return PageLocation.ADMINISTRATION_BOOK_STORE;
+        commandResult.redirect(RedirectTo.ADMINISTRATION_BOOK_STORE_PAGE + Operation.OPERATION_STATUS + operation);
+        return commandResult;
     }
 }

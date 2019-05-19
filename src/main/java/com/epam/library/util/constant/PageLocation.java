@@ -2,7 +2,7 @@ package com.epam.library.util.constant;
 
 public class PageLocation {
 
-    public final static String ERROR_PAGE = "/jsp/error.jsp";
+    public final static String ERROR_PAGE = "/jsp/pageNotFound.jsp";
     public final static String MAIN_PAGE = "/index.jsp";
     public final static String LOGIN_PAGE = "/login.jsp";
     public final static String BOOK_STORE = "/jsp/book/bookStore.jsp";

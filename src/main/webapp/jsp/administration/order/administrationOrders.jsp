@@ -19,6 +19,7 @@
 
 <body>
 <jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/navigation.jsp"/>
+<jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/scrollTop.jsp"/>
 
 <div class="profileContainer">
     <div class="basicInfo">
@@ -74,19 +75,6 @@
             </div>
         </div>
 
-        <%-- in case of removing an order one of these messages will be displayed--%>
-
-        <c:choose>
-            <c:when test="${not empty requestScope.removeDone}">
-                <h2 class="permission" style="color: green; margin: 10px auto"><fmt:message
-                        key="message.remove.done"/></h2> <br>
-            </c:when>
-            <c:when test="${not empty requestScope.removeFail}">
-                <h2 class="permission" style="color: brown; margin: 10px auto"><fmt:message
-                        key="message.remove.fail"/></h2> <br>
-            </c:when>
-
-        </c:choose>
 
         <%-- in case of search for an order and it is not exist the below message will be displayed
         instead of order list --%>

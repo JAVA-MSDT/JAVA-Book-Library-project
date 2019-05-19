@@ -2,9 +2,10 @@ package com.epam.library.controller.controller;
 
 import com.epam.library.controller.command.Command;
 import com.epam.library.controller.command.CommandFactory;
-import com.epam.library.util.constant.PageLocation;
+import com.epam.library.controller.command.CommandResult;
 import com.epam.library.model.db.ConnectionPool;
 import com.epam.library.model.service.ServiceException;
+import com.epam.library.util.constant.PageLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -35,23 +36,32 @@ public class LibraryController extends HttpServlet {
 
         String command = request.getParameter(COMMAND_NAME);
 
-        String page = null;
-        try (CommandFactory commandFactory = new CommandFactory()) {
-            Command action = commandFactory.create(command);
-            page = action.execute(request, response);
+        System.out.println("command Name " + command);
+        try (CommandFactory factory = new CommandFactory()) {
+            Command action = factory.create(command);
+            CommandResult commandResult = action.execute(request, response);
+            dispatch(request, response, commandResult);
         } catch (ServiceException e) {
             logger.error("Exception in Library Controller", e);
             request.setAttribute("error", e);
-            response.sendRedirect(PageLocation.ERROR_PAGE);
         }
 
-        dispatch(request, response, page);
+
     }
 
-    private void dispatch(HttpServletRequest request, HttpServletResponse response, String page) throws ServletException, IOException {
-
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
-        dispatcher.forward(request, response);
+    private void dispatch(HttpServletRequest request, HttpServletResponse response, CommandResult commandResult) throws ServletException, IOException {
+        String page = commandResult.getPage();
+        switch (commandResult.getCommandAction()) {
+            case FORWARD:
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
+                dispatcher.forward(request, response);
+                break;
+            case REDIRECT:
+                response.sendRedirect(page);
+                break;
+            default:
+                response.sendRedirect(PageLocation.ERROR_PAGE);
+        }
     }
 
     public void destroy() {

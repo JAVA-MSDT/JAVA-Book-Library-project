@@ -89,7 +89,7 @@
                 <div class="profile-img">
                 <img class="avatar" src="${pageContext.request.contextPath}/img/profImage.jpg">
                 <div class="overlay">
-                    <a href="controller?command=administration-edit-user">
+                    <a href="#">
                         <fmt:message key="button.edit"/>
                     </a>
                 </div>

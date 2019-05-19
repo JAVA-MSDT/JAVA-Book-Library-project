@@ -17,6 +17,7 @@
 
 <body>
 <jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/navigation.jsp"/>
+<jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/scrollTop.jsp"/>
 
 <div class="profileContainer">
     <div class="basicInfo">
@@ -63,28 +64,17 @@
 
         <%-- in case of removing a book one of these messages will be displayed--%>
         <c:choose>
-            <c:when test="${not empty requestScope.removeDone}">
+            <c:when test="${param.operationStatus eq 'removed'}">
                 <h2 class="permission" style="color: green; margin: 10px auto"><fmt:message
                         key="message.remove.done"/></h2> <br>
             </c:when>
-            <c:when test="${not empty requestScope.removeFail}">
+            <c:when test="${param.operationStatus eq 'removeFail'}">
                 <h2 class="permission" style="color: brown; margin: 10px auto"><fmt:message
                         key="message.remove.fail"/></h2> <br>
             </c:when>
 
         </c:choose>
 
-        <%-- in case of updating an existing book or inserting a new book one of these messages will be displaye--%>
-        <c:choose>
-            <c:when test="${not empty requestScope.updateDone}">
-                <h2 class="permission" style="color: green; margin: 20px auto"><fmt:message
-                        key="message.update.done"/></h2> <br>
-            </c:when>
-            <c:when test="${not empty requestScope.insertDone}">
-                <h2 class="permission" style="color: green; margin: 20px auto"><fmt:message
-                        key="message.insert.done"/></h2> <br>
-            </c:when>
-        </c:choose>
 
         <%-- in case of search for a book and it is not exist the below message will be displayed
         instead of book list --%>

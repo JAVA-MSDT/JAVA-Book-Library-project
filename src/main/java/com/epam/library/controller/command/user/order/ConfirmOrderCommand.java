@@ -2,7 +2,7 @@ package com.epam.library.controller.command.user.order;
 
 import com.epam.library.controller.builder.OrderBuilderFromRequest;
 import com.epam.library.controller.command.Command;
-import com.epam.library.util.constant.PageLocation;
+import com.epam.library.controller.command.CommandResult;
 import com.epam.library.entity.Book;
 import com.epam.library.entity.Order;
 import com.epam.library.entity.User;
@@ -10,9 +10,9 @@ import com.epam.library.model.service.BookService;
 import com.epam.library.model.service.OrderService;
 import com.epam.library.model.service.ServiceException;
 import com.epam.library.model.service.TransactionManager;
+import com.epam.library.util.constant.Operation;
+import com.epam.library.util.constant.RedirectTo;
 import com.epam.library.util.constant.entityconstant.BookConstant;
-import com.epam.library.util.constant.DiffConstant;
-import com.epam.library.util.constant.entityconstant.OrderConstant;
 import com.epam.library.util.constant.entityconstant.UserConstant;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
 public class ConfirmOrderCommand implements Command {
+
     private BookService bookService;
     private OrderService orderService;
     private TransactionManager transactionManager;
@@ -39,28 +40,24 @@ public class ConfirmOrderCommand implements Command {
      * @throws ServiceException if something wrong during the connection with database
      */
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        String page = null;
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+        String operation = null;
+        CommandResult commandResult = new CommandResult();
         User user = (User) request.getSession(false).getAttribute(UserConstant.USER_ATTRIBUTE);
         String bookId = request.getParameter(BookConstant.BOOK_ID);
-        String bookOrderDate = request.getParameter(OrderConstant.ORDER_DATE);
-        System.out.println("Book order Date: " + bookOrderDate);
-
         if (user != null) {
             Optional<Book> optionalBook = bookService.getById(Long.valueOf(bookId));
             if (optionalBook.isPresent()) {
                 Book book = optionalBook.get();
                 Order order = builderFromRequest.userOrder(request, book.getId(), user.getId());
                 orderService.confirmUserOrder(order, book, bookService, transactionManager);
-
-                request.setAttribute(BookConstant.BOOK_ATTRIBUTE, book);
-                request.setAttribute(OrderConstant.ORDER_DONE, DiffConstant.READ_FROM_PROPERTIES);
-                page = PageLocation.VIEW_BOOK;
+                operation = Operation.ORDER_CONFIRMED;
             } else {
-                request.setAttribute(BookConstant.UNREACHABLE_BOOK, DiffConstant.READ_FROM_PROPERTIES);
+                operation = Operation.CONFIRM_FAIL;
             }
         }
-        return page;
+        commandResult.redirect(RedirectTo.BOOK_LIST_PAGE + Operation.OPERATION_STATUS + operation);
+        return commandResult;
     }
 
 }

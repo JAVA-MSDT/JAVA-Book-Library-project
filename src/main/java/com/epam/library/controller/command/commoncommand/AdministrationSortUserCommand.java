@@ -1,11 +1,12 @@
 package com.epam.library.controller.command.commoncommand;
 
 import com.epam.library.controller.command.Command;
-import com.epam.library.util.constant.PageLocation;
+import com.epam.library.controller.command.CommandResult;
 import com.epam.library.entity.User;
 import com.epam.library.entity.enumeration.Role;
 import com.epam.library.model.service.ServiceException;
 import com.epam.library.model.service.UserService;
+import com.epam.library.util.constant.PageLocation;
 import com.epam.library.util.constant.entityconstant.UserConstant;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +22,7 @@ public class AdministrationSortUserCommand implements Command {
     }
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         User user = (User) request.getSession(false).getAttribute(UserConstant.USER_ATTRIBUTE);
         String sortCriteria = request.getParameter(SORT_CRITERIA);
 
@@ -29,7 +30,7 @@ public class AdministrationSortUserCommand implements Command {
 
         request.setAttribute(UserConstant.USER_LIST, userList);
 
-        return PageLocation.ADMINISTRATION_USER_LIST;
+        return new CommandResult(PageLocation.ADMINISTRATION_USER_LIST);
     }
 
     /**

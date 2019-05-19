@@ -1,11 +1,13 @@
 package com.epam.library.controller.command.commoncommand;
 
 import com.epam.library.controller.command.Command;
-import com.epam.library.util.constant.PageLocation;
-import com.epam.library.model.service.OrderService;
-import com.epam.library.model.service.ServiceException;
+import com.epam.library.controller.command.CommandResult;
 import com.epam.library.model.dto.orderservice.adminstration.AdministrationOrderDisplay;
 import com.epam.library.model.dto.orderservice.adminstration.search.*;
+import com.epam.library.model.service.OrderService;
+import com.epam.library.model.service.ServiceException;
+import com.epam.library.util.constant.DiffConstant;
+import com.epam.library.util.constant.PageLocation;
 import com.epam.library.util.constant.entityconstant.OrderConstant;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,16 +32,19 @@ public class AdministrationSearchOrderCommand implements Command {
     }
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String searchValue = request.getParameter(SEARCH_VALUE);
         String searchCriteria = request.getParameter(SEARCH_CRITERIA);
 
         List<AdministrationOrderDisplay> orders = orderService.administrationAllOrder();
-
         List<AdministrationOrderDisplay> searchResult = findOrder(searchCriteria, searchValue, orders);
+        if (searchResult != null) {
+            request.setAttribute(OrderConstant.ORDER_LIST, searchResult);
+        } else {
+            request.setAttribute(OrderConstant.ORDER_NOT_EXIST, DiffConstant.READ_FROM_PROPERTIES);
+        }
 
-        request.setAttribute(OrderConstant.ORDER_LIST, searchResult);
-        return PageLocation.ADMINISTRATION_ORDER_LIST;
+        return new CommandResult(PageLocation.ADMINISTRATION_ORDER_LIST);
     }
 
     /**
@@ -50,7 +55,7 @@ public class AdministrationSearchOrderCommand implements Command {
      */
     private List<AdministrationOrderDisplay> findOrder(String criteria, String query, List<AdministrationOrderDisplay> orderDisplayList) {
 
-        List<AdministrationOrderDisplay> result = null;
+        List<AdministrationOrderDisplay> result;
         switch (criteria) {
             case BOOK_NAME:
                 result = searchResult(orderDisplayList, new FindOrderByBookName(), query);
@@ -70,6 +75,8 @@ public class AdministrationSearchOrderCommand implements Command {
             case READING_PLACE:
                 result = searchResult(orderDisplayList, new FindOrderByReadingPlace(), query);
                 break;
+            default:
+                result = null;
         }
         return result;
     }

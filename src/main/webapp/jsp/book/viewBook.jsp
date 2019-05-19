@@ -21,15 +21,11 @@
         <p> ${requestScope.book.name} </p>
     </div>
 
-    <%-- if the user wanted to order a book and he is not in the system this message will be displayed--%>
-    <c:if test="${not empty requestScope.invalidLogin}">
-        <h2 class="permission"><fmt:message key="message.login.register"/></h2> <br>
-    </c:if>
-
-    <%-- if the user who is in the system confirming an order and the order done successfully--%>
-    <c:if test="${not empty requestScope.done}">
-        <h2 class="permission" style="color: green"><fmt:message key="message.book.order.done"/></h2> <br>
-    </c:if>
+    <c:choose>
+        <c:when test="${not empty requestScope.invalidLogin}">
+            <h2 class="permission"><fmt:message key="message.login.register"/></h2> <br>
+        </c:when>
+    </c:choose>
 
     <%-- Book view --%>
     <div class="book-container">

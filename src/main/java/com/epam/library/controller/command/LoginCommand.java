@@ -5,7 +5,6 @@ import com.epam.library.model.service.ServiceException;
 import com.epam.library.model.service.UserService;
 import com.epam.library.util.constant.DiffConstant;
 import com.epam.library.util.constant.PageLocation;
-import com.epam.library.util.constant.entityconstant.BookConstant;
 import com.epam.library.util.constant.entityconstant.UserConstant;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,8 +21,9 @@ public class LoginCommand implements Command {
     }
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String page;
+        CommandResult commandResult = new CommandResult();
         HttpSession session = request.getSession();
         String login = request.getParameter(UserConstant.LOGIN);
         String password = request.getParameter(UserConstant.PASSWORD);
@@ -42,7 +42,8 @@ public class LoginCommand implements Command {
             page = PageLocation.LOGIN_PAGE;
 
         }
-        return page;
+        commandResult.forward(page);
+        return commandResult;
     }
 
 

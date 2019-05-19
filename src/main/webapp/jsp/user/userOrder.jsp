@@ -18,6 +18,7 @@
 <body>
 
 <jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/navigation.jsp"/>
+<jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/scrollTop.jsp"/>
 
 <%-- Just to display to the user his orders --%>
 <div class="profileContainer">
@@ -40,25 +41,38 @@
                         <th>
                             <h2><fmt:message key="label.order.return.date"/></h2>
                         </th>
+                        <th>
+                            <h2><fmt:message key="label.order.reading.place"/></h2>
+                        </th>
                     </tr>
                     <c:forEach varStatus="loop" var="orderList" items="${requestScope.orderList}">
                         <tr>
-                            <th>
+                            <td>
                                 <h2> ${loop.count}</h2>
-                            </th>
-                            <th>
+                            </td>
+                            <td>
                                 <h2> ${orderList.bookName}</h2>
-                            </th>
-                            <th>
+                            </td>
+                            <td>
                                 <h2>
                                     <fmt:formatDate value="${orderList.orderDate}" type="date"/>
                                 </h2>
-                            </th>
-                            <th>
+                            </td>
+                            <td>
                                 <h2>
                                     <fmt:formatDate value="${orderList.returningDate}" type="date"/>
                                 </h2>
-                            </th>
+                            </td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${orderList.readingPlace eq 'HOME'}">
+                                        <fmt:message key="label.order.home"/>
+                                    </c:when>
+                                    <c:when test="${orderList.readingPlace eq 'HALL'}">
+                                        <fmt:message key="label.order.hall"/>
+                                    </c:when>
+                                </c:choose>
+                            </td>
                         </tr>
                     </c:forEach>
 

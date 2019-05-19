@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class BookBuilderFromRequest {
     /**
-     * To help build the book for the update in the LibrarianUpdateBookCommand class
+     * To help build the book for the update in the AdministrationUpdateBookCommand class
      *
      * @param request to extract the book info from a form
      * @return book after extracting it's information
@@ -21,7 +21,7 @@ public class BookBuilderFromRequest {
     }
 
     /**
-     * To help building the book for the update in the LibrarianUpdateBookCommand class
+     * To help building the book for the update in the AdministrationUpdateBookCommand class
      *
      * @param request to extract the book info from a form to add it in the database, because of
      *                we have the id in the database auto increment we will not receive it from the request

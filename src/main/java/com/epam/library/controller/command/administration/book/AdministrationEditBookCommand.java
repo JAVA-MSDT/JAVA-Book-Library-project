@@ -1,27 +1,27 @@
 package com.epam.library.controller.command.administration.book;
 
 import com.epam.library.controller.command.Command;
-import com.epam.library.util.constant.PageLocation;
+import com.epam.library.controller.command.CommandResult;
 import com.epam.library.entity.Book;
 import com.epam.library.model.service.BookService;
 import com.epam.library.model.service.ServiceException;
-import com.epam.library.util.constant.entityconstant.BookConstant;
 import com.epam.library.util.constant.DiffConstant;
+import com.epam.library.util.constant.PageLocation;
+import com.epam.library.util.constant.entityconstant.BookConstant;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 /**
  * EditBook 1.
  * 1 - This class will be triggered when you press the Edit button in the book table,
  */
-public class LibrarianEditBookCommand implements Command {
+public class AdministrationEditBookCommand implements Command {
 
     private BookService bookService;
 
-    public LibrarianEditBookCommand(BookService bookService) {
+    public AdministrationEditBookCommand(BookService bookService) {
         this.bookService = bookService;
     }
 
@@ -32,10 +32,8 @@ public class LibrarianEditBookCommand implements Command {
      * @throws ServiceException is something wrong during the connection with database
      */
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String page;
-        HttpSession session = request.getSession();
-        session.removeAttribute(DiffConstant.ITEM_INSERTED); // to remove the lock after double submit attempt
         String bookId = request.getParameter(BookConstant.BOOK_ID);
         if(bookId != null){
             Optional<Book> optionalBook = bookService.getById(Long.valueOf(bookId));
@@ -52,7 +50,7 @@ public class LibrarianEditBookCommand implements Command {
             page = PageLocation.ADMINISTRATION_EDIT_BOOK;
         }
 
-        return page;
+        return new CommandResult(page);
     }
 
 }

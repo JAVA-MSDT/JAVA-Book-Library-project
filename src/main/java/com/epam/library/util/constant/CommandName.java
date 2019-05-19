@@ -28,8 +28,6 @@ public class CommandName {
     //Admin Only
     public final static String ADMIN_REMOVE_BOOK = "admin-remove-book";
     public final static String ADMIN_REMOVE_USER = "admin-remove-user";
-    public final static String ADMIN_CHANGE_ROLE = "admin-change-role";
-    public final static String ADMIN_UPDATE_ROLE = "admin-update-role";
 
     //User
     public final static String DISPLAY_BOOK = "display-book";

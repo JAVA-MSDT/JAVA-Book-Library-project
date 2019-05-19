@@ -18,6 +18,7 @@
 <body>
 
 <jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/navigation.jsp"/>
+<jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/scrollTop.jsp"/>
 
 <div class="profileContainer">
     <div class="basicInfo">
@@ -67,21 +68,16 @@
         <%-- in case of removing a user one of these messages will be displayed--%>
 
         <c:choose>
-            <c:when test="${not empty requestScope.removeDone}">
+            <c:when test="${param.operationStatus eq 'removed'}">
                 <h2 class="permission" style="color: green; margin: 10px auto"><fmt:message
                         key="message.remove.done"/></h2> <br>
             </c:when>
-            <c:when test="${not empty requestScope.removeFail}">
+            <c:when test="${param.operationStatus eq 'removeFail'}">
                 <h2 class="permission" style="color: brown; margin: 10px auto"><fmt:message
                         key="message.remove.fail"/></h2> <br>
             </c:when>
         </c:choose>
 
-        <%-- in case of update fail --%>
-        <c:if test="${not empty requestScope.updateFail}">
-            <h2 class="permission" style="color: green; margin: 20px auto"><fmt:message
-                    key="message.update.not.done"/></h2> <br>
-        </c:if>
 
         <%-- in case of search for a user and it is not exist the below message will be displayed
         instead of user list --%>

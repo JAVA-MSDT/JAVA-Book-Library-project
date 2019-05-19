@@ -18,6 +18,7 @@
 <body>
 
 <jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/navigation.jsp"/>
+<jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/scrollTop.jsp"/>
 
 <div class="profileContainer">
     <div class="basicInfo">
@@ -27,21 +28,27 @@
         <%-- in case of updating an existing User or inserting a new User one of these messages will be displaye--%>
 
         <c:choose>
-            <c:when test="${not empty requestScope.updateDone}">
+            <%-- Update Info --%>
+            <c:when test="${ param.operationStatus eq 'updated'}">
                 <h2 class="permission" style="color: green; margin: 20px auto"><fmt:message
                         key="message.update.done"/></h2> <br>
             </c:when>
-            <c:when test="${not empty requestScope.insertDone}">
+            <c:when test="${ param.operationStatus eq 'updateFail'}">
+                <h2 class="permission" style="color: green; margin: 20px auto"><fmt:message
+                        key="message.update.not.done"/></h2> <br>
+            </c:when>
+
+            <%-- Insert Info --%>
+            <c:when test="${param.operationStatus eq 'inserted'}">
                 <h2 class="permission" style="color: green; margin: 20px auto"><fmt:message
                         key="message.insert.done"/></h2> <br>
             </c:when>
+            <c:when test="${param.operationStatus eq 'insertFail'}">
+                <h2 class="permission" style="color: green; margin: 20px auto"><fmt:message
+                        key="message.insert.not.done"/></h2> <br>
+            </c:when>
         </c:choose>
 
-        <%-- If there is any attempt for a doble submit or page refreshing this message will be displayed--%>
-        <c:if test="${not empty requestScope.doubleSubmit}">
-            <h2 class="permission" style="color: brown; margin: 20px auto"><fmt:message
-                    key="message.item.already.exist"/></h2> <br>
-        </c:if>
 
         <%-- User Form for adding or editting --%>
 
@@ -49,7 +56,6 @@
             <div class="editContainerForm">
                 <form id="librarianReaderForm" name="administration-update-user" action="controller" method="post">
                     <input type="hidden" name="command" value="administration-update-user">
-                    <input type="hidden" name="insert" value="${sessionScope.inserted}">
                     <input type="hidden" name="id" value="${requestScope.editUser.id}">
                     <div class="row">
                         <div class="labelCol">

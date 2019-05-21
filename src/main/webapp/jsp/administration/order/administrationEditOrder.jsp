@@ -4,15 +4,16 @@
 
 <fmt:setLocale value="${sessionScope.language}"/>
 <fmt:setBundle basename="locale"/>
-<!DOCTYPE html>
+<html>
 
 <head>
     <title><fmt:message key="label.title.epam"/></title>
     <meta charset="utf-8">
     <meta name="author" content="Ahmed Samy">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/form.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/formStyle.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/accountBodyStyle.css">
+    <script rel="script" src="${pageContext.request.contextPath}/js/orderValidator.js"></script>
 </head>
 
 <body>
@@ -57,10 +58,20 @@
             </c:when>
         </c:choose>
 
-        <%-- If there is any attempt for a doble submit or page refreshing this message will be displayed--%>
-        <c:if test="${not empty requestScope.doubleSubmit}">
-            <h2 class="permission" style="color: brown; margin: 20px auto"><fmt:message
-                    key="message.item.already.exist"/></h2> <br>
+        <%-- Server form validation--%>
+        <c:if test="${not empty requestScope.validationList}">
+            <br>
+            <hr>
+            <br>
+            <c:forEach items="${requestScope.validationList}" var="validation">
+                <c:choose>
+                    <c:when test="${validation eq 'returningDateOlder'}">
+                        <h3 style="color: firebrick"><fmt:message key="validation.order.returning.date"/></h3>
+                    </c:when>
+                </c:choose>
+            </c:forEach>
+            <br>
+            <hr>
         </c:if>
 
         <%-- Order Form for adding or editting --%>
@@ -71,6 +82,7 @@
                     <input type="hidden" name="command" value="administration-update-order">
                     <input type="hidden" name="insert" value="${sessionScope.inserted}">
                     <input type="hidden" name="id" value="${requestScope.editOrder.orderId}">
+                    <input type="hidden" id="returned-message" value="<fmt:message key="message.remove.order"/>">
 
                     <div class="row">
                         <div class="labelCol">
@@ -130,7 +142,7 @@
                             <h3 class="label"><fmt:message key="label.order.date"/></h3>
                         </div>
                         <div class="inputCol">
-                            <input type="date" name="order_date"
+                            <input type="date" name="order_date" id="order-date"
                                    value="${not empty requestScope.editOrder.orderDate ? requestScope.editOrder.orderDate : ''}"
                                    placeholder="<fmt:message key="label.order.date"/>" required>
                         </div>
@@ -138,9 +150,11 @@
                     <div class="row">
                         <div class="labelCol">
                             <h3 class="label"><fmt:message key="label.order.return.date"/></h3>
+                            <p id="returning-date-message" style="display: none"><fmt:message
+                                    key="validation.order.returning.date"/></p>
                         </div>
                         <div class="inputCol">
-                            <input type="date" name="returning_date"
+                            <input type="date" name="returning_date" id="returning-date"
                                    value="${not empty requestScope.editOrder.returningDate ? requestScope.editOrder.returningDate : ''}"
                                    placeholder="<fmt:message key="label.order.return.date"/>" required>
 
@@ -181,7 +195,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        <input type="submit" onclick=" return removeOrder()" value="<fmt:message key="label.update"/> ">
+                        <input type="submit" onclick=" return orderFormValidation()"
+                               value="<fmt:message key="label.update"/> ">
                     </div>
                 </form>
             </div>
@@ -189,9 +204,25 @@
     </div>
 
 </div>
-<jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/footer.jsp"/>
+<jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/footer.jsp"/><%--
 <script>
-    function removeOrder() {
+
+    let today = new Date().toISOString().substr(0, 10);
+    let orderDate = document.getElementById("order-date").value;
+    if (!Date.parse(orderDate)) {
+        document.querySelector("#order-date").value = today;
+    }
+
+    function orderFormValidation() {
+        let orderDate = document.getElementById("order-date").value;
+        let returningDate = document.getElementById("returning-date");
+
+        if (returningDate.value < orderDate) {
+            returningDate.style.border = "1px solid red";
+            returningDate.value = orderDate;
+            document.getElementById("returning-date-message").style.display = "block";
+            return false;
+        }
 
         const message = "If book returned the order will be deleted, are you sure that book is returned?";
         const returned = document.forms["administration-update-order"]["book_returned"].value;
@@ -199,7 +230,9 @@
             return (confirm(message));
         }
     }
-</script>
+
+
+</script>--%>
 </body>
 
 </html>

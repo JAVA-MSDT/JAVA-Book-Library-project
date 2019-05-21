@@ -9,13 +9,16 @@ import com.epam.library.model.service.OrderService;
 import com.epam.library.model.service.ServiceException;
 import com.epam.library.model.service.TransactionManager;
 import com.epam.library.util.constant.Operation;
+import com.epam.library.util.constant.PageLocation;
 import com.epam.library.util.constant.RedirectTo;
 import com.epam.library.util.constant.entityconstant.OrderConstant;
+import com.epam.library.util.validate.entityvalidate.OrderValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 public class AdministrationUpdateOrderCommand implements Command {
     private final static Logger logger = LogManager.getLogger();
@@ -44,14 +47,39 @@ public class AdministrationUpdateOrderCommand implements Command {
      */
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
-        CommandResult commandResult = new CommandResult();
-        String operation;
+        CommandResult commandResult;
         String orderId = request.getParameter(OrderConstant.ORDER_ID);
         String bookReturned = request.getParameter(OrderConstant.BOOK_RETURNED);
         String bookId = request.getParameter(OrderConstant.BOOK_ID);
 
         if (orderId != null && bookReturned.trim().equalsIgnoreCase(FALSE) && !orderId.isEmpty()) {
 
+            commandResult = updateOrder(request);
+        } else if (orderId != null && bookReturned.trim().equalsIgnoreCase(TRUE) && !orderId.isEmpty()) {
+
+            commandResult = removeOrder(orderId, bookId);
+        } else {
+
+            commandResult = insertOrder(request);
+        }
+        return commandResult;
+    }
+
+
+    /**
+     * In case the order parameter validation fail we will forward the request with a message to the edit
+     * order page,
+     * In case of the parameter validation pass we will update the specified order then send redirect to
+     * edit order page.
+     * @param request extract the order parameter for validation then building the order object to update it
+     * @return commandResult
+     */
+    private CommandResult updateOrder(HttpServletRequest request) {
+
+        String operation = null;
+        CommandResult commandResult = new CommandResult();
+        List<String> orderValidation = OrderValidator.validateOrderParameter(request);
+        if (orderValidation.size() == 0) {
             Order order = builderFromRequest.buildToUpdate(request);
             try {
                 orderService.update(order);
@@ -59,17 +87,30 @@ public class AdministrationUpdateOrderCommand implements Command {
             } catch (ServiceException e) {
                 operation = Operation.UPDATE_FAIL;
                 logger.error(e);
-            }
-        } else if (orderId != null && bookReturned.trim().equalsIgnoreCase(TRUE) && !orderId.isEmpty()) {
-
-            try {
-                orderService.administrationOrderRemoval(orderId, bookId, bookService, transactionManager);
-                operation = Operation.REMOVED;
-            } catch (ServiceException e) {
-                operation = Operation.REMOVE_FAIL;
-                logger.error(e);
+            } finally {
+                commandResult.redirect(RedirectTo.ADMINISTRATION_EDIT_ORDER_PAGE + Operation.OPERATION_STATUS + operation);
             }
         } else {
+            request.setAttribute(Operation.VALIDATION_LIST, orderValidation);
+            commandResult.forward(PageLocation.ADMINISTRATION_EDIT_ORDER);
+        }
+        return commandResult;
+    }
+
+    /**
+     * In case the order parameter validation fail we will forward the request with a message to the edit
+     * order page,
+     * In case of the parameter validation pass we will insert the new order into the database then send redirect to
+     * edit order page.
+     * @param request extract the book parameter for validation then building the book object to update it
+     * @return commandResult
+     */
+    private CommandResult insertOrder(HttpServletRequest request) {
+
+        String operation = null;
+        CommandResult commandResult = new CommandResult();
+        List<String> orderValidation = OrderValidator.validateOrderParameter(request);
+        if (orderValidation.size() == 0) {
             Order order = builderFromRequest.buildToAdd(request);
             try {
                 orderService.save(order);
@@ -77,11 +118,35 @@ public class AdministrationUpdateOrderCommand implements Command {
             } catch (ServiceException e) {
                 operation = Operation.INSERT_FAIL;
                 logger.error(e);
+            } finally {
+                commandResult.redirect(RedirectTo.ADMINISTRATION_EDIT_ORDER_PAGE + Operation.OPERATION_STATUS + operation);
             }
-
+        } else {
+            request.setAttribute(Operation.VALIDATION_LIST, orderValidation);
+            commandResult.forward(PageLocation.ADMINISTRATION_EDIT_ORDER);
         }
-        commandResult.redirect(RedirectTo.ADMINISTRATION_EDIT_ORDER_PAGE + Operation.OPERATION_STATUS + operation);
         return commandResult;
     }
 
-}
+    /**
+     *
+     * @param orderId to be removed
+     * @param bookId to get the returning book and updated it by 1 after removing the order
+     * @return commandResult
+     */
+    private CommandResult removeOrder(String orderId, String bookId){
+       String operation = null;
+       CommandResult commandResult = new CommandResult();
+        try {
+            orderService.administrationOrderRemoval(orderId, bookId, bookService, transactionManager);
+            operation = Operation.REMOVED;
+        } catch (ServiceException e) {
+            operation = Operation.REMOVE_FAIL;
+            logger.error(e);
+        }finally {
+            commandResult.redirect(RedirectTo.ADMINISTRATION_EDIT_ORDER_PAGE + Operation.OPERATION_STATUS + operation);
+        }
+        return commandResult;
+    }
+
+    }

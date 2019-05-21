@@ -11,8 +11,9 @@
     <meta charset="utf-8">
     <meta name="author" content="Ahmed Samy">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/form.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/formStyle.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/accountBodyStyle.css">
+    <script rel="script" src="${pageContext.request.contextPath}/js/userValidator.js"></script>
 </head>
 
 <body>
@@ -45,10 +46,37 @@
             </c:when>
             <c:when test="${param.operationStatus eq 'insertFail'}">
                 <h2 class="permission" style="color: green; margin: 20px auto"><fmt:message
-                        key="message.insert.not.done"/></h2> <br>
+                        key="message.insert.user.not.done"/></h2> <br>
             </c:when>
         </c:choose>
 
+        <%-- Server form validation--%>
+        <c:if test="${not empty requestScope.validationList}">
+            <br>
+            <hr>
+            <br>
+            <c:forEach items="${requestScope.validationList}" var="validation">
+                <c:choose>
+                    <c:when test="${validation eq 'nameError'}">
+                    <h3 style="color: firebrick"> <fmt:message key="validation.user.name"/> </h3>
+                </c:when>
+                    <c:when test="${validation eq 'lastNameError'}">
+                        <h3 style="color: firebrick"> <fmt:message key="validation.user.name"/> </h3>
+                    </c:when>
+                    <c:when test="${validation eq 'emailError'}">
+                        <h3 style="color: firebrick"> <fmt:message key="validation.user.email"/> </h3>
+                    </c:when>
+                    <c:when test="${validation eq 'loginError'}">
+                        <h3 style="color: firebrick"> <fmt:message key="validation.user.login"/> </h3>
+                    </c:when>
+                    <c:when test="${validation eq 'passwordError'}">
+                        <h3 style="color: firebrick"> <fmt:message key="validation.user.password"/> </h3>
+                    </c:when>
+                </c:choose>
+            </c:forEach>
+            <br>
+            <hr>
+        </c:if>
 
         <%-- User Form for adding or editting --%>
 
@@ -62,9 +90,9 @@
                             <h3 class="label"><fmt:message key="label.name"/></h3>
                         </div>
                         <div class="inputCol">
-                            <input type="text" name="name"
+                            <input type="text" name="name" id="user-name"
                                    value="${not empty requestScope.editUser.name ? requestScope.editUser.name : ''}"
-                                   pattern="[a-zA-z0-9 ]+" placeholder="<fmt:message key="label.user.name"/>" required>
+                                   pattern="([\w\s]{0,30})$" placeholder="<fmt:message key="validation.user.name"/>" required>
                         </div>
                     </div>
                     <div class="row">
@@ -72,9 +100,9 @@
                             <h3 class="label"><fmt:message key="label.reader.last.name"/></h3>
                         </div>
                         <div class="inputCol">
-                            <input type="text" name="last_name"
+                            <input type="text" name="last_name" id="user-last-name"
                                    value="${not empty requestScope.editUser.lastName ? requestScope.editUser.lastName : ''}"
-                                   pattern="[a-zA-z0-9 ]+" placeholder="<fmt:message key="label.user.name"/>" required>
+                                   pattern="([\w\s]{0,30})$" placeholder="<fmt:message key="validation.user.name"/>" required>
                         </div>
                     </div>
                     <div class="row">
@@ -82,10 +110,10 @@
                             <h3 class="label"><fmt:message key="label.email"/></h3>
                         </div>
                         <div class="inputCol">
-                            <input type="text" name="email"
+                            <input type="email" name="email" id="email"
                                    value="${not empty requestScope.editUser.email ? requestScope.editUser.email : ''}"
                                    pattern="^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$"
-                                   placeholder="<fmt:message key="label.email"/>" required>
+                                   placeholder="<fmt:message key="validation.user.email"/>" required>
                         </div>
                     </div>
                     <div class="row">
@@ -93,9 +121,9 @@
                             <h3 class="label"><fmt:message key="label.login"/></h3>
                         </div>
                         <div class="inputCol">
-                            <input type="text" name="login"
+                            <input type="text" name="login" id="user-login"
                                    value="${not empty requestScope.editUser.login ? requestScope.editUser.login : ''}"
-                                   pattern="[a-zA-z0-9]+" placeholder="<fmt:message key="label.login"/>" required>
+                                   pattern="^([a-zA-Z]{2,10})$" placeholder="<fmt:message key="validation.user.login"/>" required>
                         </div>
                     </div>
 
@@ -105,10 +133,10 @@
                                 <h3 class="label"><fmt:message key="label.password"/></h3>
                             </div>
                             <div class="inputCol">
-                                <input type="text" name="password"
+                                <input type="text" name="password" id="user-password"
                                        value="${not empty requestScope.editUser.password ? requestScope.editUser.password : ''}"
                                        pattern="^([a-zA-Z0-9@*#]{4,10})$"
-                                       placeholder="<fmt:message key="label.role.password.disc"/>" required>
+                                       placeholder="<fmt:message key="validation.user.password"/>" required>
                             </div>
                         </div>
                     </c:if>
@@ -126,7 +154,7 @@
                                                 <c:if test="${requestScope.editUser.role eq 'ADMIN'}"> selected = selected </c:if>>
                                             <fmt:message key="label.role.admin"/></option>
                                         <option value="LIBRARIAN"
-                                        <c:if test="${requestScope.editUser.role eq 'LIBRARIAN'}"> selected = selected </c:if>>
+                                                <c:if test="${requestScope.editUser.role eq 'LIBRARIAN'}"> selected = selected </c:if>>
                                             <fmt:message key="label.role.librarian"/></option>
                                         <option value="READER"
                                                 <c:if test="${requestScope.editUser.role eq 'READER'}"> selected = selected </c:if>>
@@ -161,7 +189,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <input type="submit" value="<fmt:message key="label.update"/>">
+                        <input type="submit" onclick="return userFormValidation()" value="<fmt:message key="label.update"/>">
                     </div>
                 </form>
             </div>

@@ -13,6 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/accountBodyStyle.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/tableStyle.css">
+    <script rel="script" src="${pageContext.request.contextPath}/js/removeItem.js"></script>
 </head>
 
 <body>
@@ -175,7 +176,8 @@
                                         <td>
                                             <form name="admin-remove-user" action="controller" method="post">
                                                 <input type="hidden" name="command" value="admin-remove-user">
-                                                <input class="edit" onclick="removeUser()" type="submit" name="edit"
+                                                <input type="hidden" id="remove-message" value="<fmt:message key="message.remove.item"/>">
+                                                <input class="edit" onclick="return remove()" type="submit" name="edit"
                                                        value="<fmt:message key="button.remove"/> "/>
                                                 <input type="hidden" name="id" value="<c:out value="${userList.id}"/>"/>
                                             </form>
@@ -195,13 +197,6 @@
 
 </div>
 <jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/footer.jsp"/>
-<script>
-
-    function removeUser() {
-        const message = "Are sure that you want to delete that User?";
-        return confirm(message);
-    }
-</script>
 </body>
 
 </html>

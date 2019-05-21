@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Optional;
 
 public abstract class AbstractDao<T> implements IDao<T> {
-    private final static Logger logger = LogManager.getLogger();
 
     private Connection connection;
 

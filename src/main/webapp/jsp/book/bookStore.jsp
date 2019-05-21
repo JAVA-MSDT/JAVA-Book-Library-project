@@ -66,9 +66,6 @@
             <c:when test="${param.operationStatus eq 'confirmed'}">
                 <h2 class="permission" style="color: green"><fmt:message key="message.book.order.done"/></h2> <br>
             </c:when>
-            <c:when test="${param.operationStatus eq 'confirmFail'}">
-                <h2 class="permission" style="color: green"><fmt:message key="message.book.order.done"/></h2> <br>
-            </c:when>
         </c:choose>
 
         <%-- in case of search for a book and it is not exist the below message will be displayed

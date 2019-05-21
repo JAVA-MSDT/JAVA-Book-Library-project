@@ -11,8 +11,8 @@
     <meta name="description" content="Epam Library">
     <meta name="author" content="Ahmed Samy">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}css/index.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}css/login.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css">
 </head>
 <body>
 
@@ -23,10 +23,12 @@
     <div class="form">
 
         <img src="${pageContext.request.contextPath}img/epam.jpg" width="100" height="100">
+
         <h2><fmt:message key="message.welcome.back"/></h2>
 
         <div class="error-message">
             <c:if test="${not empty requestScope.invalidLogin}">
+                <br>
                 <h2 style="color: brown"><fmt:message key="message.loginError"/></h2>
             </c:if>
             <c:if test="${not empty requestScope.blocked}">

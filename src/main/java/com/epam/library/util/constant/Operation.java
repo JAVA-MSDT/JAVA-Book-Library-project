@@ -14,4 +14,6 @@ public class Operation {
 
     public final static String ORDER_CONFIRMED = "confirmed";
     public final static String CONFIRM_FAIL = "confirmFail";
+
+    public final static String VALIDATION_LIST = "validationList";
 }

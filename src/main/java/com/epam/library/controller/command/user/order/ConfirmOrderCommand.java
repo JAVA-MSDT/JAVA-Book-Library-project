@@ -10,13 +10,18 @@ import com.epam.library.model.service.BookService;
 import com.epam.library.model.service.OrderService;
 import com.epam.library.model.service.ServiceException;
 import com.epam.library.model.service.TransactionManager;
+import com.epam.library.util.constant.DiffConstant;
 import com.epam.library.util.constant.Operation;
+import com.epam.library.util.constant.PageLocation;
 import com.epam.library.util.constant.RedirectTo;
 import com.epam.library.util.constant.entityconstant.BookConstant;
 import com.epam.library.util.constant.entityconstant.UserConstant;
+import com.epam.library.util.validate.entityvalidate.OrderValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.sql.ResultSet;
+import java.util.List;
 import java.util.Optional;
 
 public class ConfirmOrderCommand implements Command {
@@ -41,23 +46,43 @@ public class ConfirmOrderCommand implements Command {
      */
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        String operation = null;
+
         CommandResult commandResult = new CommandResult();
         User user = (User) request.getSession(false).getAttribute(UserConstant.USER_ATTRIBUTE);
-        String bookId = request.getParameter(BookConstant.BOOK_ID);
+
         if (user != null) {
-            Optional<Book> optionalBook = bookService.getById(Long.valueOf(bookId));
-            if (optionalBook.isPresent()) {
-                Book book = optionalBook.get();
-                Order order = builderFromRequest.userOrder(request, book.getId(), user.getId());
-                orderService.confirmUserOrder(order, book, bookService, transactionManager);
-                operation = Operation.ORDER_CONFIRMED;
-            } else {
-                operation = Operation.CONFIRM_FAIL;
+            List<String> orderValidation = OrderValidator.validateOrderParameter(request);
+            if (orderValidation.size() == 0) {
+
+                commandResult = confirmOrder(request, user.getId());
+            }else {
+
+                request.setAttribute(Operation.VALIDATION_LIST, orderValidation);
+                commandResult.forward(PageLocation.VIEW_BOOK);
             }
         }
-        commandResult.redirect(RedirectTo.BOOK_LIST_PAGE + Operation.OPERATION_STATUS + operation);
         return commandResult;
     }
 
+
+    private CommandResult confirmOrder(HttpServletRequest request, Long userId) throws ServiceException {
+        String operation;
+        CommandResult commandResult = new CommandResult();
+        String bookId = request.getParameter(BookConstant.BOOK_ID);
+        Optional<Book> optionalBook = bookService.getById(Long.valueOf(bookId));
+
+        if (optionalBook.isPresent()) {
+
+            Book book = optionalBook.get();
+            Order order = builderFromRequest.userOrder(request, book.getId(), userId);
+            orderService.confirmUserOrder(order, book, bookService, transactionManager);
+            operation = Operation.ORDER_CONFIRMED;
+            commandResult.redirect(RedirectTo.BOOK_LIST_PAGE + Operation.OPERATION_STATUS + operation);
+        } else {
+
+            request.setAttribute(Operation.CONFIRM_FAIL, DiffConstant.READ_FROM_PROPERTIES);
+            commandResult.forward(PageLocation.VIEW_BOOK);
+        }
+        return commandResult;
+    }
 }

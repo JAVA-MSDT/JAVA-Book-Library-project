@@ -3,7 +3,7 @@ package com.epam.library.model.service;
 import com.epam.library.entity.User;
 import com.epam.library.model.dao.DaoException;
 import com.epam.library.model.dao.UserDao;
-import com.epam.library.util.validate.UserValidator;
+import com.epam.library.util.validate.entityvalidate.UserValidator;
 
 import java.util.List;
 import java.util.Optional;

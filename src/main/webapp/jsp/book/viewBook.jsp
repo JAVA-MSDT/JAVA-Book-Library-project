@@ -10,7 +10,8 @@
         ${requestScope.book.name}
     </title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bookView.css"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/form.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/formStyle.css"/>
+    <script rel="script" src="${pageContext.request.contextPath}/js/orderValidator.js"></script>
 </head>
 <body>
 <jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/navigation.jsp"/>
@@ -24,6 +25,9 @@
     <c:choose>
         <c:when test="${not empty requestScope.invalidLogin}">
             <h2 class="permission"><fmt:message key="message.login.register"/></h2> <br>
+        </c:when>
+        <c:when test="${not empty requestScope.operationStatus}">
+            <h2 class="permission" style="color: darkred"><fmt:message key="message.book.order.not.done"/></h2> <br>
         </c:when>
     </c:choose>
 
@@ -99,6 +103,22 @@
 
     <c:if test="${not empty requestScope.display}">
         <div class="container">
+
+            <c:if test="${not empty requestScope.validationList}">
+                <br>
+                <hr>
+                <br>
+                <c:forEach items="${requestScope.validationList}" var="validation">
+                    <c:choose>
+                        <c:when test="${validation eq 'returningDateOlder'}">
+                            <h3 style="color: firebrick"><fmt:message key="validation.order.returning.date"/></h3>
+                        </c:when>
+                    </c:choose>
+                </c:forEach>
+                <br>
+                <hr>
+            </c:if>
+
             <div class="editContainerForm">
                 <form id="librarianOrderForm" name="confirm-order" action="controller" method="post">
                     <input type="hidden" name="command" value="confirm-order">
@@ -108,16 +128,17 @@
                             <h3 class="label"><fmt:message key="label.order.date"/></h3>
                         </div>
                         <div class="inputCol">
-                            <input type="date" name="order_date" required/>
+                            <input type="date" name="order_date" id="order-date" required/>
                         </div>
                     </div>
                     <div class="row">
                         <div class="labelCol">
                             <h3 class="label"><fmt:message key="label.order.return.date"/></h3>
-
+                            <p id="returning-date-message" style="display: none"><fmt:message
+                                    key="validation.order.returning.date"/></p>
                         </div>
                         <div class="inputCol">
-                            <input type="date" name="returning_date" required/>
+                            <input type="date" name="returning_date" id="returning-date" required/>
                         </div>
                     </div>
                     <div class="row">
@@ -132,7 +153,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <input style="width: 200px" class="edit" type="submit" name="order"
+                        <input style="width: 200px" class="edit" onclick="return orderFormValidation()" type="submit" name="order"
                                value="<fmt:message key="button.confirm"/> "/>
                     </div>
                 </form>

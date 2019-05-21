@@ -7,13 +7,16 @@ import com.epam.library.entity.Book;
 import com.epam.library.model.service.BookService;
 import com.epam.library.model.service.ServiceException;
 import com.epam.library.util.constant.Operation;
+import com.epam.library.util.constant.PageLocation;
 import com.epam.library.util.constant.RedirectTo;
 import com.epam.library.util.constant.entityconstant.BookConstant;
+import com.epam.library.util.validate.entityvalidate.BookValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 public class AdministrationUpdateBookCommand implements Command {
     private final static Logger logger = LogManager.getLogger();
@@ -34,11 +37,31 @@ public class AdministrationUpdateBookCommand implements Command {
      */
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
-        String operation;
-        CommandResult commandResult = new CommandResult();
+
+        CommandResult commandResult;
         String bookId = request.getParameter(BookConstant.BOOK_ID);
         if (bookId != null && !bookId.isEmpty()) {
+                commandResult = updateBook(request);
 
+        } else {
+               commandResult = insertBook(request);
+        }
+        return commandResult;
+    }
+
+    /**
+     * In case the book parameter validation fail we will forward the request with a message to the edit
+     * book page,
+     * In case the parameter validation pass we will update the specified book then send redirect to
+     * edit book page.
+     * @param request extract the book parameter for validation then building the book object to update it
+     * @return commandResult
+     */
+    private CommandResult updateBook(HttpServletRequest request){
+        String operation = null;
+        CommandResult commandResult = new CommandResult();
+        List<String> bookValidation = BookValidator.validateBookParameter(request);
+        if(bookValidation.size() == 0){
             Book book = builderFromRequest.buildBookToUpdate(request);
             try {
                 bookService.update(book);
@@ -46,10 +69,30 @@ public class AdministrationUpdateBookCommand implements Command {
             } catch (ServiceException e) {
                 operation = Operation.UPDATE_FAIL;
                 logger.error(e);
+            }finally {
+                commandResult.redirect(RedirectTo.ADMINISTRATION_EDIT_BOOK_PAGE + Operation.OPERATION_STATUS + operation);
             }
+        }else {
+            request.setAttribute(Operation.VALIDATION_LIST, bookValidation);
+            commandResult.forward(PageLocation.ADMINISTRATION_EDIT_BOOK);
+        }
 
-        } else {
+        return commandResult;
+    }
 
+    /**
+     * In case the book parameter validation fail we will forward the request with a message to the edit
+     * book page,
+     * In case the parameter validation pass we will insert the new book into the database then send redirect to
+     * edit book page.
+     * @param request extract the book parameter for validation then building the book object to update it
+     * @return commandResult
+     */
+    private CommandResult insertBook(HttpServletRequest request){
+        String operation = null;
+        CommandResult commandResult = new CommandResult();
+        List<String> bookValidation = BookValidator.validateBookParameter(request);
+        if(bookValidation.size() == 0){
             Book book = builderFromRequest.buildBookToAdd(request);
             try {
                 bookService.save(book);
@@ -57,11 +100,14 @@ public class AdministrationUpdateBookCommand implements Command {
             } catch (ServiceException e) {
                 operation = Operation.INSERT_FAIL;
                 logger.error(e);
+            }finally {
+                commandResult.redirect(RedirectTo.ADMINISTRATION_EDIT_BOOK_PAGE + Operation.OPERATION_STATUS + operation);
             }
-
+        }else {
+            request.setAttribute(Operation.VALIDATION_LIST, bookValidation);
+            commandResult.forward(PageLocation.ADMINISTRATION_EDIT_BOOK);
         }
-        commandResult.redirect(RedirectTo.ADMINISTRATION_EDIT_BOOK_PAGE + Operation.OPERATION_STATUS + operation);
+
         return commandResult;
     }
-
 }

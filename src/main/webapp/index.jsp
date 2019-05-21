@@ -13,7 +13,7 @@
     <meta name="description" content="Epam Library">
     <meta name="author" content="Ahmed Samy">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/indexPage.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
 </head>
 
 <body>
@@ -23,7 +23,7 @@
 <div class="mainRow">
     <div class="epamImage">
         <h2>Library</h2>
-        <img src="${pageContext.request.contextPath}img/epam.jpg" width="450" height="300" alt="Epam Logo">
+        <img src="${pageContext.request.contextPath}img/epam.jpg" alt="Epam Logo">
     </div>
     <div class="epamText">
         <h2>News</h2>

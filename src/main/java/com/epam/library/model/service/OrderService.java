@@ -80,6 +80,7 @@ public class OrderService implements Service<Order> {
         }
     }
 
+
     /**
      *
      * @return list of a special object to use it later to display the detailed order
@@ -93,6 +94,15 @@ public class OrderService implements Service<Order> {
             throw new ServiceException("exception in administrationAllOrder at OrderService class", e);
         }
     }
+
+    /**
+     *
+     * @param orderID to get the specified order to be removed
+     * @param bookId to get the returning book and updated it by 1 after removing the order
+     * @param bookService to pass it to the increasing book quantity
+     * @param transactionManager to make sure that the operation done successfully
+     * @throws ServiceException in case of something wrong happens during the process
+     */
     public void administrationOrderRemoval(String orderID, String bookId, BookService bookService, TransactionManager transactionManager) throws ServiceException {
         try {
             transactionManager.startTransaction();
@@ -107,6 +117,14 @@ public class OrderService implements Service<Order> {
 
     }
 
+    /**
+     *
+     * @param order to be confirmed and to added to the user order list
+     * @param book to get the desired book then decrees it by 1 after the user order it
+     * @param bookService to pass it to the decreasing book quantity
+     * @param transactionManager to make sure that the operation done successfully
+     * @throws ServiceException in case of something wrong happens during the process
+     */
     public void confirmUserOrder(Order order, Book book, BookService bookService, TransactionManager transactionManager) throws ServiceException {
         try {
             transactionManager.startTransaction();

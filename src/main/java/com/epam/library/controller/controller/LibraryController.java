@@ -36,7 +36,6 @@ public class LibraryController extends HttpServlet {
 
         String command = request.getParameter(COMMAND_NAME);
 
-        System.out.println("command Name " + command);
         try (CommandFactory factory = new CommandFactory()) {
             Command action = factory.create(command);
             CommandResult commandResult = action.execute(request, response);

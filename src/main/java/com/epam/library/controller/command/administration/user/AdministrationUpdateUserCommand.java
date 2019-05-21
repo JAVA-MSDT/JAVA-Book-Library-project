@@ -7,14 +7,16 @@ import com.epam.library.entity.User;
 import com.epam.library.model.service.ServiceException;
 import com.epam.library.model.service.UserService;
 import com.epam.library.util.constant.Operation;
+import com.epam.library.util.constant.PageLocation;
 import com.epam.library.util.constant.RedirectTo;
 import com.epam.library.util.constant.entityconstant.UserConstant;
+import com.epam.library.util.validate.entityvalidate.UserValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Optional;
+import java.util.List;
 
 public class AdministrationUpdateUserCommand implements Command {
     private final static Logger logger = LogManager.getLogger();
@@ -36,41 +38,79 @@ public class AdministrationUpdateUserCommand implements Command {
      */
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
-        String operation = null;
-        CommandResult commandResult = new CommandResult();
+
+        CommandResult commandResult;
         String userId = request.getParameter(UserConstant.ID);
 
         if (userId != null && !userId.isEmpty()) {
-            Optional<User> optionalUser = Optional.empty();
-            try {
-                optionalUser = userService.getById(Long.valueOf(userId));
-            } catch (ServiceException e) {
-                logger.error(e);
-            }
-            if (optionalUser.isPresent()) {
 
-                User updateUser = builderFromRequest.buildUserForUpdate(request);
-                try {
-                    userService.update(updateUser);
-                    operation = Operation.UPDATED;
-                } catch (ServiceException e) {
-                    operation = Operation.UPDATE_FAIL;
-                    logger.error(e);
-                }
+            commandResult = updateUser(request);
+        } else {
+
+            commandResult = insertUser(request);
+        }
+        return commandResult;
+    }
+
+    /**
+     * In case the user parameter validation fail we will forward the request with a message to the edit
+     * user page,
+     * In case the parameter validation pass we will update the specified user then send redirect to
+     * edit user page.
+     * @param request extract the user parameter for validation then building the user object to update it
+     * @return commandResult
+     */
+    private CommandResult updateUser(HttpServletRequest request) {
+        String operation = null;
+        CommandResult commandResult = new CommandResult();
+        List<String> userValidation = UserValidator.validateUserParameter(request);
+        if (userValidation.size() == 0) {
+            User updateUser = builderFromRequest.buildUserForUpdate(request);
+            try {
+                userService.update(updateUser);
+                operation = Operation.UPDATED;
+            } catch (ServiceException e) {
+                operation = Operation.UPDATE_FAIL;
+                logger.error(e);
+            } finally {
+                commandResult.redirect(RedirectTo.ADMINISTRATION_EDIT_USER_PAGE + Operation.OPERATION_STATUS + operation);
             }
         } else {
+            request.setAttribute(Operation.VALIDATION_LIST, userValidation);
+            commandResult.forward(PageLocation.ADMINISTRATION_EDIT_USER);
+        }
+        return commandResult;
+    }
+
+
+    /**
+     * In case the user parameter validation fail we will forward the request with a message to the edit
+     * user page,
+     * In case the parameter validation pass we will insert the new user into the database then send redirect to
+     * edit user page.
+     * @param request extract the user parameter for validation then building the book object to update it
+     * @return commandResult
+     */
+    private CommandResult insertUser(HttpServletRequest request) {
+        String operation = null;
+        CommandResult commandResult = new CommandResult();
+        List<String> userValidation = UserValidator.validateUserParameter(request);
+        if (userValidation.size() == 0) {
             User user = builderFromRequest.buildUserForInserting(request);
             try {
                 userService.save(user);
                 operation = Operation.INSERTED;
             } catch (ServiceException e) {
-                logger.error(e);
                 operation = Operation.INSERT_FAIL;
+                logger.error(e);
 
+            } finally {
+                commandResult.redirect(RedirectTo.ADMINISTRATION_EDIT_USER_PAGE + Operation.OPERATION_STATUS + operation);
             }
+        } else {
+            request.setAttribute(Operation.VALIDATION_LIST, userValidation);
+            commandResult.forward(PageLocation.ADMINISTRATION_EDIT_USER);
         }
-
-        commandResult.redirect(RedirectTo.ADMINISTRATION_EDIT_USER_PAGE + Operation.OPERATION_STATUS + operation);
         return commandResult;
     }
 

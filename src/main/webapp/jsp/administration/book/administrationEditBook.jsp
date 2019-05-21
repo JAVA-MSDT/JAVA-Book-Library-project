@@ -11,7 +11,7 @@
     <meta charset="utf-8">
     <meta name="author" content="Ahmed Samy">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/form.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/formStyle.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/accountBodyStyle.css">
 </head>
 
@@ -22,7 +22,7 @@
 <div class="profileContainer">
     <div class="basicInfo">
 
-        <h1> <fmt:message key="label.add.edit.book"/> </h1>
+        <h1><fmt:message key="label.add.edit.book"/></h1>
 
         <%-- in case of updating an existing book or inserting a new book one of these messages will be displaye--%>
         <c:choose>
@@ -47,6 +47,25 @@
             </c:when>
         </c:choose>
 
+        <%-- Server form validation--%>
+        <c:if test="${not empty requestScope.validationList}">
+            <br>
+            <hr>
+            <br>
+            <c:forEach items="${requestScope.validationList}" var="validation">
+                <c:choose>
+                    <c:when test="${validation eq 'nameError'}">
+                        <h3 style="color: firebrick"> <fmt:message key="validation.book.title"/> </h3>
+                    </c:when>
+                    <c:when test="${validation eq 'quantityError'}">
+                        <h3 style="color: firebrick"> <fmt:message key="validation.book.quantity"/> </h3>
+                    </c:when>
+                </c:choose>
+            </c:forEach>
+            <br>
+            <hr>
+        </c:if>
+
         <%-- Book Form for adding or editting --%>
         <div class="container">
             <div class="editContainerForm">
@@ -57,12 +76,13 @@
                     <div class="row">
                         <div class="labelCol">
                             <h3 class="label"><fmt:message key="label.book.name"/></h3>
+                            <p id="demo"></p>
                         </div>
                         <div class="inputCol">
-                            <input type="text" name="name"
+                            <input type="text" name="name" id="book-name"
                                    value="${not empty requestScope.editBook.name ? requestScope.editBook.name : ''}"
-                                   pattern="[a-zA-z0-9 ]{1,40)" placeholder="<fmt:message key="label.book.name"/>"
-                                   required>
+                                   pattern= "^([\w\s]{0,30})$" placeholder="<fmt:message key="validation.book.title"/>"
+                           required>
                         </div>
                     </div>
                     <div class="row">
@@ -70,13 +90,13 @@
                             <h3 class="label"><fmt:message key="label.quantity"/></h3>
                         </div>
                         <div class="inputCol">
-                            <input type="text" name="quantity"
+                            <input type="number" name="quantity" id="quantity"
                                    value="${ not empty requestScope.editBook.quantity ? requestScope.editBook.quantity : ''}"
-                                   pattern="[0-9]+" placeholder="<fmt:message key="label.quantity"/>" required>
+                            pattern="^[1-9]\d*$" placeholder="<fmt:message key="validation.book.quantity"/>" required>
                         </div>
                     </div>
                     <div class="row">
-                        <input type="submit" value="<fmt:message key="label.update"/>">
+                        <input type="submit" onclick="return bookFormValidation()" value="<fmt:message key="label.update"/>">
                     </div>
                 </form>
             </div>
@@ -85,6 +105,28 @@
 
 </div>
 <jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/footer.jsp"/>
+
+<script>
+    function bookFormValidation() {
+        let nameRegex = /^([\w\s]{0,30})$/;
+        let positiveNumberRegex = /^[1-9]\d*$/;
+
+        let bookName = document.getElementById("book-name");
+        let quantity = document.getElementById("quantity");
+
+        if(!nameRegex.test(bookName.value.toLowerCase())){
+            bookName.style.border = "1px solid Red";
+            bookName.value = "";
+            return false;
+        }
+        if(!positiveNumberRegex.test(quantity.value.toLowerCase())){
+            quantity.style.border = "1px solid red";
+            quantity.value = "";
+            return false;
+        }
+    }
+
+</script>
 </body>
 
 </html>

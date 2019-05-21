@@ -44,7 +44,9 @@
     float: left;
 }
 
-input[type=text], select {
+input[type=text], select,
+input[type=number],
+input[type=email]{
     width: 100%;
     resize: vertical;
     padding: 12px;
@@ -62,9 +64,9 @@ input[type=date] {
 }
 
 input[type=submit] {
-    padding: 15px;
+    padding: 20px 40px 20px 40px;
     float: right;
-    font-size: 16px;
+    font-size: 18px;
     border-radius: 10px;
     background-color: darkcyan;
     color: aliceblue;

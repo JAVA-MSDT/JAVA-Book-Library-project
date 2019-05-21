@@ -69,7 +69,7 @@
             </form>
         </div>
     </div>
-    <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+    <a style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 
 
 </div>

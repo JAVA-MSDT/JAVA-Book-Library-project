@@ -22,16 +22,23 @@ public class DataRegexTest {
     }
 
     @Test
-    public void wordRegex() {
-        String word = "Ahmed";
-        Matcher matcher = DataMatcher.matches(DataRegex.LOGIN, word);
+    public void loginRegex() {
+        String login = "finalfin";
+        Matcher matcher = DataMatcher.matches(DataRegex.LOGIN, login);
         Assert.assertTrue(matcher.matches());
     }
 
     @Test
-    public void numberRegex() {
-        String number = "4400";
-        Matcher matcher = DataMatcher.matches(DataRegex.NUMBER, number);
+    public void positiveNumberRegex() {
+        String positiveNumber = "20";
+        Matcher matcher = DataMatcher.matches(DataRegex.POSITIVE_NUMBER_ONLY_EXCLUDE_ZERO, positiveNumber);
+        Assert.assertTrue(matcher.matches());
+    }
+
+    @Test
+    public void anyNumberRegex() {
+        String number = "0";
+        Matcher matcher = DataMatcher.matches(DataRegex.ANY_NUMBER, number);
 
         Assert.assertTrue(matcher.matches());
     }
@@ -49,6 +56,13 @@ public class DataRegexTest {
         String word = "سامى";
         Matcher matcher = DataMatcher.matches(DataRegex.WORDS_ANY_LANGUAGE, word);
 
+        Assert.assertTrue(matcher.matches());
+    }
+
+    @Test
+    public void limitedWordRegex() {
+        String word = "final Test 20";
+        Matcher matcher = DataMatcher.matches(DataRegex.LIMITED_WORD, word);
         Assert.assertTrue(matcher.matches());
     }
 }

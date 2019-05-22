@@ -19,7 +19,9 @@
     <meta name="author" content="Ahmed Samy">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/accountBodyStyle.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/tableStyle.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bookCard.css">
+    <script rel="script" src="${pageContext.request.contextPath}/js/displayBookOption.js"></script>
 </head>
 <body>
 <%-- Special page for a non registered users or for regesterd users--%>
@@ -33,7 +35,7 @@
         <%-- Adding - sorting - seraching bar --%>
 
         <div class="main-row">
-            <div class="search-column" style="width: 50%">
+            <div class="search-column">
                 <form name="search-book" action="controller" method="post">
                     <input type="hidden" name="command" value="search-book">
                     <input class="search-field" type="text" name="query" required
@@ -44,18 +46,30 @@
                     <input class="submit-button" type="submit" value="<fmt:message key="button.search"/>"/>
                 </form>
             </div>
-            <div class="sort-column" style="width: 50%">
+            <div class="sort-column">
                 <form name="sort-book" action="controller" method="post">
                     <input type="hidden" name="command" value="sort-book">
                     <div class="row-option">
-                        <div class="label-col">
-                            <label for="sort-option"> <fmt:message key="label.sort.by"/> </label>
-                        </div>
                         <div class="option-col">
-                            <select id="sort-option" class="select-option" name="type">
+                            <select id="sort-option" class="select-option" name="type" onchange="this.form.submit()">
+                                <option value=""><fmt:message key="label.sort.by"/></option>
                                 <option value="name"><fmt:message key="label.name"/></option>
                             </select>
-                            <input class="submit-button" type="submit" value="<fmt:message key="button.sort"/>"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="add-column">
+                <form name="sort-book" action="controller" method="post">
+                    <input type="hidden" name="command" value="sort-book">
+                    <div class="row-option">
+                        <div class="option-col">
+                            <select id="display-option" class="select-option" name="type" onchange="displayBook()">
+                                <option value=""> <fmt:message key="label.display"/> </option>
+                                <option value="displayCard"><fmt:message key="label.display.card"/></option>
+                                <option value="displayTable"><fmt:message key="label.display.table"/></option>
+                            </select>
                         </div>
                     </div>
                 </form>
@@ -70,6 +84,7 @@
 
         <%-- in case of search for a book and it is not exist the below message will be displayed
     instead of book list --%>
+        <div id="display-book-card" style="display: block">
         <c:choose>
             <c:when test="${not empty requestScope.bookNotExist}">
                 <h2 class="permission" style="color: brown"><fmt:message key="message.book.not.exist"/></h2> <br>
@@ -88,9 +103,10 @@
                                         </div>
                                         <hr>
                                         <div class="book-row">
-                                            <div class="book-available"><c:if test="${bookList.quantity > 0}">
-                                                <p><fmt:message key="label.available"/></p>
-                                            </c:if>
+                                            <div class="book-available">
+                                                <c:if test="${bookList.quantity > 0}">
+                                                    <p><fmt:message key="label.available"/></p>
+                                                </c:if>
                                                 <c:if test="${bookList.quantity == 0}">
                                                     <p><fmt:message key="label.not.available"/></p>
                                                 </c:if>
@@ -132,6 +148,73 @@
                 </div>
             </c:otherwise>
         </c:choose>
+        </div>
+        <hr>
+        <hr>
+        <div id="display-book-table" style="display: none">
+        <%-- Display List --%>
+        <c:choose>
+            <c:when test="${not empty requestScope.bookNotExist}">
+                <h2 class="permission" style="color: brown"><fmt:message key="message.book.not.exist"/></h2> <br>
+            </c:when>
+            <c:otherwise>
+
+                <%-- Book Table --%>
+                <div class="container">
+                    <div class="tableContainer">
+                        <table class="tableList">
+                            <tr>
+                                <th>
+                                    <h3><fmt:message key="label.id"/></h3>
+                                </th>
+                                <th>
+                                    <h3><fmt:message key="label.name"/></h3>
+                                </th>
+                                <th>
+                                    <h3><fmt:message key="label.available"/></h3>
+                                </th>
+                                <th>
+                                    <h3><fmt:message key="button.view"/></h3>
+                                </th>
+
+                            </tr>
+                            <c:forEach varStatus="loop" var="bookList" items="${requestScope.bookList}">
+                            <tr>
+                                <td>
+                                    <h4> ${loop.count} </h4>
+                                </td>
+                                <td>
+                                    <h4> ${bookList.name}</h4>
+                                </td>
+                                <td>
+                                    <h4>
+                                    <div>
+                                    <c:if test="${bookList.quantity > 0}">
+                                        <fmt:message key="label.available"/>
+                                    </c:if>
+                                    <c:if test="${bookList.quantity == 0}">
+                                        <fmt:message key="label.not.available"/>
+                                    </c:if>
+                                </div>
+                                </h4>
+                                </td>
+                                <td>
+                                    <div class="view-book">
+                                        <form name="view-book" action="controller" method="post">
+                                            <input type="hidden" name="command" value="view-book">
+                                            <input class="book-btn" type="submit" name="view"
+                                                   value="<fmt:message key="button.view"/> "/>
+                                            <input type="hidden" name="id" value="<c:out value="${bookList.id}"/>"/>
+                                        </form>
+                                    </div>
+                                </td>
+                                </c:forEach>
+                        </table>
+                    </div>
+                </div>
+            </c:otherwise>
+        </c:choose>
+        </div>
     </div>
 
 </div>

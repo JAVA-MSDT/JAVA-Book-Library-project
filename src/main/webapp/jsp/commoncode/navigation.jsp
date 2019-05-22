@@ -9,7 +9,7 @@
 <fmt:setLocale value="${language}"/>
 <fmt:setBundle basename="locale"/>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/navigation.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/navStyle.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css"/>
 
 <div class="top-nav" id="top-nav-id">
@@ -69,7 +69,7 @@
             </form>
         </div>
     </div>
-    <a style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+    <button class="icon" onclick="myFunction()">&#9776;</button>
 
 
 </div>
@@ -104,14 +104,12 @@
         </header>
     </c:otherwise>
 </c:choose>
-<c:if test="${sessionScope.user != null}">
-
-</c:if>
 
 <script>
     function myFunction() {
         var x = document.getElementById("top-nav-id");
         if (x.className === "top-nav") {
+            x.style.display = "block";
             x.className += " responsive";
         } else {
             x.className = "top-nav";

@@ -26,6 +26,13 @@
 
 .top-nav .icon {
     display: none;
+    color: white;
+    height: 49px;
+    background-color: black;
+    font-size: 18px;
+    border: 0;
+    width: 55%;
+    text-align: center;
 }
 
 .log-btn {
@@ -50,6 +57,7 @@
 }
 
 .top-nav a:hover,
+.icon:hover,
 .dropdown:hover,
 .drop-btn:hover,
 .dropdown-content button[type = submit]:hover{
@@ -91,7 +99,7 @@
     }
 
 
-    .top-nav a.icon {
+    .top-nav .icon {
         float: right;
         display: block;
     }

@@ -44,19 +44,17 @@
                     <input class="submit-button" type="submit" value="<fmt:message key="button.search"/>"/>
                 </form>
             </div>
+
             <div class="sort-column">
                 <form name="sort-book" action="controller" method="post">
                     <input type="hidden" name="command" value="sort-book">
                     <div class="row-option">
-                        <div class="label-col">
-                            <label for="sort-option"> <fmt:message key="label.sort.by"/> </label>
-                        </div>
                         <div class="option-col">
-                            <select id="sort-option" class="select-option" name="type">
+                            <select id="sort-option" class="select-option" name="type" onchange="this.form.submit()">
+                                <option value=""><fmt:message key="label.sort.by"/> </option>
                                 <option value="name"><fmt:message key="label.name"/></option>
                                 <option value="quantity"><fmt:message key="label.quantity"/></option>
                             </select>
-                            <input class="submit-button" type="submit" value="<fmt:message key="button.sort"/>"/>
                         </div>
                     </div>
                 </form>

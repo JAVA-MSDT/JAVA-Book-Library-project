@@ -14,6 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/accountBodyStyle.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/tableStyle.css">
+    <script rel="script" src="${pageContext.request.contextPath}/js/fieldExchanger.js"></script>
 
 </head>
 
@@ -38,9 +39,19 @@
             <div class="search-column">
                 <form name="administration-search-order" action="controller" method="post">
                     <input type="hidden" name="command" value="administration-search-order">
-                    <input class="search-field" type="text" name="query" required
+                    <input class="search-field" id="search-field" type="text" name="query" required
                            placeholder="<fmt:message key="button.search"/> "/>
-                    <select class="select-option" name="type">
+
+                    <select id="reading-place" style="display: none" class="search-field" name="query">
+                        <option value="HOME">
+                            <fmt:message key="label.order.home"/>
+                        </option>
+                        <option value="HALL">
+                            <fmt:message key="label.order.hall"/>
+                        </option>
+                    </select>
+
+                    <select class="select-option" id="select-option" name="type" onchange="changeSearchFieldType()">
                         <option value="bookName"><fmt:message key="label.book.name"/></option>
                         <option value="userName"><fmt:message key="label.user.name"/></option>
                         <option value="email"><fmt:message key="label.email"/></option>
@@ -51,15 +62,14 @@
                     <input class="submit-button" type="submit" value="<fmt:message key="button.search"/>"/>
                 </form>
             </div>
+
             <div class="sort-column">
                 <form name="administration-sort-order" action="controller" method="post">
-                    <input type="hidden" name="command" value="administration-sort-order">
+                    <input type="hidden" id="command" name="command" value="administration-sort-order">
                     <div class="row-option">
-                        <div class="label-col">
-                            <label for="sort-option"> <fmt:message key="label.sort.by"/> </label>
-                        </div>
                         <div class="option-col">
-                            <select id="sort-option" class="select-option" name="type">
+                            <select id="sort-option" class="select-option" name="type" onchange="this.form.submit()">
+                                <option value=""><fmt:message key="label.sort.by"/></option>
                                 <option value="bookName"><fmt:message key="label.book.name"/></option>
                                 <option value="userName"><fmt:message key="label.user.name"/></option>
                                 <option value="email"><fmt:message key="label.email"/></option>
@@ -67,10 +77,8 @@
                                 <option value="returningDate"><fmt:message key="label.order.return.date"/></option>
                                 <option value="readingPlace"><fmt:message key="label.order.reading.place"/></option>
                             </select>
-                            <input class="submit-button" type="submit" value="<fmt:message key="button.sort"/>"/>
                         </div>
                     </div>
-
                 </form>
             </div>
         </div>

@@ -4,7 +4,7 @@ public class CommandResult {
 
     private String page;
     private CommandAction commandAction = CommandAction.FORWARD;
-    ;
+    
 
     public CommandResult() {
     }

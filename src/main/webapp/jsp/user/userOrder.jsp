@@ -33,7 +33,7 @@
                             <h2><fmt:message key="label.id"/></h2>
                         </th>
                         <th>
-                            <h2><fmt:message key="label.book.name"/></h2>
+                            <h2><fmt:message key="label.book.title"/></h2>
                         </th>
                         <th>
                             <h2><fmt:message key="label.order.date"/></h2>

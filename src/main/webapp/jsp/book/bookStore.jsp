@@ -41,7 +41,7 @@
                     <input class="search-field" type="text" name="query" required
                            placeholder="<fmt:message key="button.search"/> "/>
                     <select class="select-option" name="type">
-                        <option value="name"><fmt:message key="label.book.name"/></option>
+                        <option value="name"><fmt:message key="label.book.title"/></option>
                     </select>
                     <input class="submit-button" type="submit" value="<fmt:message key="button.search"/>"/>
                 </form>
@@ -66,7 +66,6 @@
                     <div class="row-option">
                         <div class="option-col">
                             <select id="display-option" class="select-option" name="type" onchange="displayBook()">
-                                <option value=""> <fmt:message key="label.display"/> </option>
                                 <option value="displayCard"><fmt:message key="label.display.card"/></option>
                                 <option value="displayTable"><fmt:message key="label.display.table"/></option>
                             </select>

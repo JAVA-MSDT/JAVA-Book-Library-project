@@ -39,7 +39,7 @@
                     <input class="search-field" type="text" name="query" required
                            placeholder="<fmt:message key="button.search"/> "/>
                     <select class="select-option" name="type">
-                        <option value="name"><fmt:message key="label.book.name"/></option>
+                        <option value="name"><fmt:message key="label.book.title"/></option>
                     </select>
                     <input class="submit-button" type="submit" value="<fmt:message key="button.search"/>"/>
                 </form>
@@ -52,7 +52,7 @@
                         <div class="option-col">
                             <select id="sort-option" class="select-option" name="type" onchange="this.form.submit()">
                                 <option value=""><fmt:message key="label.sort.by"/> </option>
-                                <option value="name"><fmt:message key="label.name"/></option>
+                                <option value="name"><fmt:message key="label.book.title"/></option>
                                 <option value="quantity"><fmt:message key="label.quantity"/></option>
                             </select>
                         </div>

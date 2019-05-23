@@ -75,7 +75,7 @@
                            value="${not empty requestScope.editBook.id ? requestScope.editBook.id : ''}">
                     <div class="row">
                         <div class="labelCol">
-                            <h3 class="label"><fmt:message key="label.book.name"/></h3>
+                            <h3 class="label"><fmt:message key="label.book.title"/></h3>
                             <p id="demo"></p>
                         </div>
                         <div class="inputCol">

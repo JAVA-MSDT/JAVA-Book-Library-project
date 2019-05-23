@@ -43,6 +43,9 @@
                            placeholder="<fmt:message key="button.search"/> "/>
 
                     <select id="reading-place" style="display: none" class="search-field" name="query">
+                        <option value="">
+                            <fmt:message key="label.order.reading.place"/>
+                        </option>
                         <option value="HOME">
                             <fmt:message key="label.order.home"/>
                         </option>
@@ -52,7 +55,7 @@
                     </select>
 
                     <select class="select-option" id="select-option" name="type" onchange="changeSearchFieldType()">
-                        <option value="bookName"><fmt:message key="label.book.name"/></option>
+                        <option value="bookName"><fmt:message key="label.book.title"/></option>
                         <option value="userName"><fmt:message key="label.user.name"/></option>
                         <option value="email"><fmt:message key="label.email"/></option>
                         <option value="orderDate"><fmt:message key="label.order.date"/></option>
@@ -70,7 +73,7 @@
                         <div class="option-col">
                             <select id="sort-option" class="select-option" name="type" onchange="this.form.submit()">
                                 <option value=""><fmt:message key="label.sort.by"/></option>
-                                <option value="bookName"><fmt:message key="label.book.name"/></option>
+                                <option value="bookName"><fmt:message key="label.book.title"/></option>
                                 <option value="userName"><fmt:message key="label.user.name"/></option>
                                 <option value="email"><fmt:message key="label.email"/></option>
                                 <option value="orderDate"><fmt:message key="label.order.date"/></option>
@@ -106,7 +109,7 @@
                             <h3><fmt:message key="label.email"/></h3>
                         </th>
                         <th>
-                            <h3><fmt:message key="label.name"/></h3>
+                            <h3><fmt:message key="label.book.title"/></h3>
                         </th>
                         <th>
                             <h3><fmt:message key="label.order.date"/></h3>

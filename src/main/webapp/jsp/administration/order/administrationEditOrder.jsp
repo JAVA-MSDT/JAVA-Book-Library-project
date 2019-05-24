@@ -204,35 +204,7 @@
     </div>
 
 </div>
-<jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/footer.jsp"/><%--
-<script>
-
-    let today = new Date().toISOString().substr(0, 10);
-    let orderDate = document.getElementById("order-date").value;
-    if (!Date.parse(orderDate)) {
-        document.querySelector("#order-date").value = today;
-    }
-
-    function orderFormValidation() {
-        let orderDate = document.getElementById("order-date").value;
-        let returningDate = document.getElementById("returning-date");
-
-        if (returningDate.value < orderDate) {
-            returningDate.style.border = "1px solid red";
-            returningDate.value = orderDate;
-            document.getElementById("returning-date-message").style.display = "block";
-            return false;
-        }
-
-        const message = "If book returned the order will be deleted, are you sure that book is returned?";
-        const returned = document.forms["administration-update-order"]["book_returned"].value;
-        if (returned === "true") {
-            return (confirm(message));
-        }
-    }
-
-
-</script>--%>
+<jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/footer.jsp"/>
 </body>
 
 </html>

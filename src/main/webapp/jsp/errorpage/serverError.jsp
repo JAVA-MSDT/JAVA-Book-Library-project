@@ -13,10 +13,18 @@
 <jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/navigation.jsp"/>
 <jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/scrollTop.jsp"/>
 
-<div class="profileContainer" style="height: 400px">
+<div class="profileContainer" style="height:340px">
 
+    <c:choose>
+        <c:when test="${empty sessionScope.user}">
+            <h1> <fmt:message key="message.server.not.in"/> </h1>
+        </c:when>
 
-    <h1> Server side Error</h1>
+        <c:otherwise>
+            <h1> <fmt:message key="message.server.error"/> </h1>
+        </c:otherwise>
+    </c:choose>
+
 </div>
 <jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/footer.jsp"/>
 </body>

@@ -92,7 +92,7 @@
                                     <h3><fmt:message key="label.id"/></h3>
                                 </th>
                                 <th>
-                                    <h3><fmt:message key="label.name"/></h3>
+                                    <h3><fmt:message key="label.book.title"/></h3>
                                 </th>
                                 <th>
                                     <h3><fmt:message key="label.quantity"/></h3>

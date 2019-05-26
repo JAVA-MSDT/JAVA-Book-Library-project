@@ -16,9 +16,6 @@
 <div class="profileContainer" style="height: 200px">
 
     <h1><fmt:message key="message.nullPage"/></h1>
-    <c:if test="${not empty requestScope.error}">
-        <c:out value="${requestScope.error}"/>
-    </c:if>
 </div>
 <jsp:include page="${pageContext.request.contextPath}/jsp/commoncode/footer.jsp"/>
 </body>

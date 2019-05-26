@@ -4,6 +4,7 @@ import com.epam.library.entity.User;
 import com.epam.library.entity.enumeration.Role;
 import com.epam.library.util.constant.CommandName;
 import com.epam.library.util.constant.PageLocation;
+import com.epam.library.util.constant.RedirectTo;
 import com.epam.library.util.constant.entityconstant.UserConstant;
 
 import javax.servlet.*;
@@ -87,7 +88,7 @@ public class AuthFilter implements Filter {
             } else if (user.getRole() == Role.READER && isUserCommand(command)) {
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
-                response.sendRedirect(PageLocation.LOGIN_PAGE);
+                response.sendRedirect(RedirectTo.LOGIN_PAGE);
 
             }
         } else {

@@ -12,4 +12,6 @@ public class RedirectTo {
 
     public final static String VIEW_BOOK_PAGE = "/controller?command=view-book";
     public final static String BOOK_LIST_PAGE = "/controller?command=display-book";
+    public final static String LOGIN_PAGE = "/controller?login";
+
 }

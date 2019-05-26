@@ -6,6 +6,7 @@ import com.epam.library.controller.command.CommandResult;
 import com.epam.library.model.db.ConnectionPool;
 import com.epam.library.model.service.ServiceException;
 import com.epam.library.util.constant.PageLocation;
+import com.epam.library.util.constant.RedirectTo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -42,7 +43,7 @@ public class LibraryController extends HttpServlet {
             dispatch(request, response, commandResult);
         } catch (ServiceException e) {
             logger.error("Exception in Library Controller", e);
-            request.setAttribute("error", e);
+            response.sendRedirect(PageLocation.ERROR_PAGE);
         }
 
 
@@ -59,7 +60,7 @@ public class LibraryController extends HttpServlet {
                 response.sendRedirect(page);
                 break;
             default:
-                response.sendRedirect(PageLocation.ERROR_PAGE);
+                response.sendRedirect(RedirectTo.LOGIN_PAGE);
         }
     }
 

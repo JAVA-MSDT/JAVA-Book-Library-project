@@ -82,7 +82,7 @@
         </c:choose>
 
         <%-- in case of search for a book and it is not exist the below message will be displayed
-    instead of book list --%>
+    instead of book list ,,,, Display the book List as Cards --%>
         <div id="display-book-card" style="display: block">
         <c:choose>
             <c:when test="${not empty requestScope.bookNotExist}">
@@ -148,8 +148,9 @@
             </c:otherwise>
         </c:choose>
         </div>
-        <hr>
-        <hr>
+
+        <%-- in case of search for a book and it is not exist the below message will be displayed
+    instead of book list ,,,, Display the book List as Table --%>
         <div id="display-book-table" style="display: none">
         <%-- Display List --%>
         <c:choose>

@@ -3,6 +3,7 @@ package com.epam.library.controller.command.commoncommand;
 import com.epam.library.controller.command.Command;
 import com.epam.library.controller.command.CommandResult;
 import com.epam.library.entity.enumeration.ReadingPlace;
+import com.epam.library.model.dto.orderservice.FindCriteria;
 import com.epam.library.model.dto.orderservice.adminstration.AdministrationOrderDisplay;
 import com.epam.library.model.dto.orderservice.adminstration.search.*;
 import com.epam.library.model.service.OrderService;
@@ -61,25 +62,25 @@ public class AdministrationSearchOrderCommand implements Command {
         List<AdministrationOrderDisplay> result;
         switch (criteria) {
             case BOOK_NAME:
-                result = searchResult(orderDisplayList, new FindOrderByBookName(query));
+                result = searchResult(orderDisplayList, new FindByBookName(query));
                 break;
             case USER_NAME:
-                result = searchResult(orderDisplayList, new FindOrderByUserName(query));
+                result = searchResult(orderDisplayList, new FindByUserName(query));
                 break;
             case USER_EMAIL:
-                result = searchResult(orderDisplayList, new FindOrderByEmail(query));
+                result = searchResult(orderDisplayList, new FindByEmail(query));
                 break;
             case ORDER_DATE:
                 Date orderDate = Date.valueOf(query);
-                result = searchResult(orderDisplayList, new FindOrderByOrderDate(orderDate));
+                result = searchResult(orderDisplayList, new FindOrderByDate(orderDate));
                 break;
             case RETURNING_DATE:
                 Date returningDate = Date.valueOf(query);
-                result = searchResult(orderDisplayList, new FindOrderByReturningDate(returningDate));
+                result = searchResult(orderDisplayList, new FindByReturningDate(returningDate));
                 break;
             case READING_PLACE:
                 ReadingPlace readingPlace = EnumService.getReadingPlace(query);
-                result = searchResult(orderDisplayList, new FindOrderByReadingPlace(readingPlace));
+                result = searchResult(orderDisplayList, new FindByReadingPlace(readingPlace));
                 break;
             default:
                 result = null;
@@ -92,14 +93,14 @@ public class AdministrationSearchOrderCommand implements Command {
      * Helper Method to not repeat the same code in the findOrder method
      *
      * @param orderDisplays  to search inside it for the given value
-     * @param findOrderCriteria object that will compare the value if it is in the list or not
+     * @param findCriteria object that will compare the value if it is in the list or not
      * @return list of AdministrationOrderDisplay depends on the search value
      */
-    private List<AdministrationOrderDisplay> searchResult(List<AdministrationOrderDisplay> orderDisplays, FindOrderCriteria findOrderCriteria) {
+    private List<AdministrationOrderDisplay> searchResult(List<AdministrationOrderDisplay> orderDisplays, FindCriteria<AdministrationOrderDisplay> findCriteria) {
         List<AdministrationOrderDisplay> result = new ArrayList<>();
 
         for (AdministrationOrderDisplay orderDisplay : orderDisplays) {
-            if (findOrderCriteria.isOrderExist(orderDisplay)) {
+            if (findCriteria.isExist(orderDisplay)) {
                 result.add(orderDisplay);
             }
         }

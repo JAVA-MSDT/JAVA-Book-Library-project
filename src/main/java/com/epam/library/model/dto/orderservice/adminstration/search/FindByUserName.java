@@ -1,15 +1,17 @@
 package com.epam.library.model.dto.orderservice.adminstration.search;
 
+import com.epam.library.model.dto.orderservice.FindCriteria;
 import com.epam.library.model.dto.orderservice.adminstration.AdministrationOrderDisplay;
 
-public class FindOrderByUserName implements FindOrderCriteria {
+public class FindByUserName implements FindCriteria<AdministrationOrderDisplay> {
 
     private String userName;
-    public FindOrderByUserName(String userName){
+
+    public FindByUserName(String userName) {
         this.userName = userName;
     }
     @Override
-    public boolean isOrderExist(AdministrationOrderDisplay orderDisplay) {
+    public boolean isExist(AdministrationOrderDisplay orderDisplay) {
         return orderDisplay.getUserName().equalsIgnoreCase(userName);
     }
 }

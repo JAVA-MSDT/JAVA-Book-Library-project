@@ -4,10 +4,15 @@ import com.epam.library.model.dto.orderservice.adminstration.AdministrationOrder
 
 import java.sql.Date;
 
-public class FindOrderByOrderDate implements FindOrderIndex {
-    @Override
-    public boolean isOrderExist(AdministrationOrderDisplay orderDisplay, Object value) {
+public class FindOrderByOrderDate implements FindOrderCriteria {
+    private Date orderDate;
 
-        return orderDisplay.getOrderDate().compareTo(Date.valueOf((String) value)) == 0;
+    public FindOrderByOrderDate(Date orderDate){
+        this.orderDate = orderDate;
+    }
+    @Override
+    public boolean isOrderExist(AdministrationOrderDisplay orderDisplay) {
+
+        return orderDisplay.getOrderDate().compareTo(orderDate) == 0;
     }
 }

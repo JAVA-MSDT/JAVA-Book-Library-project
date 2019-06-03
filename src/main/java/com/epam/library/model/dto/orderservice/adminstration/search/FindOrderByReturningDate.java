@@ -4,11 +4,17 @@ import com.epam.library.model.dto.orderservice.adminstration.AdministrationOrder
 
 import java.sql.Date;
 
-public class FindOrderByReturningDate implements FindOrderIndex {
+public class FindOrderByReturningDate implements FindOrderCriteria {
+
+    private Date returningDate;
+
+    public FindOrderByReturningDate(Date returningDate){
+        this.returningDate = returningDate;
+    }
 
     @Override
-    public boolean isOrderExist(AdministrationOrderDisplay orderDisplay, Object value) {
+    public boolean isOrderExist(AdministrationOrderDisplay orderDisplay) {
 
-        return orderDisplay.getReturningDate().compareTo(Date.valueOf((String) value)) == 0;
+        return orderDisplay.getReturningDate().compareTo(returningDate) == 0;
     }
 }

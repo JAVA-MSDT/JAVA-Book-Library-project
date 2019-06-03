@@ -78,13 +78,13 @@
     <%-- if the user is not in the system the main page header will be as below--%>
     <c:when test="${sessionScope.user == null}">
         <header>
-            <img src="${pageContext.request.contextPath}/img/book.jpg" class="headerImage" alt="header image">
+            <img src="${pageContext.request.contextPath}/img/libraryHall.jpg" class="headerImage" alt="header image">
         </header>
     </c:when>
     <%-- otherwise if the user  in the system the main page header will be as his own page header--%>
     <c:otherwise>
         <header>
-            <img src="${pageContext.request.contextPath}/img/green.jpg" class="headerImage" alt="header image">
+            <img src="${pageContext.request.contextPath}/img/libraryHall.jpg" class="headerImage" alt="header image">
             <div class="avContainer">
                 <div class="profile-img">
                 <img class="avatar" src="${pageContext.request.contextPath}/img/profImage.jpg">

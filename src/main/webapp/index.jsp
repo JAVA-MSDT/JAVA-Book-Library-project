@@ -23,7 +23,7 @@
 <div class="mainRow">
     <div class="epamImage">
         <h2>Library</h2>
-        <img src="${pageContext.request.contextPath}img/epam.jpg" alt="Epam Logo">
+        <img src="${pageContext.request.contextPath}/img/epam.jpg" alt="Epam Logo">
     </div>
     <div class="epamText">
         <h2>News</h2>

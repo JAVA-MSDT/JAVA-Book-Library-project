@@ -41,6 +41,8 @@ public class CommandFactory implements AutoCloseable {
 
     public Command create(String command) {
         switch (command) {
+            case CommandName.REGISTRATION:
+                return new RegistrationCommand(serviceFactory.getUserService());
             case CommandName.LOGIN:
                 return new LoginCommand(serviceFactory.getUserService());
             case CommandName.LOGOUT:

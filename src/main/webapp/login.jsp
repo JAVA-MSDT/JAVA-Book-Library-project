@@ -50,7 +50,7 @@
 							<fmt:message key="message.no.account"/>
 						</span>
 
-            <a class="regbtn" href="#">
+            <a class="regbtn" href="${pageContext.request.contextPath}/registration.jsp">
                 <fmt:message key="label.register"/>
             </a>
         </div>

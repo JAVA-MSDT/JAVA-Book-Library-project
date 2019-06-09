@@ -11,9 +11,8 @@ import java.util.List;
 
 public class UserValidator {
 
-
-
     public static List<String> validateUserParameter(HttpServletRequest request){
+
         List<String> validationList = new ArrayList<>();
         String name = request.getParameter(UserConstant.NAME);
         String lastName = request.getParameter(UserConstant.LAST_NAME);
@@ -37,13 +36,14 @@ public class UserValidator {
             validationList.add(DiffConstant.LOGIN_ERROR);
         }
 
-        if(password.isEmpty() || !isValidPassword(password)){
-            validationList.add(DiffConstant.PASSWORD_ERROR);
+        if(password != null){ // Not null means new user, null means old user just we update his is data.
+            if(password.isEmpty() || !isValidPassword(password)){
+                validationList.add(DiffConstant.PASSWORD_ERROR);
+            }
         }
 
         return validationList;
     }
-
 
     public static boolean isValidLogin(String login) {
         return DataMatcher.isValid(DataRegex.LOGIN, login);

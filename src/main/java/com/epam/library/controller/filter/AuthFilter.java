@@ -1,5 +1,6 @@
 package com.epam.library.controller.filter;
 
+import com.epam.library.controller.command.Command;
 import com.epam.library.entity.User;
 import com.epam.library.entity.enumeration.Role;
 import com.epam.library.util.constant.CommandName;
@@ -55,6 +56,7 @@ public class AuthFilter implements Filter {
     );
 
     private final static List<String> COMMON_COMMANDS = Arrays.asList(
+            CommandName.REGISTRATION,
             CommandName.LOGIN,
             CommandName.LOGOUT,
             CommandName.CHANGE_LANGUAGE,

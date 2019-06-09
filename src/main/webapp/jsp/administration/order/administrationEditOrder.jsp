@@ -86,7 +86,7 @@
 
                     <div class="row">
                         <div class="labelCol">
-                            <h3 class="label"><fmt:message key="label.order.book.id"/></h3>
+                            <h3 class="label"><fmt:message key="label.book.title"/></h3>
                         </div>
                         <div class="inputCol">
                             <c:choose>
@@ -112,7 +112,7 @@
                     </div>
                     <div class="row">
                         <div class="labelCol">
-                            <h3 class="label"><fmt:message key="label.order.reader"/></h3>
+                            <h3 class="label"><fmt:message key="label.email"/></h3>
                         </div>
                         <div class="inputCol">
 

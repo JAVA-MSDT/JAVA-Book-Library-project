@@ -3,6 +3,7 @@ package com.epam.library.util.constant;
 public class CommandName {
     public final static String COMMAND_NAME = "command";
 
+    public final static String REGISTRATION = "registration";
     public final static String LOGIN = "login";
     public final static String LOGOUT = "logout";
     public final static String CHANGE_LANGUAGE = "change-language";

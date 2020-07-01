@@ -7,8 +7,9 @@
 <fmt:setBundle basename="locale" />
 <!DOCTYPE html>
 
+<html>
 <head>
-<title><fmt:message key="label.title.epam" /></title>
+<title><fmt:message key="label.title.library" /></title>
 <meta charset="utf-8">
 <meta name="author" content="Ahmed Samy">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,17 +20,22 @@
 </head>
 
 <body>
-	<jsp:include
-		page="${pageContext.request.contextPath}/jsp/commoncode/navigation.jsp" />
-	<jsp:include
-		page="${pageContext.request.contextPath}/jsp/commoncode/scrollTop.jsp" />
+	<jsp:include page="/jsp/commoncode/navigation.jsp" />
+	<jsp:include page="/jsp/commoncode/scrollTop.jsp" />
 
 	<div class="profileContainer">
 		<div class="basicInfo">
 
-			<h1>
-				<fmt:message key="label.add.edit.book" />
-			</h1>
+			<c:if test="${empty requestScope.editBook.id}">
+				<h1>
+					<fmt:message key="label.add.book" />
+				</h1>
+			</c:if>
+			<c:if test="${not empty requestScope.editBook.id}">
+				<h1>
+					<fmt:message key="label.edit.book" />
+				</h1>
+			</c:if>
 
 			<%-- in case of updating an existing book or inserting a new book one of these messages will be displaye--%>
 			<c:choose>
@@ -92,7 +98,7 @@
 						action="controller" method="post">
 						<input type="hidden" name="command"
 							value="administration-update-book"> <input type="hidden"
-							name="id"
+							name="book_id"
 							value="${not empty requestScope.editBook.id ? requestScope.editBook.id : ''}">
 						<div class="row">
 							<div class="labelCol">
@@ -102,7 +108,7 @@
 								<p id="demo"></p>
 							</div>
 							<div class="inputCol">
-								<input type="text" name="name" id="book-name"
+								<input type="text" name="book_title" id="book-name"
 									value="${not empty requestScope.editBook.name ? requestScope.editBook.name : ''}"
 									pattern="^([\w\s]{0,30})$"
 									placeholder="<fmt:message key="validation.book.title"/>"
@@ -133,30 +139,27 @@
 		</div>
 
 	</div>
-	<jsp:include
-		page="${pageContext.request.contextPath}/jsp/commoncode/footer.jsp" />
+	<jsp:include page="/jsp/commoncode/footer.jsp" />
 
 	<script>
-    function bookFormValidation() {
-        let nameRegex = /^([\w\s]{0,30})$/;
-        let positiveNumberRegex = /^[1-9]\d*$/;
+	function bookFormValidation() {
+	    let nameRegex = /^([\w\s]{0,30})$/;
+	    let positiveNumberRegex = /^[1-9]\d*$/;
 
-        let bookName = document.getElementById("book-name");
-        let quantity = document.getElementById("quantity");
+	    let bookName = document.getElementById("book-name");
+	    let quantity = document.getElementById("quantity");
 
-        if(!nameRegex.test(bookName.value.toLowerCase())){
-            bookName.style.border = "1px solid Red";
-            bookName.value = "";
-            return false;
-        }
-        if(!positiveNumberRegex.test(quantity.value.toLowerCase())){
-            quantity.style.border = "1px solid red";
-            quantity.value = "";
-            return false;
-        }
-    }
-
-</script>
+	    if (!nameRegex.test(bookName.value.toLowerCase())) {
+		bookName.style.border = "1px solid Red";
+		bookName.value = "";
+		return false;
+	    }
+	    if (!positiveNumberRegex.test(quantity.value.toLowerCase())) {
+		quantity.style.border = "1px solid red";
+		quantity.value = "";
+		return false;
+	    }
+	}
+    </script>
 </body>
-
 </html>

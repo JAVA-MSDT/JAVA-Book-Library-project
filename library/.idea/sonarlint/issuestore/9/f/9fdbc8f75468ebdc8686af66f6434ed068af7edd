@@ -1,0 +1,13 @@
+
+»
+java:S6548"˜A Singleton implementation was detected. Make sure the use of the Singleton pattern is required and the implementation is the right one for the context.(žåâÕÿÿÿÿÿ8·«å…Ó1
+g
+java:S1124"EReorder the modifiers to comply with the Java Language Specification.(µð¢Éûÿÿÿÿ8º«å…Ó1
+S
+java:S2696%"6Make the enclosing method "static" or remove this set.(«½‚ê8¾«å…Ó1
+V	java:S899(":Do something with the "boolean" value returned by "offer".(Šï‚œ8¿«å…Ó1
+{
+java:S2142N"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ä ¹€8Ã«å…Ó1
+V	java:S899[":Do something with the "boolean" value returned by "offer".(Ö­Ú¼8Å«å…Ó1
+{
+java:S2142i"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ä ¹€8Å«å…Ó1

@@ -1,0 +1,75 @@
+
+.book-card {
+    width: 20%;
+    padding: 10px;
+    background-color: #f2f2f2;
+    border: 1px solid black;
+    margin: 20px 10px;
+    float: left;
+    border-radius: 15px;
+}
+
+
+.book-btn {
+    margin: 5px 0 5px 0;
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: darkslategrey;
+    box-shadow: 2px 2px 5px black;
+    color: white;
+    font-size: 18px;
+    text-align: center;
+}
+
+.card-container {
+    position: relative;
+    width: 100%;
+
+}
+
+.book-image {
+    display: block;
+    width: 100%;
+    height: 250px;
+    border-radius: 15px;
+}
+
+
+.name-overlay {
+    position: absolute;
+    bottom: 0;
+    color: #f1f1f1;
+    width: 100%;
+    transition: .5s ease;
+    opacity: 0.8;
+    background-color: black;
+    font-size: 18px;
+    padding: 10px;
+    text-align: center;
+    line-height: 16px;
+    border-radius: 0 0 15px 15px;
+}
+
+.book-card:hover .name-overlay {
+    opacity: 1;
+}
+
+.book-card:hover {
+    box-shadow: 0 10px 10px 5px darkgray;
+
+}
+
+@media screen and (max-width: 900px) {
+    .book-card {
+        width: 33%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .book-card {
+        width: 50%;
+    }
+
+}
+

@@ -1,0 +1,95 @@
+/* Navigation */
+
+#mobile {
+    padding: 10px;
+    background-color: black;
+    overflow: hidden;
+    color: wheat;
+    display: none;
+}
+
+#nav-list {
+    list-style-type: none;
+    margin: 0 auto;
+    overflow: hidden;
+    width: 100%;
+    padding: 0;
+    background-color: black;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+}
+
+.top-nav li {
+    float: left;
+}
+
+.top-nav li a,
+.dropbtn {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.top-nav li a:hover,
+.dropdown:hover,
+.dropbtn:hover,
+.dropdown-content button[type = submit]:hover{
+    background-color: red;
+}
+
+
+.dropdown-content {
+    display: none;
+    position: fixed;
+    background-color: black;
+    text-align: center;
+    min-width: 100px;
+    width: inherit;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a,
+.dropdown-content button[type = submit]{
+    color: white;
+    padding: 12px 26px;
+    text-decoration: none;
+    background-color: black;
+    width: 100%;
+    display: block;
+    border: 0;
+    text-align: center;
+}
+
+
+.dropdown:hover .dropdown-content {
+    display: block;
+    z-index: 1;
+}
+
+/*.log-out-btn {
+    background-color: gray;
+    color: green;
+}*/
+
+@media screen and (max-width: 600px) {
+    #navList {
+
+    }
+
+    .top-nav li, .top-nav a {
+        width: 100%;
+        float: left;
+    }
+
+    #mobile {
+        top: 0;
+        margin: 0 auto;
+        display: none;
+        width: 10%;
+        float: left
+    }
+}
